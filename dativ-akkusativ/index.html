@@ -1,0 +1,855 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dativ &amp; Akkusativ</title>
+<style>
+  :root {
+    --bg: #faf8f5;
+    --panel: #ffffff;
+    --ink: #2b2420;
+    --ink-soft: #5c524a;
+    --accent: #8a4b2e;
+    --accent-soft: #c97b4a;
+    --line: #e7ddd1;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1c1814;
+      --panel: #26211c;
+      --ink: #f1ebe3;
+      --ink-soft: #c9bfb3;
+      --accent: #e0a179;
+      --accent-soft: #c97b4a;
+      --line: #3a332c;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1c1814;
+    --panel: #26211c;
+    --ink: #f1ebe3;
+    --ink-soft: #c9bfb3;
+    --accent: #e0a179;
+    --accent-soft: #c97b4a;
+    --line: #3a332c;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Iowan Old Style", "Georgia", "Charter", serif;
+    line-height: 1.6;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 32px 16px 80px; }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 13px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    margin-bottom: 18px;
+  }
+  .back-link:hover { color: var(--accent); }
+  header.page {
+    padding: 8px 0 20px;
+    border-bottom: 2px solid var(--line);
+    margin-bottom: 28px;
+  }
+  .eyebrow {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 12px;
+    color: var(--accent-soft);
+    font-weight: 700;
+    margin: 0 0 8px;
+  }
+  h1 { font-size: 1.9em; margin: 0 0 8px; color: var(--ink); }
+  .subtitle { color: var(--ink-soft); font-size: 1.02em; margin: 0; }
+  h2 {
+    font-size: 1.25em;
+    margin: 42px 0 14px;
+    color: var(--accent);
+    border-left: 4px solid var(--accent-soft);
+    padding-left: 12px;
+  }
+  h3 {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.92em;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+    margin: 26px 0 10px;
+  }
+  p { margin: 0 0 14px; }
+  ol, ul { margin: 0 0 14px; padding-left: 22px; }
+  li { margin-bottom: 6px; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92em;
+    margin: 10px 0 20px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  th, td {
+    text-align: left;
+    padding: 9px 11px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  th {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+    background: color-mix(in srgb, var(--panel) 92%, var(--accent-soft));
+  }
+  tr:last-child td { border-bottom: none; }
+  strong { color: var(--accent); }
+  .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  footer {
+    margin-top: 60px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 12px;
+    color: var(--ink-soft);
+    text-align: center;
+  }
+  @media (max-width: 480px) {
+    h1 { font-size: 1.45em; }
+    th, td { padding: 7px; font-size: 0.85em; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back-link" href="../">&larr; Zur &Uuml;bersicht</a>
+
+  <header class="page">
+    <p class="eyebrow">Langgymi &middot; Grammatik</p>
+    <h1>Dativ und Akkusativ: Der Merk-Guide</h1>
+    <p class="subtitle">Eselsbr&uuml;cken, Fallregeln und &Uuml;bungss&auml;tze f&uuml;r die Gymi-Vorbereitung</p>
+  </header>
+
+  <div class="table-scroll-wrap">
+<h2>1. Der Grundtrick: Vier Fragen, vier Fälle</h2>
+<p>Deutsch hat vier Fälle (Kasus). Jeder Fall beantwortet eine eigene Frage. Wenn man nicht weiss, welcher Fall richtig ist, stellt man einfach die Frage zum Satz.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Fall</th>
+<th>Frage</th>
+<th>Merkspruch</th>
+<th>Beispiel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nominativ</td>
+<td>Wer oder was?</td>
+<td>Der Nominativ ist der Chef im Satz — das Subjekt, das handelt.</td>
+<td><strong>Der Hund</strong> bellt.</td>
+</tr>
+<tr>
+<td>Akkusativ</td>
+<td>Wen oder was?</td>
+<td>Der Akkusativ ist das direkte Opfer der Handlung.</td>
+<td>Ich sehe <strong>den Hund</strong>.</td>
+</tr>
+<tr>
+<td>Dativ</td>
+<td>Wem?</td>
+<td>Der Dativ ist der "Empfänger" oder der Ort, wo etwas ist.</td>
+<td>Ich gebe <strong>dem Hund</strong> einen Knochen.</td>
+</tr>
+<tr>
+<td>Genitiv</td>
+<td>Wessen?</td>
+<td>(in der Gymi-Aufnahmeprüfung selten zentral, aber gut zu kennen)</td>
+<td>Das ist der Napf <strong>des Hundes</strong>.</td>
+</tr>
+</tbody>
+</table></div>
+<h3>Die Eins-zwei-drei-Eselsbrücke</h3>
+<ol>
+<li><strong>Frage stellen:</strong> Wen oder was sehe ich? → Akkusativ. Wem gebe ich etwas? → Dativ.</li>
+<li><strong>Merkwort "WEN-Fall" und "WEM-Fall":</strong> Akkusativ = <strong>WEN</strong>-Fall (beide mit "W-E-N"). Dativ = <strong>WEM</strong>-Fall (beide mit "W-E-M"). Das W hilft, sich die Paare zu merken.</li>
+<li><strong>Körperbild:</strong> Akkusativ trifft direkt (wie ein Pfeil, der ein Ziel trifft). Dativ gibt oder richtet sich an jemanden (wie eine ausgestreckte Hand).</li>
+</ol>
+<h3>Die Merkregel für Dativ und Genitiv</h3>
+<p>Merksatz: <strong>"Der Dativ ist dem Genitiv sein Tod"</strong> — im gesprochenen Deutsch verdrängt der Dativ oft den Genitiv. Das muss man nicht verstehen, nur wissen: Dativ ist der Fall, der am häufigsten gebraucht wird, direkt nach dem Akkusativ.</p>
+<h3>Schnelltest mit drei Sätzen</h3>
+<ul>
+<li>Ich helfe <strong>???</strong> (wem?) → dem Bruder → <strong>Dativ</strong></li>
+<li>Ich sehe <strong>???</strong> (wen?) → den Bruder → <strong>Akkusativ</strong></li>
+<li>Ich gebe <strong>???</strong> (wem?) <strong>???</strong> (was?) → dem Bruder das Buch → <strong>Dativ + Akkusativ</strong></li>
+</ul>
+<h2>2. Artikel und Pronomen: die Formen auswendig können</h2>
+<h3>Bestimmter Artikel (der, die, das)</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Fall</th>
+<th>maskulin</th>
+<th>feminin</th>
+<th>neutral</th>
+<th>Plural</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nominativ</td>
+<td>der</td>
+<td>die</td>
+<td>das</td>
+<td>die</td>
+</tr>
+<tr>
+<td>Akkusativ</td>
+<td><strong>den</strong></td>
+<td>die</td>
+<td>das</td>
+<td>die</td>
+</tr>
+<tr>
+<td>Dativ</td>
+<td><strong>dem</strong></td>
+<td><strong>der</strong></td>
+<td><strong>dem</strong></td>
+<td><strong>den</strong> (+n)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Der Trick:</strong> Nur drei Formen ändern sich gegenüber dem Nominativ: <em>der → den</em> (maskulin, Akkusativ), <em>der → dem</em> (maskulin, Dativ), <em>die → der</em> (feminin, Dativ), <em>das → dem</em> (neutral, Dativ), <em>die → den</em> (Plural, Dativ). Alles andere bleibt gleich wie im Nominativ. Im Dativ Plural bekommt ausserdem das Nomen selbst ein <strong>-n</strong>: <em>mit den Kinder</em><em>n</em>**.</p>
+<h3>Unbestimmter Artikel (ein, eine, ein)</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Fall</th>
+<th>maskulin</th>
+<th>feminin</th>
+<th>neutral</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nominativ</td>
+<td>ein</td>
+<td>eine</td>
+<td>ein</td>
+</tr>
+<tr>
+<td>Akkusativ</td>
+<td><strong>einen</strong></td>
+<td>eine</td>
+<td>ein</td>
+</tr>
+<tr>
+<td>Dativ</td>
+<td><strong>einem</strong></td>
+<td><strong>einer</strong></td>
+<td><strong>einem</strong></td>
+</tr>
+</tbody>
+</table></div>
+<h3>Die "M-N-M"-Eselsbrücke</h3>
+<p>Maskulin im Akkusativ endet auf <strong>-en</strong> (ein<strong>en</strong>, d<strong>en</strong>). Maskulin UND neutral im Dativ enden auf <strong>-em</strong> (ein<strong>em</strong>, d<strong>em</strong>). Feminin im Dativ endet auf <strong>-er</strong> (ein<strong>er</strong>, d<strong>er</strong>). Kurzformel: <strong>"en beim Akkusativ-Mann, em bei ihm und es, er bei ihr."</strong></p>
+<h3>Personalpronomen</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Nominativ</th>
+<th>Akkusativ</th>
+<th>Dativ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ich</td>
+<td>mich</td>
+<td>mir</td>
+</tr>
+<tr>
+<td>du</td>
+<td>dich</td>
+<td>dir</td>
+</tr>
+<tr>
+<td>er</td>
+<td>ihn</td>
+<td>ihm</td>
+</tr>
+<tr>
+<td>sie</td>
+<td>sie</td>
+<td>ihr</td>
+</tr>
+<tr>
+<td>es</td>
+<td>es</td>
+<td>ihm</td>
+</tr>
+<tr>
+<td>wir</td>
+<td>uns</td>
+<td>uns</td>
+</tr>
+<tr>
+<td>ihr</td>
+<td>euch</td>
+<td>euch</td>
+</tr>
+<tr>
+<td>sie/Sie</td>
+<td>sie/Sie</td>
+<td>ihnen/Ihnen</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Merksatz für ich/du/er:</strong> "<strong>mich, dich, ihn</strong> — das ist der Akkusativ-Sinn. <strong>mir, dir, ihm</strong> — Dativ nimmt das m mit rein." Alle Dativformen bei ich/du/er enthalten ein <strong>m</strong> (mir, dir, ihm) — das hilft beim Erinnern.</p>
+<h3>Possessivartikel (mein, dein, sein ...)</h3>
+<p>Gleiches Muster wie bei <em>ein</em>: <strong>mein → meinen</strong> (Akkusativ maskulin), <strong>mein → meinem</strong> (Dativ maskulin/neutral), <strong>mein → meiner</strong> (Dativ feminin).</p>
+<ul>
+<li>Ich sehe <strong>meinen</strong> Bruder. (Akkusativ)</li>
+<li>Ich helfe <strong>meiner</strong> Schwester. (Dativ)</li>
+<li>Ich gebe <strong>meinem</strong> Vater das Buch. (Dativ)</li>
+</ul>
+<h2>3. Wechselpräpositionen: Wo? (Dativ) oder Wohin? (Akkusativ)</h2>
+<p>Neun Präpositionen können <strong>beides</strong> sein. Welcher Fall stimmt, hängt nicht vom Wort selbst ab, sondern von der Frage:</p>
+<ul>
+<li><strong>Wo?</strong> → Ort, keine Bewegung, etwas bleibt → <strong>Dativ</strong></li>
+<li><strong>Wohin?</strong> → Richtung, Bewegung von A nach B → <strong>Akkusativ</strong></li>
+</ul>
+<p><strong>Merksatz:</strong> "<strong>Wohin</strong> geht die Bewegung? <strong>Akkusativ.</strong> <strong>Wo</strong> bleibt es stehen? <strong>Dativ.</strong>" Oder kürzer: <em>Bewegung = Akkusativ, Ruhe = Dativ.</em></p>
+<h3>Die neun Wechselpräpositionen</h3>
+<p>Merkwort zum Auswendiglernen (Anfangsbuchstaben): <strong>an, auf, hinter, in, neben, über, unter, vor, zwischen</strong> — als Satz: "<strong>A</strong>lle <strong>A</strong>ffen <strong>H</strong>üpfen <strong>I</strong>n <strong>N</strong>assem <strong>Ü</strong>berall <strong>U</strong>nter <strong>V</strong>ögeln <strong>Z</strong>usammen."</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Präposition</th>
+<th>Wohin? (Akkusativ)</th>
+<th>Wo? (Dativ)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>an</td>
+<td>Ich hänge das Bild <strong>an die</strong> Wand.</td>
+<td>Das Bild hängt <strong>an der</strong> Wand.</td>
+</tr>
+<tr>
+<td>auf</td>
+<td>Ich lege das Buch <strong>auf den</strong> Tisch.</td>
+<td>Das Buch liegt <strong>auf dem</strong> Tisch.</td>
+</tr>
+<tr>
+<td>hinter</td>
+<td>Ich stelle den Stuhl <strong>hinter die</strong> Tür.</td>
+<td>Der Stuhl steht <strong>hinter der</strong> Tür.</td>
+</tr>
+<tr>
+<td>in</td>
+<td>Ich gehe <strong>in die</strong> Schule.</td>
+<td>Ich bin <strong>in der</strong> Schule.</td>
+</tr>
+<tr>
+<td>neben</td>
+<td>Ich setze mich <strong>neben den</strong> Freund.</td>
+<td>Ich sitze <strong>neben dem</strong> Freund.</td>
+</tr>
+<tr>
+<td>über</td>
+<td>Ich hänge die Lampe <strong>über den</strong> Tisch.</td>
+<td>Die Lampe hängt <strong>über dem</strong> Tisch.</td>
+</tr>
+<tr>
+<td>unter</td>
+<td>Die Katze läuft <strong>unter das</strong> Bett.</td>
+<td>Die Katze liegt <strong>unter dem</strong> Bett.</td>
+</tr>
+<tr>
+<td>vor</td>
+<td>Ich stelle die Schuhe <strong>vor die</strong> Tür.</td>
+<td>Die Schuhe stehen <strong>vor der</strong> Tür.</td>
+</tr>
+<tr>
+<td>zwischen</td>
+<td>Ich lege den Stift <strong>zwischen die</strong> Bücher.</td>
+<td>Der Stift liegt <strong>zwischen den</strong> Büchern.</td>
+</tr>
+</tbody>
+</table></div>
+<h3>Der Verb-Trick</h3>
+<p>Oft hilft das Verb, den Fall zu erkennen, auch ohne lange nachzudenken:</p>
+<ul>
+<li><strong>Bewegungsverben</strong> (Akkusativ): legen, stellen, hängen, setzen, gehen, laufen, fahren, werfen</li>
+<li><strong>Zustandsverben</strong> (Dativ): liegen, stehen, hängen (als Zustand), sitzen, sein, bleiben</li>
+</ul>
+<p>Achtung: <em>hängen</em> kann beides sein! <em>Ich hänge das Bild an die Wand</em> (Bewegung → Akkusativ) vs. <em>Das Bild hängt an der Wand</em> (Zustand → Dativ).</p>
+<h3>Übungssätze zum Ausfüllen</h3>
+<ol>
+<li>Ich gehe <strong>in</strong> ___ Garten. (der Garten) → Lösung: in <strong>den</strong> Garten (wohin, Akkusativ)</li>
+<li>Die Kinder spielen <strong>in</strong> ___ Garten. (der Garten) → Lösung: in <strong>dem</strong> Garten (wo, Dativ)</li>
+<li>Der Ball rollt <strong>unter</strong> ___ Sofa. (das Sofa) → Lösung: unter <strong>das</strong> Sofa (wohin, Akkusativ)</li>
+</ol>
+<h2>4. Präpositionen, die immer denselben Fall verlangen</h2>
+<p>Diese Präpositionen ändern sich nie — sie wollen immer denselben Fall, egal ob Bewegung oder Ruhe.</p>
+<h3>Immer Akkusativ: "FUDGE-Bande"</h3>
+<p>Merkwort: <strong>f</strong>ür, <strong>u</strong>m, <strong>d</strong>urch, <strong>g</strong>egen, <strong>e</strong>ntlang → <strong>FUDGE</strong></p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Präposition</th>
+<th>Beispiel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>für</td>
+<td>Das Geschenk ist <strong>für meinen</strong> Bruder.</td>
+</tr>
+<tr>
+<td>um</td>
+<td>Wir gehen <strong>um den</strong> Tisch herum.</td>
+</tr>
+<tr>
+<td>durch</td>
+<td>Der Ball flog <strong>durch das</strong> Fenster.</td>
+</tr>
+<tr>
+<td>gegen</td>
+<td>Ich lehne das Velo <strong>gegen die</strong> Wand.</td>
+</tr>
+<tr>
+<td>entlang</td>
+<td>Wir laufen den Fluss <strong>entlang</strong>. (steht meist NACH dem Nomen!)</td>
+</tr>
+<tr>
+<td>ohne</td>
+<td>Ich komme <strong>ohne meinen</strong> Bruder.</td>
+</tr>
+<tr>
+<td>bis</td>
+<td>Wir fahren <strong>bis</strong> (meist ohne Artikel, z. B. bis Zürich)</td>
+</tr>
+</tbody>
+</table></div>
+<h3>Immer Dativ: "AM BEI NACH-Bande"</h3>
+<p>Merkwort: <strong>a</strong>us, <strong>b</strong>ei, <strong>m</strong>it, <strong>n</strong>ach, <strong>s</strong>eit, <strong>v</strong>on, <strong>z</strong>u → <strong>AB-MIX-NA-SEI-VON-ZU</strong>, oder einfacher gesagt und gesungen: "<strong>aus, bei, mit, nach, seit, von, zu</strong> — Dativ, das bist du!"</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Präposition</th>
+<th>Beispiel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>aus</td>
+<td>Ich komme <strong>aus der</strong> Schweiz.</td>
+</tr>
+<tr>
+<td>bei</td>
+<td>Ich bin <strong>bei meiner</strong> Grossmutter.</td>
+</tr>
+<tr>
+<td>mit</td>
+<td>Ich spiele <strong>mit meinem</strong> Freund.</td>
+</tr>
+<tr>
+<td>nach</td>
+<td>Wir fahren <strong>nach der</strong> Schule nach Hause.</td>
+</tr>
+<tr>
+<td>seit</td>
+<td>Ich wohne <strong>seit einem</strong> Jahr hier.</td>
+</tr>
+<tr>
+<td>von</td>
+<td>Das ist ein Geschenk <strong>von meiner</strong> Tante.</td>
+</tr>
+<tr>
+<td>zu</td>
+<td>Ich gehe <strong>zu meiner</strong> Freundin.</td>
+</tr>
+<tr>
+<td>gegenüber</td>
+<td>Die Schule liegt <strong>dem Bahnhof</strong> gegenüber.</td>
+</tr>
+</tbody>
+</table></div>
+<h3>Merksatz zum Zusammenfassen</h3>
+<p>"<strong>Aus, bei, mit, nach, seit, von, zu</strong> — Dativ, immer, so wie du. <strong>Für, um, durch, gegen</strong> — Akkusativ, das ist fest."</p>
+<h2>5. Verben mit festem Fall</h2>
+<p>Manche Verben verlangen immer denselben Fall, unabhängig von der Bedeutung. Diese muss man auswendig lernen — hier die wichtigsten mit Eselsbrücken.</p>
+<h3>Verben mit festem Dativ (nur EIN Objekt, und das ist Dativ)</h3>
+<p>Merksatz: <strong>"Ich helfe, danke, folge, glaube, gratuliere, gehöre, gefalle, gelinge, schade, vertraue, verzeihe, antworte, begegne, passe — alles dem Dativ, das ist die Masche!"</strong></p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Verb</th>
+<th>Beispiel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>helfen</td>
+<td>Ich helfe <strong>meiner Mutter</strong>.</td>
+</tr>
+<tr>
+<td>danken</td>
+<td>Ich danke <strong>dem Lehrer</strong>.</td>
+</tr>
+<tr>
+<td>folgen</td>
+<td>Der Hund folgt <strong>seinem Herrn</strong>.</td>
+</tr>
+<tr>
+<td>glauben</td>
+<td>Ich glaube <strong>dir</strong>.</td>
+</tr>
+<tr>
+<td>gratulieren</td>
+<td>Ich gratuliere <strong>meinen Freund</strong>.</td>
+</tr>
+<tr>
+<td>gehören</td>
+<td>Das Buch gehört <strong>meiner Schwester</strong>.</td>
+</tr>
+<tr>
+<td>gefallen</td>
+<td>Der Film gefällt <strong>mir</strong>.</td>
+</tr>
+<tr>
+<td>gelingen</td>
+<td>Die Aufgabe gelingt <strong>ihm</strong> gut.</td>
+</tr>
+<tr>
+<td>schaden</td>
+<td>Zucker schadet <strong>den Zähnen</strong>.</td>
+</tr>
+<tr>
+<td>vertrauen</td>
+<td>Ich vertraue <strong>meinem Freund</strong>.</td>
+</tr>
+<tr>
+<td>verzeihen</td>
+<td>Ich verzeihe <strong>dir</strong>.</td>
+</tr>
+<tr>
+<td>antworten</td>
+<td>Ich antworte <strong>dem Lehrer</strong>.</td>
+</tr>
+<tr>
+<td>begegnen</td>
+<td>Ich begegnete <strong>einem Freund</strong>.</td>
+</tr>
+<tr>
+<td>passen</td>
+<td>Die Jacke passt <strong>mir</strong> gut.</td>
+</tr>
+<tr>
+<td>gehorchen</td>
+<td>Der Hund gehorcht <strong>seinem Besitzer</strong>.</td>
+</tr>
+<tr>
+<td>zuhören</td>
+<td>Ich höre <strong>dir</strong> zu.</td>
+</tr>
+<tr>
+<td>fehlen</td>
+<td>Du fehlst <strong>mir</strong>.</td>
+</tr>
+</tbody>
+</table></div>
+<h3>Verben mit festem Akkusativ (die meisten Verben!)</h3>
+<p>Die meisten deutschen Verben mit einem Objekt nehmen den Akkusativ. Hier ein paar, die man leicht verwechselt:</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Verb</th>
+<th>Beispiel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sehen</td>
+<td>Ich sehe <strong>den Vogel</strong>.</td>
+</tr>
+<tr>
+<td>fragen</td>
+<td>Ich frage <strong>den Lehrer</strong>.</td>
+</tr>
+<tr>
+<td>besuchen</td>
+<td>Ich besuche <strong>meine Grossmutter</strong>.</td>
+</tr>
+<tr>
+<td>anrufen</td>
+<td>Ich rufe <strong>meinen Freund</strong> an.</td>
+</tr>
+<tr>
+<td>kennen</td>
+<td>Ich kenne <strong>diesen Jungen</strong>.</td>
+</tr>
+<tr>
+<td>lieben</td>
+<td>Ich liebe <strong>meine Familie</strong>.</td>
+</tr>
+<tr>
+<td>brauchen</td>
+<td>Ich brauche <strong>einen Stift</strong>.</td>
+</tr>
+<tr>
+<td>treffen</td>
+<td>Ich treffe <strong>meine Freundin</strong>.</td>
+</tr>
+<tr>
+<td>suchen</td>
+<td>Ich suche <strong>den Schlüssel</strong>.</td>
+</tr>
+<tr>
+<td>finden</td>
+<td>Ich finde <strong>das Buch</strong> interessant.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Falle:</strong> <em>fragen</em> und <em>anrufen</em> nehmen Akkusativ, obwohl man auf Mundart oft "ich frage dem Lehrer" hört. Richtig ist immer: Ich frage <strong>den</strong> Lehrer.</p>
+<h3>Ein Trick zum Üben</h3>
+<p>Bei jedem neuen Verb: Satz mit "ich" und "er/sie" bilden und fragen: Wen oder was? (Akkusativ) oder Wem? (Dativ). Wer bei den 15 bis 20 Dativverben oben sicher ist, hat die grösste Fehlerquelle im Griff, denn alle anderen Verben mit einem Objekt sind fast immer Akkusativ.</p>
+<h2>6. Verben mit zwei Objekten: Dativ UND Akkusativ zusammen</h2>
+<p>Manche Verben brauchen gleichzeitig eine Person (Dativ, die Empfängerin) und eine Sache (Akkusativ, was gegeben wird).</p>
+<p><strong>Merksatz: "Wem gebe ich was?" — die Person (wem) steht im Dativ, die Sache (was) im Akkusativ.</strong></p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Verb</th>
+<th>Beispiel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>geben</td>
+<td>Ich gebe <strong>meinem Bruder</strong> (wem) <strong>das Buch</strong> (was).</td>
+</tr>
+<tr>
+<td>schenken</td>
+<td>Ich schenke <strong>meiner Mutter</strong> (wem) <strong>eine Blume</strong> (was).</td>
+</tr>
+<tr>
+<td>zeigen</td>
+<td>Ich zeige <strong>dem Lehrer</strong> (wem) <strong>meine Zeichnung</strong> (was).</td>
+</tr>
+<tr>
+<td>erzählen</td>
+<td>Ich erzähle <strong>meiner Freundin</strong> (wem) <strong>die Geschichte</strong> (was).</td>
+</tr>
+<tr>
+<td>bringen</td>
+<td>Ich bringe <strong>meiner Oma</strong> (wem) <strong>den Kuchen</strong> (was).</td>
+</tr>
+<tr>
+<td>schicken</td>
+<td>Ich schicke <strong>meinem Freund</strong> (wem) <strong>einen Brief</strong> (was).</td>
+</tr>
+<tr>
+<td>erklären</td>
+<td>Ich erkläre <strong>ihm</strong> (wem) <strong>die Aufgabe</strong> (was).</td>
+</tr>
+<tr>
+<td>leihen</td>
+<td>Ich leihe <strong>meinem Bruder</strong> (wem) <strong>mein Velo</strong> (was).</td>
+</tr>
+<tr>
+<td>kaufen</td>
+<td>Ich kaufe <strong>meiner Schwester</strong> (wem) <strong>ein Eis</strong> (was).</td>
+</tr>
+<tr>
+<td>verkaufen</td>
+<td>Ich verkaufe <strong>meinem Nachbarn</strong> (wem) <strong>mein altes Velo</strong> (was).</td>
+</tr>
+<tr>
+<td>empfehlen</td>
+<td>Ich empfehle <strong>dir</strong> (wem) <strong>dieses Buch</strong> (was).</td>
+</tr>
+</tbody>
+</table></div>
+<h3>Die Reihenfolge im Satz</h3>
+<p>Die Reihenfolge hängt davon ab, ob das Akkusativobjekt ein Nomen oder ein Pronomen ist.</p>
+<ul>
+<li><strong>Zwei Nomen:</strong> zuerst Dativ, dann Akkusativ → Ich gebe <strong>dem Bruder</strong> <strong>das Buch</strong>.</li>
+<li><strong>Zwei Pronomen:</strong> zuerst Akkusativ, dann Dativ → Ich gebe <strong>es</strong> <strong>ihm</strong>.</li>
+<li><strong>Ein Nomen, ein Pronomen:</strong> das Pronomen kommt zuerst, egal welcher Fall → Ich gebe <strong>ihm</strong> <strong>das Buch</strong>. / Ich gebe <strong>es</strong> <strong>meinem Bruder</strong>.</li>
+</ul>
+<p><strong>Merksatz: "Pronomen drängeln immer nach vorne."</strong></p>
+<h3>Übungsbeispiele</h3>
+<ol>
+<li>Ich zeige (mein Freund / das Foto) → Ich zeige <strong>meinem Freund das Foto</strong>.</li>
+<li>Ich zeige es (mein Freund) → Ich zeige <strong>es meinem Freund</strong>.</li>
+<li>Ich zeige ihm (das Foto) → Ich zeige <strong>ihm das Foto</strong>.</li>
+</ol>
+<h2>7. Typische Fehler (auch aus echten Schülertexten)</h2>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Fehler</th>
+<th>Falsch</th>
+<th>Richtig</th>
+<th>Warum</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dativverb wie Akkusativ behandelt</td>
+<td>Ich habe <strong>ihn</strong> geholfen.</td>
+<td>Ich habe <strong>ihm</strong> geholfen.</td>
+<td><em>helfen</em> verlangt immer Dativ.</td>
+</tr>
+<tr>
+<td>erklären + Akkusativ statt Dativ</td>
+<td>Ich erklärte <strong>ihn</strong> die Aufgabe.</td>
+<td>Ich erklärte <strong>ihm</strong> die Aufgabe.</td>
+<td>Person = Dativ, Sache = Akkusativ.</td>
+</tr>
+<tr>
+<td>begegnen + Akkusativ</td>
+<td>Ich begegnete <strong>einen Freund</strong>.</td>
+<td>Ich begegnete <strong>einem Freund</strong>.</td>
+<td><em>begegnen</em> verlangt Dativ.</td>
+</tr>
+<tr>
+<td>Wechselpräposition ohne Bewegung geprüft</td>
+<td>Ich bin <strong>in die</strong> Schule. (als Zustand gemeint)</td>
+<td>Ich bin <strong>in der</strong> Schule.</td>
+<td>"Sein" = kein Ziel, also Wo? → Dativ.</td>
+</tr>
+<tr>
+<td>Wo/Wohin bei "stehen" vertauscht</td>
+<td>Der Stuhl steht <strong>vor die</strong> Tür.</td>
+<td>Der Stuhl steht <strong>vor der</strong> Tür.</td>
+<td><em>stehen</em> = Zustand → Dativ.</td>
+</tr>
+<tr>
+<td>Genus falsch, dadurch Fall falsch</td>
+<td>die ungleiche Paar (Paar ist neutral)</td>
+<td><strong>das</strong> ungleiche Paar</td>
+<td>Zuerst das Genus im Wörterbuch prüfen.</td>
+</tr>
+<tr>
+<td>Nach Präposition mit festem Fall falsch</td>
+<td>mit <strong>mein</strong> Bruder</td>
+<td>mit <strong>meinem</strong> Bruder</td>
+<td><em>mit</em> verlangt immer Dativ.</td>
+</tr>
+<tr>
+<td>Reihenfolge der Objekte vertauscht</td>
+<td>Ich gebe <strong>es meinem Bruder das Buch</strong>.</td>
+<td>Ich gebe <strong>meinem Bruder das Buch</strong>. / Ich gebe <strong>es ihm</strong>.</td>
+<td>Pronomen nicht doppelt setzen.</td>
+</tr>
+<tr>
+<td>Mundart-Einfluss</td>
+<td>Ich has em Fritz gseit.</td>
+<td>Ich habe <strong>es Fritz gesagt</strong> → besser: Ich habe <strong>es meinem Freund gesagt</strong>.</td>
+<td>Hochdeutsche Form nutzen.</td>
+</tr>
+</tbody>
+</table></div>
+<h3>Die 3-Schritte-Kontrolle beim Schreiben</h3>
+<ol>
+<li><strong>Verb suchen:</strong> Steht es in der Dativ-Liste (Abschnitt 5)? Dann ist das Objekt Dativ.</li>
+<li><strong>Präposition suchen:</strong> Ist es eine feste Präposition (Abschnitt 4)? Dann steht der Fall fest. Ist es eine Wechselpräposition (Abschnitt 3)? Dann Wo/Wohin-Frage stellen.</li>
+<li><strong>Zwei Objekte?</strong> Person = Dativ, Sache = Akkusativ (Abschnitt 6).</li>
+</ol>
+<h2>8. Zwanzig Übungssätze</h2>
+<p>Zuerst selbst ausfüllen (auf Papier oder mündlich), dann mit den Lösungen unten vergleichen. Bei jedem Satz nennen, warum (Verb mit festem Fall? Präposition? Wo/Wohin?).</p>
+<ol>
+<li>Ich helfe ___ Mutter. (die Mutter)</li>
+<li>Ich sehe ___ Hund. (der Hund)</li>
+<li>Der Ball liegt ___ Tisch. (der Tisch — Wo?)</li>
+<li>Ich lege den Ball ___ Tisch. (der Tisch — Wohin?)</li>
+<li>Ich gebe ___ Freund ___ Geschenk. (der Freund / das Geschenk)</li>
+<li>Wir fahren mit ___ Zug. (der Zug)</li>
+<li>Das Geschenk ist für ___ Schwester. (die Schwester)</li>
+<li>Ich danke ___ Lehrerin. (die Lehrerin)</li>
+<li>Ich komme aus ___ Schweiz. (die Schweiz)</li>
+<li>Die Katze springt auf ___ Sofa. (das Sofa — Wohin?)</li>
+<li>Ich erkläre ___ Freund ___ Aufgabe. (der Freund / die Aufgabe)</li>
+<li>Wir gehen ohne ___ Lehrer los. (der Lehrer)</li>
+<li>Ich begegnete ___ alten Freund. (ein alter Freund)</li>
+<li>Die Jacke gehört ___ Bruder. (mein Bruder)</li>
+<li>Ich stelle die Schuhe ___ Tür. (die Tür — Wohin?)</li>
+<li>Ich vertraue ___ Freundin. (meine Freundin)</li>
+<li>Wir gehen zu ___ Grossmutter. (die Grossmutter)</li>
+<li>Ich schenke ___ Vater ___ Buch. (der Vater / das Buch)</li>
+<li>Er sitzt neben ___ Bruder. (der Bruder — Wo?)</li>
+<li>Ich rufe ___ Freund an. (der Freund)</li>
+</ol>
+<h3>Lösungen</h3>
+<ol>
+<li><strong>der</strong> Mutter (Dativ, <em>helfen</em>)</li>
+<li><strong>den</strong> Hund (Akkusativ, <em>sehen</em>)</li>
+<li><strong>dem</strong> Tisch (Dativ, Wo?)</li>
+<li><strong>den</strong> Tisch (Akkusativ, Wohin?)</li>
+<li><strong>dem</strong> Freund <strong>das</strong> Geschenk (Dativ + Akkusativ)</li>
+<li><strong>dem</strong> Zug (Dativ, <em>mit</em>)</li>
+<li><strong>die</strong> Schwester (Akkusativ, <em>für</em>)</li>
+<li><strong>der</strong> Lehrerin (Dativ, <em>danken</em>)</li>
+<li><strong>der</strong> Schweiz (Dativ, <em>aus</em>)</li>
+<li><strong>das</strong> Sofa (Akkusativ, Wohin?)</li>
+<li><strong>dem</strong> Freund <strong>die</strong> Aufgabe (Dativ + Akkusativ)</li>
+<li><strong>den</strong> Lehrer (Akkusativ, <em>ohne</em>)</li>
+<li><strong>einem</strong> alten Freund (Dativ, <em>begegnen</em>)</li>
+<li><strong>meinem</strong> Bruder (Dativ, <em>gehören</em>)</li>
+<li><strong>die</strong> Tür (Akkusativ, Wohin?)</li>
+<li><strong>meiner</strong> Freundin (Dativ, <em>vertrauen</em>)</li>
+<li><strong>meiner</strong> Grossmutter (Dativ, <em>zu</em>)</li>
+<li><strong>meinem</strong> Vater <strong>das</strong> Buch (Dativ + Akkusativ)</li>
+<li><strong>dem</strong> Bruder (Dativ, Wo?)</li>
+<li><strong>meinen</strong> Freund (Akkusativ, <em>anrufen</em>)</li>
+</ol>
+<h2>9. Übungsplan für die Gymi-Vorbereitung</h2>
+<h3>Woche 1: Grundlagen</h3>
+<ul>
+<li>Tag 1–2: Abschnitt 1 und 2 lesen, Artikeltabellen laut aufsagen, bis sie sitzen.</li>
+<li>Tag 3–4: Abschnitt 3 (Wechselpräpositionen), den Merksatz auswendig lernen, 10 eigene Wo/Wohin-Sätze bilden.</li>
+<li>Tag 5: Abschnitt 4 (feste Präpositionen), FUDGE und die Dativliste laut aufsagen.</li>
+</ul>
+<h3>Woche 2: Verben und Anwendung</h3>
+<ul>
+<li>Tag 1–2: Abschnitt 5, täglich 5 Dativverben in eigenen Sätzen verwenden.</li>
+<li>Tag 3: Abschnitt 6, Sätze mit zwei Objekten bilden und die Reihenfolge prüfen.</li>
+<li>Tag 4–5: Abschnitt 8 komplett durcharbeiten, Fehler mit Abschnitt 7 vergleichen.</li>
+</ul>
+<h3>Danach: Festigen</h3>
+<ul>
+<li>Beim Lesen (Bücher, die eigenen Aufsätze) bewusst Dativ- und Akkusativobjekte unterstreichen.</li>
+<li>Beim Korrigieren eigener Texte: Jedes Verb mit Objekt prüfen — Dativ oder Akkusativ?</li>
+<li>Karteikarten mit den 17 Dativverben aus Abschnitt 5 als Wiederholung, einmal pro Woche durchgehen.</li>
+</ul>
+<h3>Merkspruch-Zusammenfassung zum Aufhängen</h3>
+<ul>
+<li><strong>Wen oder was?</strong> → Akkusativ. <strong>Wem?</strong> → Dativ.</li>
+<li><strong>Aus, bei, mit, nach, seit, von, zu</strong> → immer Dativ.</li>
+<li><strong>Für, um, durch, gegen, ohne</strong> → immer Akkusativ.</li>
+<li><strong>Wohin?</strong> (Bewegung) → Akkusativ. <strong>Wo?</strong> (Ruhe) → Dativ.</li>
+<li><strong>Wem gebe ich was?</strong> → Person = Dativ, Sache = Akkusativ.</li>
+</ul>
+  </div>
+
+  <footer>
+    gymi-prep &middot; Dativ &amp; Akkusativ
+  </footer>
+
+</div>
+</body>
+</html>
