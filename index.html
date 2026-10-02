@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gymi-Prep</title>
+<style>
+  :root {
+    --bg: #faf8f5;
+    --panel: #ffffff;
+    --ink: #2b2420;
+    --ink-soft: #5c524a;
+    --accent: #8a4b2e;
+    --accent-soft: #c97b4a;
+    --line: #e7ddd1;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1c1814;
+      --panel: #26211c;
+      --ink: #f1ebe3;
+      --ink-soft: #c9bfb3;
+      --accent: #e0a179;
+      --accent-soft: #c97b4a;
+      --line: #3a332c;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1c1814;
+    --panel: #26211c;
+    --ink: #f1ebe3;
+    --ink-soft: #c9bfb3;
+    --accent: #e0a179;
+    --accent-soft: #c97b4a;
+    --line: #3a332c;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Iowan Old Style", "Georgia", "Charter", serif;
+    line-height: 1.6;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 48px 16px 80px; }
+  .eyebrow {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 12px;
+    color: var(--accent-soft);
+    font-weight: 700;
+    margin: 0 0 10px;
+  }
+  h1 { font-size: 2.1em; margin: 0 0 10px; }
+  .subtitle { color: var(--ink-soft); font-size: 1.05em; margin: 0 0 40px; }
+  .list { display: flex; flex-direction: column; gap: 14px; }
+  a.card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 20px 22px;
+    text-decoration: none;
+    color: var(--ink);
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  a.card:hover {
+    border-color: var(--accent-soft);
+    transform: translateY(-1px);
+  }
+  a.card.disabled {
+    opacity: 0.45;
+    pointer-events: none;
+  }
+  .card-text .card-title {
+    font-size: 1.15em;
+    font-weight: 700;
+    margin: 0 0 4px;
+  }
+  .card-text .card-desc {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  .arrow {
+    font-size: 1.4em;
+    color: var(--accent-soft);
+    flex-shrink: 0;
+  }
+  .status {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 100px;
+    background: color-mix(in srgb, var(--accent-soft) 18%, transparent);
+    color: var(--accent);
+    margin-left: 10px;
+  }
+  footer {
+    margin-top: 60px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 12px;
+    color: var(--ink-soft);
+    text-align: center;
+  }
+  @media (max-width: 480px) {
+    h1 { font-size: 1.6em; }
+    a.card { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Kanton Z&uuml;rich &middot; Langgymnasium</p>
+  <h1>Gymi-Prep</h1>
+  <p class="subtitle">Materialien und Reviews f&uuml;r die Vorbereitung auf die ZAP-Aufnahmepr&uuml;fung.</p>
+
+  <div class="list">
+    <a class="card" href="aufsatz/">
+      <div class="card-text">
+        <p class="card-title">Aufsatz</p>
+        <p class="card-desc">Aufbau, Wortschatz, Stilmittel, Musteraufs&auml;tze &mdash; und kritische Reviews der eigenen Entw&uuml;rfe mit Notensch&auml;tzung</p>
+      </div>
+      <span class="arrow">&rarr;</span>
+    </a>
+
+    <a class="card disabled" href="dativ-akkusativ/">
+      <div class="card-text">
+        <p class="card-title">Dativ &amp; Akkusativ<span class="status">bald</span></p>
+        <p class="card-desc">Merk-Guide mit Eselsbr&uuml;cken, Wechselpr&auml;positionen und &Uuml;bungss&auml;tzen</p>
+      </div>
+      <span class="arrow">&rarr;</span>
+    </a>
+
+    <a class="card disabled" href="wortschatz/">
+      <div class="card-text">
+        <p class="card-title">Wortschatz &amp; Phrasen<span class="status">bald</span></p>
+        <p class="card-desc">50 W&ouml;rter und 50 Redewendungen zur Aufwertung der Schreibsprache</p>
+      </div>
+      <span class="arrow">&rarr;</span>
+    </a>
+  </div>
+
+  <footer>
+    gymi-prep &middot; laufend erg&auml;nzt
+  </footer>
+
+</div>
+</body>
+</html>
