@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Periodische Dezimalzahlen &middot; Mathematik &middot; Gymi-Prep</title>
+<style>
+  :root {
+    --bg: #faf8f5; --panel: #ffffff; --ink: #2b2420; --ink-soft: #5c524a;
+    --accent: #8a4b2e; --accent-soft: #c97b4a; --line: #e7ddd1;
+    --cds-text-primary: var(--ink); --cds-text-secondary: var(--ink-soft);
+    --cds-chart-axis: #b3a99d; --cds-chart-categorical-1: #2f6fb5;
+    --cds-chart-categorical-2: #d9692b; --cds-chart-categorical-3: #2e9e6b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1c1814; --panel: #26211c; --ink: #f1ebe3; --ink-soft: #c9bfb3;
+      --accent: #e0a179; --accent-soft: #c97b4a; --line: #3a332c;
+      --cds-chart-axis: #7a7065; --cds-chart-categorical-1: #6aa6e8;
+      --cds-chart-categorical-2: #f08a4b; --cds-chart-categorical-3: #4cc58d;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1c1814; --panel: #26211c; --ink: #f1ebe3; --ink-soft: #c9bfb3;
+    --accent: #e0a179; --accent-soft: #c97b4a; --line: #3a332c;
+    --cds-chart-axis: #7a7065; --cds-chart-categorical-1: #6aa6e8;
+    --cds-chart-categorical-2: #f08a4b; --cds-chart-categorical-3: #4cc58d;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Iowan Old Style", "Georgia", "Charter", serif; line-height: 1.6; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 32px 16px 80px; }
+  .sans, .crumbs, .eyebrow, table, figcaption, .toc, .note, .pager, footer, .solution summary {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  .crumbs { font-size: 13px; color: var(--ink-soft); margin-bottom: 18px; }
+  .crumbs a { color: var(--ink-soft); text-decoration: none; }
+  .crumbs a:hover { color: var(--accent); }
+  .crumbs .sep { margin: 0 6px; opacity: .6; }
+  .eyebrow { text-transform: uppercase; letter-spacing: 0.12em; font-size: 12px;
+    color: var(--accent-soft); font-weight: 700; margin: 0 0 10px; }
+  h1 { font-size: 2em; margin: 0 0 10px; line-height: 1.2; }
+  .subtitle { color: var(--ink-soft); font-size: 1.05em; margin: 0 0 24px; }
+  h2 { font-size: 1.55em; line-height: 1.25; margin: 56px 0 12px; padding-top: 16px;
+    border-top: 1px solid var(--line); scroll-margin-top: 16px; }
+  h3 { font-size: 1.15em; margin: 32px 0 8px; scroll-margin-top: 16px; }
+  p, li { font-size: 1.02em; }
+  a { color: var(--accent); }
+  strong { font-weight: 700; }
+  .toc { background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+    padding: 16px 20px; margin: 0 0 8px; font-size: 14px; }
+  .toc p { margin: 0 0 8px; font-weight: 700; font-size: 13px; text-transform: uppercase;
+    letter-spacing: .08em; color: var(--accent-soft); }
+  .toc ol { margin: 0; padding-left: 20px; columns: 2; column-gap: 28px; }
+  .toc li { font-size: 14px; margin: 2px 0; break-inside: avoid; }
+  .toc a { color: var(--ink); text-decoration: none; }
+  .toc a:hover { color: var(--accent); }
+  .table-wrap { overflow-x: auto; margin: 14px 0 18px; border: 1px solid var(--line);
+    border-radius: 10px; background: var(--panel); }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th, td { text-align: left; vertical-align: top; padding: 8px 12px; border-bottom: 1px solid var(--line); }
+  th { font-weight: 700; color: var(--ink); background: color-mix(in srgb, var(--accent-soft) 10%, transparent); }
+  tr:last-child td { border-bottom: none; }
+  td:first-child { font-weight: 600; }
+  .fig { margin: 18px 0 8px; background: var(--panel); border: 1px solid var(--line);
+    border-radius: 12px; padding: 12px; }
+  .fig svg { display: block; width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  .fig figcaption { font-size: 12px; color: var(--ink-soft); margin-top: 6px; text-align: center; }
+  .note { font-size: 14px; color: var(--ink); background: var(--panel);
+    border: 1px solid var(--line); border-left: 3px solid var(--accent-soft);
+    border-radius: 8px; padding: 12px 16px; margin: 16px 0; }
+  .tasks { list-style: none; padding-left: 0; }
+  .tasks li { padding-left: 28px; position: relative; margin: 6px 0; }
+  .tasks li::before { content: ""; position: absolute; left: 0; top: 6px; width: 15px; height: 15px;
+    border: 1.5px solid var(--accent-soft); border-radius: 4px; }
+  details.solution { background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+    padding: 10px 16px; margin: 14px 0; }
+  details.solution summary { cursor: pointer; font-weight: 700; font-size: 14px; color: var(--accent); }
+  details.solution[open] summary { margin-bottom: 8px; }
+  .pager { display: flex; justify-content: space-between; gap: 12px; margin-top: 48px; }
+  .pager a { flex: 1; font-size: 14px; text-decoration: none; color: var(--ink); background: var(--panel);
+    border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px; }
+  .pager a:hover { border-color: var(--accent-soft); }
+  .pager .next { text-align: right; }
+  .pager small { display: block; color: var(--ink-soft); font-size: 12px; }
+  .totop { font-size: 13px; text-align: right; margin: 6px 0 0; }
+  .totop a { color: var(--ink-soft); text-decoration: none; }
+  footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--line);
+    font-size: 12px; color: var(--ink-soft); text-align: center; }
+  footer a { color: var(--ink-soft); }
+  @media (max-width: 560px) { h1 { font-size: 1.6em; } .toc ol { columns: 1; } .fig { padding: 6px; } }
+  @media print {
+    .toc, .pager, .totop, footer, .crumbs { display: none; }
+    details.solution { display: block; } details.solution > * { display: block; }
+    .fig, table { break-inside: avoid; }
+    h2 { break-before: page; }
+  }
+  .per { text-decoration: overline; text-decoration-thickness: 1.5px; }
+</style>
+</head>
+<body>
+<div class="wrap" id="top">
+  <div class="crumbs"><a href="../../">Gymi-Prep</a><span class="sep">/</span><a href="../">Mathematik</a><span class="sep">/</span>Periodische Dezimalzahlen</div>
+  <p class="eyebrow">Mathematik &middot; Brüche und Dezimalzahlen</p>
+  <h1>Periodische Dezimalzahlen in Brüche umwandeln</h1>
+  <p class="subtitle">Zwei Regeln, ein Trick und viele Beispiele &mdash; von 0,<span class="per">3</span> bis 0,008<span class="per">3</span>, mit Übungen und Lösungen.</p>
+
+  <nav class="toc" aria-label="Inhalt">
+    <p>Inhalt</p>
+    <ol>
+      <li><a href="#grundbegriffe">Grundbegriffe</a></li>
+      <li><a href="#welche-regel">Welche Regel?</a></li>
+      <li><a href="#regel-1">Regel 1: rein periodisch</a></li>
+      <li><a href="#regel-2">Regel 2: gemischt periodisch</a></li>
+      <li><a href="#warum">Warum funktionieren die Regeln?</a></li>
+      <li><a href="#sonderfaelle">Sonderfälle</a></li>
+      <li><a href="#uebersicht">Alle Beispiele auf einen Blick</a></li>
+      <li><a href="#rueckweg">Rückweg: Bruch in Dezimalzahl</a></li>
+      <li><a href="#uebungen">Übungen</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="grundbegriffe">1. Grundbegriffe</h2>
+  <p>Eine <strong>periodische Dezimalzahl</strong> hat nach dem Komma eine Ziffernfolge, die sich endlos wiederholt. Jede solche Zahl lässt sich als Bruch schreiben, und dafür genügen zwei Regeln.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Begriff</th><th>Bedeutung</th><th>Beispiel 0,1363636…</th></tr></thead>
+    <tbody>
+      <tr><td>Periode</td><td>die Ziffern, die sich endlos wiederholen</td><td>36</td></tr>
+      <tr><td>Vorperiode</td><td>die Ziffern nach dem Komma, die <strong>vor</strong> der Periode stehen und sich nicht wiederholen</td><td>1</td></tr>
+      <tr><td>rein periodisch</td><td>die Periode beginnt direkt nach dem Komma</td><td>0,363636…</td></tr>
+      <tr><td>gemischt periodisch</td><td>zuerst eine Vorperiode, dann die Periode</td><td>0,1363636…</td></tr>
+    </tbody>
+  </table></div>
+  <p><strong>Schreibweise:</strong> Man setzt einen Strich über die Periode: 0,<span class="per">3</span> statt 0,333… und 0,1<span class="per">36</span> statt 0,1363636… Man sieht manchmal auch die Schreibweise mit Klammern: 0,(3) oder 0,1(36).</p>
+  <p class="note"><strong>Wichtig:</strong> Der Strich steht nur über den Ziffern, die sich wiederholen. Bei 0,1<span class="per">6</span> wiederholt sich nur die 6 (0,1666…), bei 0,<span class="per">16</span> wiederholt sich 16 (0,161616…). Das sind zwei verschiedene Zahlen!</p>
+
+  <h2 id="welche-regel">2. Welche Regel?</h2>
+  <p>Es gibt nur eine Frage: Beginnt die Periode direkt nach dem Komma? Ja &rarr; Regel 1, nein &rarr; Regel 2.</p>
+  <figure class="fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 500" role="img" aria-label="Welche Regel? Entscheidung rein oder gemischt periodisch" font-size="13"><defs><marker id="dec-arrow" viewBox="0 0 10 10" ref-x="9" ref-y="5" marker-width="6" marker-height="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--cds-chart-axis)"></path></marker></defs><text x="24" y="30" font-size="15" font-weight="600" fill="var(--cds-text-primary)">Eine Frage entscheidet: Beginnt die Periode direkt nach dem Komma?</text><g fill="none" stroke="var(--cds-chart-axis)" stroke-width="1.25"><path d="M380 120V150" marker-end="url(#dec-arrow)"></path><path d="M250 196H190V288" marker-end="url(#dec-arrow)"></path><path d="M510 196H570V288" marker-end="url(#dec-arrow)"></path><path d="M190 386V456H228" marker-end="url(#dec-arrow)"></path><path d="M570 386V456H532" marker-end="url(#dec-arrow)"></path></g><g><rect x="230" y="64" width="300" height="56" rx="8" fill="none" stroke="var(--cds-chart-axis)" stroke-width="1.25"></rect><text x="380" y="88" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">Periodische Dezimalzahl</text><text x="380" y="107" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">ganze Zahl vor dem Komma beiseitelegen</text></g><g><polygon points="250,196 380,152 510,196 380,240" fill="none" stroke="var(--cds-chart-axis)" stroke-width="1.25"></polygon><text x="380" y="192" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">Beginnt die Periode direkt</text><text x="380" y="209" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">nach dem Komma?</text></g><text x="220" y="186" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">ja</text><text x="540" y="186" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">nein</text><g><rect x="25" y="290" width="330" height="96" rx="8" fill="var(--cds-chart-categorical-1)" fill-opacity="0.1" stroke="var(--cds-chart-categorical-1)" stroke-width="2"></rect><text x="41" y="314" font-weight="600" fill="var(--cds-text-primary)">Regel 1: rein periodisch</text><text x="41" y="336" font-size="11.5" fill="var(--cds-text-primary)">Zähler: die Periode</text><text x="41" y="354" font-size="11.5" fill="var(--cds-text-primary)">Nenner: eine 9 pro Ziffer der Periode</text><text x="41" y="374" font-size="11.5" fill="var(--cds-text-secondary)">Beispiel: 0,4̅5̅ = 45/99 = 5/11</text></g><g><rect x="405" y="290" width="330" height="96" rx="8" fill="var(--cds-chart-categorical-2)" fill-opacity="0.1" stroke="var(--cds-chart-categorical-2)" stroke-width="2"></rect><text x="421" y="314" font-weight="600" fill="var(--cds-text-primary)">Regel 2: gemischt periodisch</text><text x="421" y="336" font-size="11.5" fill="var(--cds-text-primary)">Zähler: Ziffern bis Periodenende − Vorperiode</text><text x="421" y="354" font-size="11.5" fill="var(--cds-text-primary)">Nenner: 9en (Periode), dahinter 0en (Vorperiode)</text><text x="421" y="374" font-size="11.5" fill="var(--cds-text-secondary)">Beispiel: 0,16̅ = (16 − 1)/90 = 1/6</text></g><g><rect x="230" y="432" width="300" height="48" rx="8" fill="none" stroke="var(--cds-chart-axis)" stroke-width="1.25"></rect><text x="380" y="461" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">Kürzen, ganze Zahl wieder addieren</text></g></svg><figcaption>Entscheidung: Regel 1 oder Regel 2</figcaption></figure>
+  <p>In beiden Fällen wird am Schluss gekürzt; stand vor dem Komma eine ganze Zahl, kommt sie am Ende wieder dazu.</p>
+  <p class="totop"><a href="#top">&uarr; nach oben</a></p>
+
+  <h2 id="regel-1">3. Regel 1: rein periodisch (Neuner-Regel)</h2>
+  <p><strong>Zähler = die Periode. Nenner = so viele 9en, wie die Periode Ziffern hat.</strong> Danach kürzen.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Ziffern in der Periode</th><th>Nenner</th></tr></thead>
+    <tbody>
+      <tr><td>1 Ziffer</td><td>9</td></tr>
+      <tr><td>2 Ziffern</td><td>99</td></tr>
+      <tr><td>3 Ziffern</td><td>999</td></tr>
+      <tr><td>6 Ziffern</td><td>999 999</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Beispiele</h3>
+  <ol>
+    <li><strong>0,<span class="per">3</span></strong> = 0,333… &rarr; Periode 3 (1 Ziffer) &rarr; 3/9 = <strong>1/3</strong></li>
+    <li><strong>0,<span class="per">6</span></strong> = 0,666… &rarr; 6/9 = <strong>2/3</strong></li>
+    <li><strong>0,<span class="per">1</span></strong> = 0,111… &rarr; <strong>1/9</strong> (nicht kürzbar)</li>
+    <li><strong>0,<span class="per">45</span></strong> = 0,454545… &rarr; Periode 45 (2 Ziffern) &rarr; 45/99 = <strong>5/11</strong> (gekürzt durch 9)</li>
+    <li><strong>0,<span class="per">27</span></strong> = 0,272727… &rarr; 27/99 = <strong>3/11</strong></li>
+    <li><strong>0,<span class="per">123</span></strong> = 0,123123… &rarr; Periode 123 (3 Ziffern) &rarr; 123/999 = <strong>41/333</strong> (gekürzt durch 3)</li>
+    <li><strong>0,<span class="per">142857</span></strong> = 0,142857142857… &rarr; 142857/999 999 = <strong>1/7</strong></li>
+  </ol>
+  <p class="note"><strong>Kürz-Tipp:</strong> 9 = 3 · 3, 99 = 9 · 11 und 999 = 27 · 37. Prüfe zuerst, ob der Zähler durch 3 oder 9 teilbar ist (Quersumme!) und bei 99 auch durch 11.</p>
+  <p class="totop"><a href="#top">&uarr; nach oben</a></p>
+
+  <h2 id="regel-2">4. Regel 2: gemischt periodisch (mit Vorperiode)</h2>
+  <ul>
+    <li><strong>Zähler</strong> = (alle Ziffern nach dem Komma bis zum Ende der ersten Periode) <strong>minus</strong> (die Vorperiode)</li>
+    <li><strong>Nenner</strong> = so viele <strong>9en</strong>, wie die Periode Ziffern hat, <strong>dahinter</strong> so viele <strong>0en</strong>, wie die Vorperiode Ziffern hat</li>
+  </ul>
+  <p>Danach kürzen.</p>
+  <h3>Schritt für Schritt: 0,41<span class="per">6</span> = 0,41666…</h3>
+  <ol>
+    <li>Vorperiode = <strong>41</strong> (2 Ziffern), Periode = <strong>6</strong> (1 Ziffer).</li>
+    <li>Zähler: 416 − 41 = <strong>375</strong></li>
+    <li>Nenner: eine 9 (für die Periode), dann zwei 0en (für die Vorperiode) = <strong>900</strong></li>
+    <li>375/900 kürzen durch 75 = <strong>5/12</strong></li>
+  </ol>
+  <h3>Weitere Beispiele</h3>
+  <ol>
+    <li><strong>0,1<span class="per">6</span></strong> = 0,1666… &rarr; (16 − 1)/90 = 15/90 = <strong>1/6</strong></li>
+    <li><strong>0,8<span class="per">3</span></strong> = 0,8333… &rarr; (83 − 8)/90 = 75/90 = <strong>5/6</strong></li>
+    <li><strong>0,58<span class="per">3</span></strong> = 0,58333… &rarr; (583 − 58)/900 = 525/900 = <strong>7/12</strong></li>
+    <li><strong>0,12<span class="per">3</span></strong> = 0,12333… &rarr; (123 − 12)/900 = 111/900 = <strong>37/300</strong></li>
+    <li><strong>0,1<span class="per">36</span></strong> = 0,13636… &rarr; (136 − 1)/990 = 135/990 = <strong>3/22</strong></li>
+    <li><strong>0,2<span class="per">34</span></strong> = 0,23434… &rarr; (234 − 2)/990 = 232/990 = <strong>116/495</strong></li>
+    <li><strong>0,008<span class="per">3</span></strong> = 0,008333… &rarr; Vorperiode 008 (3 Ziffern!), Periode 3 &rarr; (83 − 8)/9000 = 75/9000 = <strong>1/120</strong></li>
+  </ol>
+  <p class="note"><strong>Achtung:</strong> Nullen in der Vorperiode zählen mit. Bei 0,008<span class="per">3</span> hat die Vorperiode drei Ziffern (0, 0, 8), darum kommen drei 0en in den Nenner.</p>
+  <p class="totop"><a href="#top">&uarr; nach oben</a></p>
+
+  <h2 id="warum">5. Warum funktionieren die Regeln?</h2>
+  <p>Man nennt die Zahl x und nimmt sie mit 10, 100, 1000 … mal, bis die Periode genau untereinander steht. Zieht man dann ab, fallen alle endlosen Nachkommastellen weg.</p>
+  <figure class="fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 300" role="img" aria-label="Subtraktions-Trick: die endlosen Nachkommastellen fallen weg" font-size="15"><text x="24" y="30" font-weight="600" fill="var(--cds-text-primary)">Verschieben und abziehen: Die endlosen Nachkommastellen fallen weg</text><g><rect x="24" y="50" width="340" height="232" rx="8" fill="none" stroke="var(--cds-chart-axis)" stroke-width="1.25"></rect><text x="40" y="76" font-size="13" font-weight="600" fill="var(--cds-text-primary)">Rein periodisch: x = 0,2̅7̅</text><text x="130" y="116" text-anchor="end" fill="var(--cds-text-primary)">100x</text><text x="142" y="116" fill="var(--cds-text-primary)">=</text><text x="190" y="116" text-anchor="end" fill="var(--cds-text-primary)">27</text><text x="190" y="116" fill="var(--cds-chart-categorical-1)">,272727…</text><text x="60" y="146" fill="var(--cds-chart-categorical-1)" font-weight="600">−</text><text x="130" y="146" text-anchor="end" fill="var(--cds-text-primary)">x</text><text x="142" y="146" fill="var(--cds-text-primary)">=</text><text x="190" y="146" text-anchor="end" fill="var(--cds-text-primary)">0</text><text x="190" y="146" fill="var(--cds-chart-categorical-1)">,272727…</text><line x1="56" y1="158" x2="300" y2="158" stroke="var(--cds-text-primary)" stroke-width="1.25"></line><text x="130" y="182" text-anchor="end" fill="var(--cds-text-primary)">99x</text><text x="142" y="182" fill="var(--cds-text-primary)">=</text><text x="190" y="182" text-anchor="end" fill="var(--cds-text-primary)">27</text><text x="40" y="222" font-weight="600" fill="var(--cds-text-primary)">x = 27/99 = 3/11</text><text x="40" y="252" font-size="11.5" fill="var(--cds-text-secondary)">Periode hat 2 Ziffern → mal 100 rechnen.</text><text x="40" y="268" font-size="11.5" fill="var(--cds-text-secondary)">Darum stehen im Nenner zwei 9en: 99.</text></g><g><rect x="396" y="50" width="340" height="232" rx="8" fill="none" stroke="var(--cds-chart-axis)" stroke-width="1.25"></rect><text x="412" y="76" font-size="13" font-weight="600" fill="var(--cds-text-primary)">Gemischt periodisch: x = 0,16̅</text><text x="502" y="116" text-anchor="end" fill="var(--cds-text-primary)">100x</text><text x="514" y="116" fill="var(--cds-text-primary)">=</text><text x="562" y="116" text-anchor="end" fill="var(--cds-text-primary)">16</text><text x="562" y="116" fill="var(--cds-chart-categorical-2)">,6666…</text><text x="432" y="146" fill="var(--cds-chart-categorical-2)" font-weight="600">−</text><text x="502" y="146" text-anchor="end" fill="var(--cds-text-primary)">10x</text><text x="514" y="146" fill="var(--cds-text-primary)">=</text><text x="562" y="146" text-anchor="end" fill="var(--cds-text-primary)">1</text><text x="562" y="146" fill="var(--cds-chart-categorical-2)">,6666…</text><line x1="428" y1="158" x2="672" y2="158" stroke="var(--cds-text-primary)" stroke-width="1.25"></line><text x="502" y="182" text-anchor="end" fill="var(--cds-text-primary)">90x</text><text x="514" y="182" fill="var(--cds-text-primary)">=</text><text x="562" y="182" text-anchor="end" fill="var(--cds-text-primary)">15</text><text x="412" y="222" font-weight="600" fill="var(--cds-text-primary)">x = 15/90 = 1/6</text><text x="412" y="252" font-size="11.5" fill="var(--cds-text-secondary)">Erst die Vorperiode weg (mal 10), dann die Periode.</text><text x="412" y="268" font-size="11.5" fill="var(--cds-text-secondary)">100 − 10 = 90: eine 9 und eine 0 im Nenner.</text></g></svg><figcaption>Subtraktions-Trick · rein und gemischt periodisch</figcaption></figure>
+  <p>Dieser Trick funktioniert immer und ist eine gute Kontrolle, falls man eine Regel vergessen hat. Die Regeln 1 und 2 sind nur die Abkürzung davon.</p>
+  <p class="totop"><a href="#top">&uarr; nach oben</a></p>
+
+  <h2 id="sonderfaelle">6. Sonderfälle</h2>
+  <h3>Zahlen grösser als 1</h3>
+  <p>Die ganze Zahl vor dem Komma wird beiseitegelegt, nur der Teil nach dem Komma wird umgewandelt. Am Schluss addiert man die ganze Zahl wieder (gemischte Zahl oder unechter Bruch).</p>
+  <ol>
+    <li><strong>2,<span class="per">3</span></strong> &rarr; 2 + 1/3 = 2⅓ = <strong>7/3</strong></li>
+    <li><strong>3,1<span class="per">6</span></strong> &rarr; 3 + 1/6 = 3⅙ = <strong>19/6</strong></li>
+    <li><strong>1,<span class="per">16</span></strong> &rarr; 1 + 16/99 = <strong>115/99</strong></li>
+    <li><strong>4,<span class="per">27</span></strong> &rarr; 4 + 3/11 = <strong>47/11</strong></li>
+  </ol>
+  <h3>Null in der Periode</h3>
+  <p>Eine Null am Anfang der Periode zählt als Ziffer der Periode und bestimmt die Anzahl 9en.</p>
+  <ol>
+    <li><strong>0,<span class="per">09</span></strong> = 0,090909… &rarr; Periode 09 (2 Ziffern) &rarr; 9/99 = <strong>1/11</strong></li>
+    <li><strong>0,<span class="per">03</span></strong> = 0,030303… &rarr; 3/99 = <strong>1/33</strong></li>
+    <li><strong>0,<span class="per">10</span></strong> = 0,101010… &rarr; <strong>10/99</strong></li>
+  </ol>
+  <h3>Die Periode 9: 0,<span class="per">9</span> = 1</h3>
+  <p>Nach der Neuner-Regel ist 0,<span class="per">9</span> = 9/9 = <strong>1</strong>. Das ist kein Fehler, sondern stimmt genau. Begründung: 1/3 = 0,333…, also ist 3 · 1/3 = 0,999… und gleichzeitig 3 · 1/3 = 1.</p>
+  <ol>
+    <li><strong>0,4<span class="per">9</span></strong> &rarr; (49 − 4)/90 = 45/90 = <strong>1/2</strong></li>
+    <li><strong>2,<span class="per">9</span></strong> &rarr; 2 + 1 = <strong>3</strong></li>
+  </ol>
+  <p class="totop"><a href="#top">&uarr; nach oben</a></p>
+
+  <h2 id="uebersicht">7. Alle Beispiele auf einen Blick</h2>
+  <p>Zum Nachschlagen und Wiederholen: Deckt man die rechte Spalte ab, wird die Tabelle zur Übung.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Dezimalzahl</th><th>Art</th><th>Rechnung</th><th>Bruch</th></tr></thead>
+    <tbody>
+      <tr><td>0,<span class="per">3</span></td><td>rein, 1 Ziffer</td><td>3/9</td><td>1/3</td></tr>
+      <tr><td>0,<span class="per">6</span></td><td>rein, 1 Ziffer</td><td>6/9</td><td>2/3</td></tr>
+      <tr><td>0,<span class="per">1</span></td><td>rein, 1 Ziffer</td><td>1/9</td><td>1/9</td></tr>
+      <tr><td>0,<span class="per">45</span></td><td>rein, 2 Ziffern</td><td>45/99</td><td>5/11</td></tr>
+      <tr><td>0,<span class="per">27</span></td><td>rein, 2 Ziffern</td><td>27/99</td><td>3/11</td></tr>
+      <tr><td>0,<span class="per">09</span></td><td>rein, 2 Ziffern (Null in Periode)</td><td>9/99</td><td>1/11</td></tr>
+      <tr><td>0,<span class="per">123</span></td><td>rein, 3 Ziffern</td><td>123/999</td><td>41/333</td></tr>
+      <tr><td>0,<span class="per">142857</span></td><td>rein, 6 Ziffern</td><td>142857/999999</td><td>1/7</td></tr>
+      <tr><td>0,1<span class="per">6</span></td><td>gemischt, Vorperiode 1</td><td>(16 − 1)/90</td><td>1/6</td></tr>
+      <tr><td>0,8<span class="per">3</span></td><td>gemischt, Vorperiode 1</td><td>(83 − 8)/90</td><td>5/6</td></tr>
+      <tr><td>0,41<span class="per">6</span></td><td>gemischt, Vorperiode 2</td><td>(416 − 41)/900</td><td>5/12</td></tr>
+      <tr><td>0,58<span class="per">3</span></td><td>gemischt, Vorperiode 2</td><td>(583 − 58)/900</td><td>7/12</td></tr>
+      <tr><td>0,1<span class="per">36</span></td><td>gemischt, Periode 2 Ziffern</td><td>(136 − 1)/990</td><td>3/22</td></tr>
+      <tr><td>0,008<span class="per">3</span></td><td>gemischt, Vorperiode 008</td><td>(83 − 8)/9000</td><td>1/120</td></tr>
+      <tr><td>2,<span class="per">3</span></td><td>grösser als 1</td><td>2 + 1/3</td><td>7/3</td></tr>
+      <tr><td>3,1<span class="per">6</span></td><td>grösser als 1, gemischt</td><td>3 + 1/6</td><td>19/6</td></tr>
+      <tr><td>0,<span class="per">9</span></td><td>Periode 9</td><td>9/9</td><td>1</td></tr>
+      <tr><td>0,4<span class="per">9</span></td><td>Periode 9, gemischt</td><td>(49 − 4)/90</td><td>1/2</td></tr>
+    </tbody>
+  </table></div>
+  <p class="totop"><a href="#top">&uarr; nach oben</a></p>
+
+  <h2 id="rueckweg">8. Rückweg: Bruch in Dezimalzahl</h2>
+  <p>Man teilt den Zähler durch den Nenner (schriftliche Division). Sobald ein <strong>Rest zum zweiten Mal</strong> vorkommt, wiederholen sich die Ziffern: Die Periode hat begonnen.</p>
+  <p><strong>Beispiel 5/12:</strong> 5 : 12 = 0,4 Rest 2 &rarr; 0,41 Rest 8 &rarr; 0,416 Rest 8 &rarr; Rest 8 kommt wieder, also wiederholt sich die 6: <strong>0,41<span class="per">6</span></strong>.</p>
+  <h3>Schon am Nenner erkennen, was herauskommt</h3>
+  <p>Den Bruch zuerst vollständig kürzen, dann den Nenner in Primfaktoren zerlegen:</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Nenner enthält …</th><th>Ergebnis</th><th>Beispiele</th></tr></thead>
+    <tbody>
+      <tr><td>nur die Faktoren 2 und 5</td><td><strong>abbrechend</strong> (endet)</td><td>1/4 = 0,25 · 3/8 = 0,375 · 7/20 = 0,35</td></tr>
+      <tr><td>keine 2 und keine 5</td><td><strong>rein periodisch</strong></td><td>1/3 = 0,<span class="per">3</span> · 2/11 = 0,<span class="per">18</span> · 1/7 = 0,<span class="per">142857</span></td></tr>
+      <tr><td>2 oder 5 <strong>und</strong> andere Faktoren</td><td><strong>gemischt periodisch</strong></td><td>1/6 = 0,1<span class="per">6</span> · 5/12 = 0,41<span class="per">6</span> · 1/15 = 0,0<span class="per">6</span></td></tr>
+    </tbody>
+  </table></div>
+  <p>Das passt zu den Regeln oben: Die 9en im Nenner kommen von der Periode, die 0en (also Faktoren 2 · 5) von der Vorperiode.</p>
+  <p class="totop"><a href="#top">&uarr; nach oben</a></p>
+
+  <h2 id="uebungen">9. Übungen</h2>
+  <p>Wandle in einen vollständig gekürzten Bruch um. Zuerst überlegen: rein oder gemischt periodisch?</p>
+  <ul class="tasks">
+    <li>a) 0,<span class="per">7</span></li>
+    <li>b) 0,<span class="per">81</span></li>
+    <li>c) 0,<span class="per">36</span></li>
+    <li>d) 0,<span class="per">540</span></li>
+    <li>e) 0,2<span class="per">6</span></li>
+    <li>f) 0,91<span class="per">6</span></li>
+    <li>g) 0,3<span class="per">18</span></li>
+    <li>h) 0,<span class="per">01</span></li>
+    <li>i) 1,<span class="per">5</span></li>
+    <li>j) 2,08<span class="per">3</span></li>
+    <li>k) 0,1<span class="per">9</span></li>
+    <li>l) Welche Brüche ergeben eine abbrechende Dezimalzahl: 3/16, 5/6, 7/25, 4/9?</li>
+  </ul>
+  <details class="solution">
+    <summary>Lösungen anzeigen</summary>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Aufgabe</th><th>Rechnung</th><th>Bruch</th></tr></thead>
+      <tbody>
+        <tr><td>a) 0,<span class="per">7</span></td><td>7/9</td><td><strong>7/9</strong></td></tr>
+        <tr><td>b) 0,<span class="per">81</span></td><td>81/99</td><td><strong>9/11</strong></td></tr>
+        <tr><td>c) 0,<span class="per">36</span></td><td>36/99</td><td><strong>4/11</strong></td></tr>
+        <tr><td>d) 0,<span class="per">540</span></td><td>540/999</td><td><strong>20/37</strong></td></tr>
+        <tr><td>e) 0,2<span class="per">6</span></td><td>(26 − 2)/90 = 24/90</td><td><strong>4/15</strong></td></tr>
+        <tr><td>f) 0,91<span class="per">6</span></td><td>(916 − 91)/900 = 825/900</td><td><strong>11/12</strong></td></tr>
+        <tr><td>g) 0,3<span class="per">18</span></td><td>(318 − 3)/990 = 315/990</td><td><strong>7/22</strong></td></tr>
+        <tr><td>h) 0,<span class="per">01</span></td><td>1/99</td><td><strong>1/99</strong></td></tr>
+        <tr><td>i) 1,<span class="per">5</span></td><td>1 + 5/9</td><td><strong>14/9</strong></td></tr>
+        <tr><td>j) 2,08<span class="per">3</span></td><td>2 + (83 − 8)/900 = 2 + 1/12</td><td><strong>25/12</strong></td></tr>
+        <tr><td>k) 0,1<span class="per">9</span></td><td>(19 − 1)/90 = 18/90</td><td><strong>1/5</strong> (Periode 9!)</td></tr>
+        <tr><td>l)</td><td>Nenner 16 = 2·2·2·2 und 25 = 5·5</td><td><strong>3/16 und 7/25</strong>; 5/6 ist gemischt, 4/9 rein periodisch</td></tr>
+      </tbody>
+    </table></div>
+  </details>
+
+  <h3>Tipps für die Prüfung</h3>
+  <ul>
+    <li>Zuerst Periode und Vorperiode genau bestimmen und zählen.</li>
+    <li>Immer vollständig kürzen (Teilbarkeit durch 3, 9, 11, 5 prüfen).</li>
+    <li><strong>Probe:</strong> Zähler durch Nenner teilen und schauen, ob die gleiche Dezimalzahl herauskommt.</li>
+  </ul>
+
+  <nav class="pager" aria-label="Weiter">
+    <a class="prev" href="../geometrie/"><small>&larr; Leitfaden</small>Geometrie</a>
+    <a class="next" href="../../mathe-bern/"><small>Weiter &rarr;</small>Frühere Prüfungen Kanton Bern</a>
+  </nav>
+
+  <footer>gymi-prep &middot; <a href="../../">Startseite</a> &middot; <a href="../">Mathematik</a> &middot; laufend ergänzt</footer>
+</div>
+</body>
+</html>
