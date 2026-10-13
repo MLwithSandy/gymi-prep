@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Geometrie-Leitfaden &middot; Mathematik &middot; Gymi-Prep</title>
+<style>
+  :root {
+    --bg: #faf8f5; --panel: #ffffff; --ink: #2b2420; --ink-soft: #5c524a;
+    --accent: #8a4b2e; --accent-soft: #c97b4a; --line: #e7ddd1;
+    --cds-text-primary: var(--ink); --cds-text-secondary: var(--ink-soft);
+    --cds-chart-axis: #b3a99d; --cds-chart-categorical-1: #2f6fb5;
+    --cds-chart-categorical-2: #d9692b; --cds-chart-categorical-3: #2e9e6b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1c1814; --panel: #26211c; --ink: #f1ebe3; --ink-soft: #c9bfb3;
+      --accent: #e0a179; --accent-soft: #c97b4a; --line: #3a332c;
+      --cds-chart-axis: #7a7065; --cds-chart-categorical-1: #6aa6e8;
+      --cds-chart-categorical-2: #f08a4b; --cds-chart-categorical-3: #4cc58d;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1c1814; --panel: #26211c; --ink: #f1ebe3; --ink-soft: #c9bfb3;
+    --accent: #e0a179; --accent-soft: #c97b4a; --line: #3a332c;
+    --cds-chart-axis: #7a7065; --cds-chart-categorical-1: #6aa6e8;
+    --cds-chart-categorical-2: #f08a4b; --cds-chart-categorical-3: #4cc58d;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Iowan Old Style", "Georgia", "Charter", serif; line-height: 1.6; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 32px 16px 80px; }
+  .sans, .crumbs, .eyebrow, table, figcaption, .toc, .note, .pager, footer, .solution summary {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  .crumbs { font-size: 13px; color: var(--ink-soft); margin-bottom: 18px; }
+  .crumbs a { color: var(--ink-soft); text-decoration: none; }
+  .crumbs a:hover { color: var(--accent); }
+  .crumbs .sep { margin: 0 6px; opacity: .6; }
+  .eyebrow { text-transform: uppercase; letter-spacing: 0.12em; font-size: 12px;
+    color: var(--accent-soft); font-weight: 700; margin: 0 0 10px; }
+  h1 { font-size: 2em; margin: 0 0 10px; line-height: 1.2; }
+  .subtitle { color: var(--ink-soft); font-size: 1.05em; margin: 0 0 24px; }
+  h2 { font-size: 1.55em; line-height: 1.25; margin: 56px 0 12px; padding-top: 16px;
+    border-top: 1px solid var(--line); scroll-margin-top: 16px; }
+  h3 { font-size: 1.15em; margin: 32px 0 8px; scroll-margin-top: 16px; }
+  p, li { font-size: 1.02em; }
+  a { color: var(--accent); }
+  strong { font-weight: 700; }
+  .toc { background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+    padding: 16px 20px; margin: 0 0 8px; font-size: 14px; }
+  .toc p { margin: 0 0 8px; font-weight: 700; font-size: 13px; text-transform: uppercase;
+    letter-spacing: .08em; color: var(--accent-soft); }
+  .toc ol { margin: 0; padding-left: 20px; columns: 2; column-gap: 28px; }
+  .toc li { font-size: 14px; margin: 2px 0; break-inside: avoid; }
+  .toc a { color: var(--ink); text-decoration: none; }
+  .toc a:hover { color: var(--accent); }
+  .table-wrap { overflow-x: auto; margin: 14px 0 18px; border: 1px solid var(--line);
+    border-radius: 10px; background: var(--panel); }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th, td { text-align: left; vertical-align: top; padding: 8px 12px; border-bottom: 1px solid var(--line); }
+  th { font-weight: 700; color: var(--ink); background: color-mix(in srgb, var(--accent-soft) 10%, transparent); }
+  tr:last-child td { border-bottom: none; }
+  td:first-child { font-weight: 600; }
+  .fig { margin: 18px 0 8px; background: var(--panel); border: 1px solid var(--line);
+    border-radius: 12px; padding: 12px; }
+  .fig svg { display: block; width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  .fig figcaption { font-size: 12px; color: var(--ink-soft); margin-top: 6px; text-align: center; }
+  .note { font-size: 14px; color: var(--ink); background: var(--panel);
+    border: 1px solid var(--line); border-left: 3px solid var(--accent-soft);
+    border-radius: 8px; padding: 12px 16px; margin: 16px 0; }
+  .tasks { list-style: none; padding-left: 0; }
+  .tasks li { padding-left: 28px; position: relative; margin: 6px 0; }
+  .tasks li::before { content: ""; position: absolute; left: 0; top: 6px; width: 15px; height: 15px;
+    border: 1.5px solid var(--accent-soft); border-radius: 4px; }
+  details.solution { background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+    padding: 10px 16px; margin: 14px 0; }
+  details.solution summary { cursor: pointer; font-weight: 700; font-size: 14px; color: var(--accent); }
+  details.solution[open] summary { margin-bottom: 8px; }
+  .pager { display: flex; justify-content: space-between; gap: 12px; margin-top: 48px; }
+  .pager a { flex: 1; font-size: 14px; text-decoration: none; color: var(--ink); background: var(--panel);
+    border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px; }
+  .pager a:hover { border-color: var(--accent-soft); }
+  .pager .next { text-align: right; }
+  .pager small { display: block; color: var(--ink-soft); font-size: 12px; }
+  .totop { font-size: 13px; text-align: right; margin: 6px 0 0; }
+  .totop a { color: var(--ink-soft); text-decoration: none; }
+  footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--line);
+    font-size: 12px; color: var(--ink-soft); text-align: center; }
+  footer a { color: var(--ink-soft); }
+  @media (max-width: 560px) { h1 { font-size: 1.6em; } .toc ol { columns: 1; } .fig { padding: 6px; } }
+  @media print {
+    .toc, .pager, .totop, footer, .crumbs { display: none; }
+    details.solution { display: block; } details.solution > * { display: block; }
+    .fig, table { break-inside: avoid; }
+    h2 { break-before: page; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap" id="top">
+  <div class="crumbs"><a href="../../">Gymi-Prep</a><span class="sep">/</span><a href="../">Mathematik</a><span class="sep">/</span>Geometrie-Leitfaden</div>
+  <p class="eyebrow">Mathematik &middot; 6. Klasse &middot; Gymi-Vorbereitung</p>
+  <h1>Geometrie-Leitfaden: Formen, Umfang und Fläche</h1>
+  <p class="subtitle">Linien, Winkel, Dreiecke, Vierecke, Kreis, Umfang, Fläche und Volumen &mdash; mit Zeichnungen, Beispielen und Übungen mit Lösungen.</p>
+
+  <nav class="toc" aria-label="Inhalt">
+    <p>Inhalt</p>
+    <ol>
+      <li><a href="#grundbegriffe">Grundbegriffe und Winkel</a></li>
+      <li><a href="#linien">Gerade, Strahl, Strecke</a></li>
+      <li><a href="#dreiecke">Dreiecke</a></li>
+      <li><a href="#vierecke">Vierecke</a></li>
+      <li><a href="#kreis">Kreis und Satz des Thales</a></li>
+      <li><a href="#umfang-flaeche">Umfang und Fläche</a></li>
+      <li><a href="#volumen">Volumen und Hohlmasse</a></li>
+      <li><a href="#uebungen">Übungsaufgaben</a></li>
+    </ol>
+  </nav>
+
+  <!-- 1 -->
+  <h2 id="grundbegriffe">1. Grundbegriffe</h2>
+  <p>Jede Figur besteht aus Punkten, Linien und Winkeln. Wer diese Wörter sicher kennt, versteht jede Gymi-Aufgabe schneller.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Begriff</th><th>Bedeutung</th><th>Schreibweise</th></tr></thead>
+    <tbody>
+      <tr><td>Punkt</td><td>Eine genaue Stelle, ohne Länge oder Breite</td><td>Grossbuchstabe: A, B, C</td></tr>
+      <tr><td>Eckpunkt (Ecke)</td><td>Punkt, an dem zwei Seiten einer Figur zusammentreffen</td><td>A, B, C, D</td></tr>
+      <tr><td>Seite</td><td>Strecke zwischen zwei benachbarten Ecken</td><td>Kleinbuchstabe: a, b, c, d</td></tr>
+      <tr><td>Winkel</td><td>Öffnung zwischen zwei Linien, gemessen in Grad (°)</td><td>griechisch: α (Alpha), β (Beta), γ (Gamma), δ (Delta)</td></tr>
+      <tr><td>Diagonale</td><td>Strecke zwischen zwei Ecken, die NICHT nebeneinander liegen</td><td>e, f</td></tr>
+      <tr><td>Höhe</td><td>Senkrechter Abstand einer Ecke zur gegenüberliegenden Seite</td><td>h</td></tr>
+      <tr><td>Umfang</td><td>Länge des ganzen Randes einer Figur</td><td>u, Einheit cm</td></tr>
+      <tr><td>Fläche</td><td>Grösse der Innenfläche einer Figur</td><td>A, Einheit cm²</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note"><strong>Regel für die Beschriftung:</strong> Die Ecken werden gegen den Uhrzeigersinn mit A, B, C, D benannt. Die Seite a liegt zwischen A und B, die Seite b zwischen B und C, und so weiter. Der Winkel α liegt bei A, β bei B, γ bei C, δ bei D.</p>
+
+  <h3>Winkelarten</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Winkelart</th><th>Grösse</th><th>Merkhilfe</th></tr></thead>
+    <tbody>
+      <tr><td>spitzer Winkel</td><td>kleiner als 90°</td><td>spitz wie eine Bleistiftspitze</td></tr>
+      <tr><td>rechter Winkel</td><td>genau 90°</td><td>Ecke eines Heftes, Zeichen: Viertelkreis mit Punkt</td></tr>
+      <tr><td>stumpfer Winkel</td><td>zwischen 90° und 180°</td><td>weit geöffnet</td></tr>
+      <tr><td>gestreckter Winkel</td><td>genau 180°</td><td>sieht aus wie eine gerade Linie</td></tr>
+      <tr><td>überstumpfer Winkel</td><td>zwischen 180° und 360°</td><td>mehr als eine halbe Drehung</td></tr>
+      <tr><td>Vollwinkel</td><td>genau 360°</td><td>eine ganze Drehung</td></tr>
+    </tbody>
+  </table></div>
+  <figure class="fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 252" role="img" aria-label="Winkelarten: spitz, recht, stumpf, gestreckt" font-size="13"><text x="24" y="30" font-size="15" font-weight="600" fill="var(--cds-text-primary)">Der rechte Winkel (90°) ist die Grenze zwischen spitz und stumpf</text><g><path d="M104 170L130 170A26 26 0 0 0 122.38 151.62Z" fill="var(--cds-chart-categorical-1)" fill-opacity="0.18" stroke="var(--cds-chart-categorical-1)" stroke-width="1.25"></path><path d="M184 170L104 170L160.57 113.43" fill="none" stroke="var(--cds-text-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="104" cy="170" r="3" fill="var(--cds-text-primary)"></circle><text x="144" y="212" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">spitzer Winkel</text><text x="144" y="230" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">kleiner als 90°</text></g><g><path d="M288 170H306V152H288Z" fill="var(--cds-chart-categorical-1)" fill-opacity="0.18" stroke="var(--cds-chart-categorical-1)" stroke-width="1.25"></path><circle cx="297" cy="161" r="2" fill="var(--cds-text-primary)"></circle><path d="M368 170L288 170L288 90" fill="none" stroke="var(--cds-text-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="288" cy="170" r="3" fill="var(--cds-text-primary)"></circle><text x="328" y="212" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">rechter Winkel</text><text x="328" y="230" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">genau 90°</text></g><g><path d="M472 170L498 170A26 26 0 0 0 453.62 151.62Z" fill="var(--cds-chart-categorical-1)" fill-opacity="0.18" stroke="var(--cds-chart-categorical-1)" stroke-width="1.25"></path><path d="M552 170L472 170L415.43 113.43" fill="none" stroke="var(--cds-text-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="472" cy="170" r="3" fill="var(--cds-text-primary)"></circle><text x="482" y="212" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">stumpfer Winkel</text><text x="482" y="230" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">zwischen 90° und 180°</text></g><g><path d="M656 170L682 170A26 26 0 0 0 630 170Z" fill="var(--cds-chart-categorical-1)" fill-opacity="0.18" stroke="var(--cds-chart-categorical-1)" stroke-width="1.25"></path><path d="M736 170L656 170L576 170" fill="none" stroke="var(--cds-text-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="656" cy="170" r="3" fill="var(--cds-text-primary)"></circle><text x="656" y="212" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">gestreckter Winkel</text><text x="656" y="230" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">genau 180°</text></g></svg><figcaption>Winkelarten · 4 Beispiele</figcaption></figure>
+  <p>Der farbige Bogen zeigt die Öffnung des Winkels; beim rechten Winkel zeichnet man ein kleines Quadrat mit Punkt.</p>
+  <p class="totop"><a href="#top">&uarr; nach oben</a></p>
+
+  <!-- 2 -->
+  <h2 id="linien">2. Linien: Gerade, Strahl, Strecke</h2>
+  <p>Der Unterschied liegt nur darin, ob die Linie einen Anfang und ein Ende hat. Nur die Strecke kann man mit dem Lineal messen.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Linie</th><th>Anfang</th><th>Ende</th><th>Länge messbar?</th><th>Beispiel aus dem Alltag</th></tr></thead>
+    <tbody>
+      <tr><td>Gerade</td><td>nein</td><td>nein, unendlich in beide Richtungen</td><td>nein</td><td>eine endlose Strasse in beide Richtungen</td></tr>
+      <tr><td>Strahl (Halbgerade)</td><td>ja, ein Anfangspunkt</td><td>nein, unendlich in eine Richtung</td><td>nein</td><td>ein Lichtstrahl aus einer Taschenlampe</td></tr>
+      <tr><td>Strecke</td><td>ja</td><td>ja, zwei Endpunkte</td><td>ja</td><td>ein Bleistift, eine Seite eines Dreiecks</td></tr>
+    </tbody>
+  </table></div>
+  <ul>
+    <li><strong>Gerade:</strong> Man schreibt sie mit Kleinbuchstaben, z. B. g oder h. Durch zwei Punkte geht genau eine Gerade.</li>
+    <li><strong>Strahl:</strong> Er beginnt in einem Punkt, z. B. im Punkt S, und läuft dann endlos weiter.</li>
+    <li><strong>Strecke:</strong> Man schreibt sie mit ihren Endpunkten, z. B. Strecke AB. Ihre Länge schreibt man als |AB|, z. B. |AB| = 5 cm.</li>
+  </ul>
+  <figure class="fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 268" role="img" aria-label="Gerade, Strahl und Strecke" font-size="13"><defs><marker id="ln-arrow" viewBox="0 0 10 10" ref-x="9" ref-y="5" marker-width="6" marker-height="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--cds-text-primary)"></path></marker></defs><text x="24" y="30" font-size="15" font-weight="600" fill="var(--cds-text-primary)">Nur die Strecke hat zwei Endpunkte und eine messbare Länge</text><g><text x="24" y="92" font-weight="600" fill="var(--cds-text-primary)">Gerade g</text><text x="24" y="110" font-size="11.5" fill="var(--cds-text-secondary)">kein Anfang, kein Ende</text><line x1="240" y1="96" x2="716" y2="96" stroke="var(--cds-text-primary)" stroke-width="2" marker-start="url(#ln-arrow)" marker-end="url(#ln-arrow)"></line><circle cx="400" cy="96" r="4" fill="var(--cds-text-primary)"></circle><circle cx="560" cy="96" r="4" fill="var(--cds-text-primary)"></circle><text x="400" y="80" text-anchor="middle" fill="var(--cds-text-primary)">P</text><text x="560" y="80" text-anchor="middle" fill="var(--cds-text-primary)">Q</text></g><g><text x="24" y="162" font-weight="600" fill="var(--cds-text-primary)">Strahl</text><text x="24" y="180" font-size="11.5" fill="var(--cds-text-secondary)">Anfang, aber kein Ende</text><line x1="240" y1="166" x2="716" y2="166" stroke="var(--cds-text-primary)" stroke-width="2" marker-end="url(#ln-arrow)"></line><circle cx="240" cy="166" r="4" fill="var(--cds-text-primary)"></circle><text x="240" y="150" text-anchor="middle" fill="var(--cds-text-primary)">S</text></g><g><text x="24" y="232" font-weight="600" fill="var(--cds-text-primary)">Strecke AB</text><text x="24" y="250" font-size="11.5" fill="var(--cds-text-secondary)">Anfang und Ende</text><line x1="240" y1="236" x2="560" y2="236" stroke="var(--cds-chart-categorical-1)" stroke-width="3"></line><circle cx="240" cy="236" r="4" fill="var(--cds-text-primary)"></circle><circle cx="560" cy="236" r="4" fill="var(--cds-text-primary)"></circle><text x="240" y="220" text-anchor="middle" fill="var(--cds-text-primary)">A</text><text x="560" y="220" text-anchor="middle" fill="var(--cds-text-primary)">B</text><text x="400" y="222" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">Länge |AB| messbar</text></g></svg><figcaption>Gerade, Strahl, Strecke</figcaption></figure>
+  <p>Die Pfeilspitzen bedeuten: Die Linie geht endlos weiter. Ein Punkt ohne Pfeil ist ein Anfang oder ein Ende.</p>
+
+  <h3>Lage von zwei Geraden zueinander</h3>
+  <ul>
+    <li><strong>parallel (Zeichen ∥):</strong> Die Geraden haben überall den gleichen Abstand und schneiden sich nie. Beispiel: Eisenbahnschienen. Man schreibt g ∥ h.</li>
+    <li><strong>senkrecht (Zeichen ⊥):</strong> Die Geraden schneiden sich in einem rechten Winkel (90°). Beispiel: die Ecke eines Blattes. Man schreibt g ⊥ h.</li>
+    <li><strong>schneidend:</strong> Die Geraden kreuzen sich in einem Punkt, aber nicht im rechten Winkel.</li>
+  </ul>
+  <figure class="fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 270" role="img" aria-label="Lage von zwei Geraden: parallel, senkrecht, schneidend" font-size="13"><defs><marker id="lg-arrow" viewBox="0 0 10 10" ref-x="9" ref-y="5" marker-width="6" marker-height="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--cds-chart-categorical-1)"></path></marker></defs><text x="24" y="30" font-size="15" font-weight="600" fill="var(--cds-text-primary)">Parallele schneiden sich nie, Senkrechte bilden einen rechten Winkel</text><g><line x1="42" y1="100" x2="222" y2="100" stroke="var(--cds-text-primary)" stroke-width="2"></line><line x1="42" y1="160" x2="222" y2="160" stroke="var(--cds-text-primary)" stroke-width="2"></line><line x1="92" y1="104" x2="92" y2="156" stroke="var(--cds-chart-categorical-1)" stroke-width="1.25" marker-start="url(#lg-arrow)" marker-end="url(#lg-arrow)"></line><line x1="172" y1="104" x2="172" y2="156" stroke="var(--cds-chart-categorical-1)" stroke-width="1.25" marker-start="url(#lg-arrow)" marker-end="url(#lg-arrow)"></line><text x="230" y="104" fill="var(--cds-text-primary)">g</text><text x="230" y="164" fill="var(--cds-text-primary)">h</text><text x="132" y="230" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">parallel: g ∥ h</text><text x="132" y="248" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">überall gleicher Abstand</text></g><g><line x1="290" y1="160" x2="470" y2="160" stroke="var(--cds-text-primary)" stroke-width="2"></line><line x1="380" y1="70" x2="380" y2="200" stroke="var(--cds-text-primary)" stroke-width="2"></line><path d="M380 160H396V144H380Z" fill="var(--cds-chart-categorical-1)" fill-opacity="0.18" stroke="var(--cds-chart-categorical-1)" stroke-width="1.25"></path><circle cx="388" cy="152" r="2" fill="var(--cds-text-primary)"></circle><text x="478" y="164" fill="var(--cds-text-primary)">g</text><text x="388" y="80" fill="var(--cds-text-primary)">h</text><text x="380" y="230" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">senkrecht: g ⊥ h</text><text x="380" y="248" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">Schnitt im rechten Winkel (90°)</text></g><g><line x1="538" y1="170" x2="718" y2="90" stroke="var(--cds-text-primary)" stroke-width="2"></line><line x1="538" y1="110" x2="718" y2="170" stroke="var(--cds-text-primary)" stroke-width="2"></line><circle cx="615.1" cy="135.7" r="4" fill="var(--cds-chart-categorical-1)"></circle><text x="724" y="94" fill="var(--cds-text-primary)">g</text><text x="724" y="174" fill="var(--cds-text-primary)">h</text><text x="628" y="230" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">schneidend</text><text x="628" y="248" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">ein Schnittpunkt, nicht 90°</text></g></svg><figcaption>Lage von zwei Geraden · 3 Fälle</figcaption></figure>
+  <p>Die kleinen Doppelpfeile zeigen den Abstand: Bei Parallelen ist er überall gleich gross.</p>
+
+  <h3>Mittelpunkt und Mittelsenkrechte</h3>
+  <ul>
+    <li>Der <strong>Mittelpunkt M</strong> einer Strecke AB liegt genau in der Mitte: |AM| = |MB|.</li>
+    <li>Die <strong>Mittelsenkrechte</strong> ist die Gerade, die durch den Mittelpunkt geht und senkrecht auf der Strecke steht. Jeder Punkt auf der Mittelsenkrechten ist gleich weit von A und von B entfernt.</li>
+    <li><strong>Konstruktion mit dem Zirkel:</strong>
+      <ol>
+        <li>Zirkel in A einstechen, mehr als die halbe Strecke öffnen, Bogen oberhalb und unterhalb zeichnen.</li>
+        <li>Mit derselben Zirkelöffnung in B einstechen und die gleichen Bögen zeichnen.</li>
+        <li>Die zwei Schnittpunkte der Bögen mit dem Lineal verbinden. Das ist die Mittelsenkrechte; wo sie AB schneidet, liegt M.</li>
+      </ol>
+    </li>
+  </ul>
+  <figure class="fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 462" role="img" aria-label="Konstruktion der Mittelsenkrechten mit dem Zirkel" font-size="13"><text x="24" y="28" font-size="15" font-weight="600" fill="var(--cds-text-primary)">Die Mittelsenkrechte geht durch die zwei Schnittpunkte der Bögen</text><text x="24" y="48" font-size="11.5" fill="var(--cds-text-secondary)">Zwei Bögen mit gleicher Zirkelöffnung um A und um B</text><g><path d="M397.98 120.69A220 220 0 0 0 355.45 76.64" fill="none" stroke="var(--cds-chart-axis)" stroke-width="1.5"></path><path d="M397.98 379.31A220 220 0 0 1 355.45 423.36" fill="none" stroke="var(--cds-chart-axis)" stroke-width="1.5"></path><path d="M362.02 120.69A220 220 0 0 1 404.55 76.64" fill="none" stroke="var(--cds-chart-axis)" stroke-width="1.5"></path><path d="M362.02 379.31A220 220 0 0 0 404.55 423.36" fill="none" stroke="var(--cds-chart-axis)" stroke-width="1.5"></path></g><g stroke="var(--cds-text-secondary)" stroke-width="1" stroke-dasharray="4 4"><line x1="220" y1="250" x2="380" y2="99"></line><line x1="540" y1="250" x2="380" y2="99"></line></g><g><line x1="380" y1="70" x2="380" y2="430" stroke="var(--cds-chart-categorical-1)" stroke-width="2"></line><path d="M380 250H396V234H380Z" fill="var(--cds-chart-categorical-1)" fill-opacity="0.18" stroke="var(--cds-chart-categorical-1)" stroke-width="1.25"></path><circle cx="388" cy="242" r="2" fill="var(--cds-text-primary)"></circle><text x="392" y="330" font-weight="600" fill="var(--cds-text-primary)">Mittelsenkrechte</text></g><g><line x1="220" y1="250" x2="540" y2="250" stroke="var(--cds-text-primary)" stroke-width="2"></line><circle cx="220" cy="250" r="4" fill="var(--cds-text-primary)"></circle><circle cx="540" cy="250" r="4" fill="var(--cds-text-primary)"></circle><circle cx="380" cy="250" r="4" fill="var(--cds-chart-categorical-1)"></circle><circle cx="380" cy="99" r="4" fill="var(--cds-chart-categorical-1)"></circle><circle cx="380" cy="401" r="4" fill="var(--cds-chart-categorical-1)"></circle><text x="220" y="274" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">A</text><text x="540" y="274" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">B</text><text x="392" y="272" font-weight="600" fill="var(--cds-text-primary)">M</text></g><text x="346" y="442" text-anchor="end" font-size="11.5" fill="var(--cds-text-secondary)">Bogen um A</text><text x="414" y="442" font-size="11.5" fill="var(--cds-text-secondary)">Bogen um B</text></svg><figcaption>Mittelsenkrechte mit Zirkel und Lineal</figcaption></figure>
+  <p>Die gestrichelten Linien sind gleich lang: Der obere Schnittpunkt ist gleich weit von A und von B entfernt, wie jeder Punkt der Mittelsenkrechten.</p>
+  <p class="totop"><a href="#top">&uarr; nach oben</a></p>
+
+  <!-- 3 -->
+  <h2 id="dreiecke">3. Dreiecke</h2>
+  <p>In jedem Dreieck ergeben die drei Winkel zusammen immer <strong>180°</strong>. Man kann Dreiecke nach ihren Seiten oder nach ihren Winkeln einteilen.</p>
+  <h3>Nach den Seiten</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Dreieck</th><th>Seiten</th><th>Winkel</th><th>Symmetrieachsen</th></tr></thead>
+    <tbody>
+      <tr><td>gleichseitig</td><td>alle drei Seiten gleich lang</td><td>alle drei Winkel 60°</td><td>3</td></tr>
+      <tr><td>gleichschenklig</td><td>zwei Seiten (die Schenkel) gleich lang, die dritte heisst Basis</td><td>die zwei Basiswinkel sind gleich gross</td><td>1</td></tr>
+      <tr><td>unregelmässig (allgemein)</td><td>alle Seiten verschieden lang</td><td>alle Winkel verschieden</td><td>0</td></tr>
+    </tbody>
+  </table></div>
+  <figure class="fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 298" role="img" aria-label="Dreiecke nach Seiten" font-size="13"><text x="24" y="30" font-size="15" font-weight="600" fill="var(--cds-text-primary)">Gleiche Striche bedeuten gleich lange Seiten</text><g><path d="M62 200L80 200A18 18 0 0 0 71 184.41Z" fill="var(--cds-chart-categorical-1)" fill-opacity="0.18" stroke="var(--cds-chart-categorical-1)" stroke-width="1"></path><path d="M202 200L193 184.41A18 18 0 0 0 184 200Z" fill="var(--cds-chart-categorical-1)" fill-opacity="0.18" stroke="var(--cds-chart-categorical-1)" stroke-width="1"></path><path d="M132 79L123 94.59A18 18 0 0 0 141 94.59Z" fill="var(--cds-chart-categorical-1)" fill-opacity="0.18" stroke="var(--cds-chart-categorical-1)" stroke-width="1"></path><polygon points="62,200 202,200 132,79" fill="none" stroke="var(--cds-text-primary)" stroke-width="2" stroke-linejoin="round"></polygon><line x1="132" y1="207" x2="132" y2="193" stroke="var(--cds-chart-categorical-1)" stroke-width="2"></line><line x1="173.06" y1="135.99" x2="160.94" y2="143.01" stroke="var(--cds-chart-categorical-1)" stroke-width="2"></line><line x1="90.94" y1="135.99" x2="103.06" y2="143.01" stroke="var(--cds-chart-categorical-1)" stroke-width="2"></line><text x="132" y="244" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">gleichseitig</text><text x="132" y="262" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">3 gleich lange Seiten</text><text x="132" y="278" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">alle Winkel 60°</text></g><g><path d="M330 200L350 200A20 20 0 0 0 337.17 181.33Z" fill="var(--cds-chart-categorical-1)" fill-opacity="0.18" stroke="var(--cds-chart-categorical-1)" stroke-width="1"></path><path d="M430 200L422.83 181.33A20 20 0 0 0 410 200Z" fill="var(--cds-chart-categorical-1)" fill-opacity="0.18" stroke="var(--cds-chart-categorical-1)" stroke-width="1"></path><polygon points="330,200 430,200 380,70" fill="none" stroke="var(--cds-text-primary)" stroke-width="2" stroke-linejoin="round"></polygon><line x1="361.53" y1="137.51" x2="348.47" y2="132.49" stroke="var(--cds-chart-categorical-1)" stroke-width="2"></line><line x1="411.53" y1="132.49" x2="398.47" y2="137.51" stroke="var(--cds-chart-categorical-1)" stroke-width="2"></line><text x="380" y="218" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">Basis</text><text x="380" y="244" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">gleichschenklig</text><text x="380" y="262" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">2 gleich lange Schenkel</text><text x="380" y="278" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">2 gleiche Basiswinkel</text></g><g><polygon points="538,200 718,200 668,90" fill="none" stroke="var(--cds-text-primary)" stroke-width="2" stroke-linejoin="round"></polygon><text x="628" y="244" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">unregelmässig</text><text x="628" y="262" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">alle Seiten verschieden</text><text x="628" y="278" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">alle Winkel verschieden</text></g></svg><figcaption>Dreiecke nach Seiten · 3 Arten</figcaption></figure>
+  <p>Die farbigen Bögen markieren gleich grosse Winkel: drei beim gleichseitigen, zwei Basiswinkel beim gleichschenkligen Dreieck.</p>
+
+  <h3>Nach den Winkeln</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Dreieck</th><th>Grösster Winkel</th><th>Besonderes</th></tr></thead>
+    <tbody>
+      <tr><td>spitzwinklig</td><td>alle drei Winkel kleiner als 90°</td><td>–</td></tr>
+      <tr><td>rechtwinklig</td><td>genau ein Winkel ist 90°</td><td>Die längste Seite gegenüber dem rechten Winkel heisst <strong>Hypotenuse</strong>, die zwei anderen heissen <strong>Katheten</strong>.</td></tr>
+      <tr><td>stumpfwinklig</td><td>ein Winkel grösser als 90°</td><td>–</td></tr>
+    </tbody>
+  </table></div>
+  <figure class="fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 282" role="img" aria-label="Dreiecke nach Winkeln" font-size="13"><text x="24" y="30" font-size="15" font-weight="600" fill="var(--cds-text-primary)">Der grösste Winkel entscheidet: spitz, recht oder stumpf</text><g><polygon points="52,200 212,200 142,85" fill="none" stroke="var(--cds-text-primary)" stroke-width="2" stroke-linejoin="round"></polygon><text x="132" y="244" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">spitzwinklig</text><text x="132" y="262" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">alle Winkel kleiner als 90°</text></g><g><path d="M310 200H326V184H310Z" fill="var(--cds-chart-categorical-1)" fill-opacity="0.18" stroke="var(--cds-chart-categorical-1)" stroke-width="1.25"></path><circle cx="318" cy="192" r="2" fill="var(--cds-text-primary)"></circle><polygon points="310,200 460,200 310,80" fill="none" stroke="var(--cds-text-primary)" stroke-width="2" stroke-linejoin="round"></polygon><line x1="460" y1="200" x2="310" y2="80" stroke="var(--cds-chart-categorical-1)" stroke-width="3" stroke-linecap="round"></line><text x="397" y="128" font-size="11.5" font-weight="600" fill="var(--cds-text-primary)">Hypotenuse</text><text x="385" y="218" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">Kathete</text><text x="302" y="144" text-anchor="end" font-size="11.5" fill="var(--cds-text-secondary)">Kathete</text><text x="380" y="244" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">rechtwinklig</text><text x="380" y="262" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">ein Winkel genau 90°</text></g><g><path d="M668 200L679.18 183.42A20 20 0 0 0 648 200Z" fill="var(--cds-chart-categorical-1)" fill-opacity="0.18" stroke="var(--cds-chart-categorical-1)" stroke-width="1"></path><polygon points="538,200 668,200 723,120" fill="none" stroke="var(--cds-text-primary)" stroke-width="2" stroke-linejoin="round"></polygon><text x="628" y="244" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">stumpfwinklig</text><text x="628" y="262" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">ein Winkel grösser als 90°</text></g></svg><figcaption>Dreiecke nach Winkeln · 3 Arten</figcaption></figure>
+  <p>Im rechtwinkligen Dreieck liegt die Hypotenuse (blau) immer gegenüber dem rechten Winkel und ist die längste Seite.</p>
+
+  <h3>Wichtige Merksätze</h3>
+  <ul>
+    <li>Ein Dreieck kann <strong>höchstens einen</strong> rechten oder stumpfen Winkel haben, denn zwei davon wären schon 180° oder mehr.</li>
+    <li>Die Einteilungen lassen sich kombinieren: Ein <strong>gleichschenklig-rechtwinkliges</strong> Dreieck hat die Winkel 45°, 45° und 90° (wie das Geodreieck).</li>
+    <li>Ein gleichseitiges Dreieck ist immer auch gleichschenklig und immer spitzwinklig.</li>
+    <li><strong>Dreiecksungleichung:</strong> Zwei Seiten zusammen sind immer länger als die dritte Seite. Mit 3 cm, 4 cm und 9 cm lässt sich kein Dreieck zeichnen, denn 3 + 4 = 7 ist kleiner als 9.</li>
+    <li>Die <strong>Höhe</strong> h ist die senkrechte Strecke von einer Ecke auf die gegenüberliegende Seite. Bei einem stumpfwinkligen Dreieck kann sie ausserhalb des Dreiecks liegen (<a href="#stumpf">Beispiel</a>).</li>
+    <li>Gegenüber der längsten Seite liegt immer der grösste Winkel.</li>
+  </ul>
+  <p class="totop"><a href="#top">&uarr; nach oben</a></p>
+
+  <!-- 4 -->
+  <h2 id="vierecke">4. Vierecke</h2>
+  <p>In jedem Viereck ergeben die vier Winkel zusammen immer <strong>360°</strong> (eine Diagonale teilt es in zwei Dreiecke: 2 × 180°). Die Vierecke unterscheiden sich durch parallele Seiten, gleich lange Seiten und rechte Winkel.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Viereck</th><th>Seiten</th><th>Winkel</th><th>Diagonalen</th><th>Symmetrieachsen</th></tr></thead>
+    <tbody>
+      <tr><td>Quadrat</td><td>alle 4 gleich lang, gegenüberliegende parallel</td><td>alle 90°</td><td>gleich lang, halbieren sich, stehen senkrecht aufeinander</td><td>4</td></tr>
+      <tr><td>Rechteck</td><td>gegenüberliegende gleich lang und parallel</td><td>alle 90°</td><td>gleich lang, halbieren sich</td><td>2</td></tr>
+      <tr><td>Rhombus (Raute)</td><td>alle 4 gleich lang, gegenüberliegende parallel</td><td>gegenüberliegende gleich gross</td><td>halbieren sich, stehen senkrecht aufeinander, verschieden lang</td><td>2 (die Diagonalen)</td></tr>
+      <tr><td>Rhomboid (Parallelogramm)</td><td>gegenüberliegende gleich lang und parallel</td><td>gegenüberliegende gleich gross; zwei benachbarte ergeben 180°</td><td>halbieren sich</td><td>0 (nur punktsymmetrisch)</td></tr>
+      <tr><td>Trapez</td><td>mindestens ein Paar paralleler Seiten</td><td>die zwei Winkel an einem Schenkel ergeben 180°</td><td>keine besondere Eigenschaft</td><td>0 (gleichschenkliges Trapez: 1)</td></tr>
+      <tr><td>Drachenviereck</td><td>zwei Paare benachbarter Seiten gleich lang</td><td>ein Paar gegenüberliegender Winkel gleich gross</td><td>stehen senkrecht aufeinander, eine halbiert die andere</td><td>1</td></tr>
+      <tr><td>allgemeines Viereck</td><td>keine besondere Eigenschaft</td><td>Summe 360°</td><td>keine besondere Eigenschaft</td><td>0</td></tr>
+    </tbody>
+  </table></div>
+  <figure class="fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 470" role="img" aria-label="Sechs Vierecke im Vergleich" font-size="13"><text x="24" y="28" font-size="15" font-weight="600" fill="var(--cds-text-primary)">Woran man die Vierecke erkennt</text><text x="24" y="48" font-size="11.5" fill="var(--cds-text-secondary)">Striche: gleich lange Seiten · Quadrätchen: 90° · gestrichelt: Diagonalen · blau: parallele Seiten</text><g><line x1="85" y1="65" x2="195" y2="175" stroke="var(--cds-chart-axis)" stroke-width="1" stroke-dasharray="4 4"></line><line x1="195" y1="65" x2="85" y2="175" stroke="var(--cds-chart-axis)" stroke-width="1" stroke-dasharray="4 4"></line><polygon points="85,65 195,65 195,175 85,175" fill="none" stroke="var(--cds-text-primary)" stroke-width="2" stroke-linejoin="round"></polygon><path d="M85 175H97V163H85Z" fill="var(--cds-chart-categorical-1)" fill-opacity="0.18" stroke="var(--cds-chart-categorical-1)" stroke-width="1"></path><line x1="140" y1="72" x2="140" y2="58" stroke="var(--cds-chart-categorical-1)" stroke-width="2"></line><line x1="188" y1="120" x2="202" y2="120" stroke="var(--cds-chart-categorical-1)" stroke-width="2"></line><line x1="140" y1="168" x2="140" y2="182" stroke="var(--cds-chart-categorical-1)" stroke-width="2"></line><line x1="92" y1="120" x2="78" y2="120" stroke="var(--cds-chart-categorical-1)" stroke-width="2"></line><text x="140" y="205" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">Quadrat</text><text x="140" y="223" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">4 gleiche Seiten, 4 × 90°</text></g><g><line x1="295" y1="70" x2="465" y2="170" stroke="var(--cds-chart-axis)" stroke-width="1" stroke-dasharray="4 4"></line><line x1="465" y1="70" x2="295" y2="170" stroke="var(--cds-chart-axis)" stroke-width="1" stroke-dasharray="4 4"></line><polygon points="295,70 465,70 465,170 295,170" fill="none" stroke="var(--cds-text-primary)" stroke-width="2" stroke-linejoin="round"></polygon><path d="M295 170H307V158H295Z" fill="var(--cds-chart-categorical-1)" fill-opacity="0.18" stroke="var(--cds-chart-categorical-1)" stroke-width="1"></path><line x1="380" y1="77" x2="380" y2="63" stroke="var(--cds-chart-categorical-1)" stroke-width="2"></line><line x1="380" y1="177" x2="380" y2="163" stroke="var(--cds-chart-categorical-1)" stroke-width="2"></line><line x1="288" y1="117" x2="302" y2="117" stroke="var(--cds-chart-categorical-1)" stroke-width="2"></line><line x1="288" y1="123" x2="302" y2="123" stroke="var(--cds-chart-categorical-1)" stroke-width="2"></line><line x1="458" y1="117" x2="472" y2="117" stroke="var(--cds-chart-categorical-1)" stroke-width="2"></line><line x1="458" y1="123" x2="472" y2="123" stroke="var(--cds-chart-categorical-1)" stroke-width="2"></line><text x="380" y="205" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">Rechteck</text><text x="380" y="223" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">Gegenseiten gleich, 4 × 90°</text></g><g><line x1="530" y1="120" x2="710" y2="120" stroke="var(--cds-chart-axis)" stroke-width="1" stroke-dasharray="4 4"></line><line x1="620" y1="65" x2="620" y2="175" stroke="var(--cds-chart-axis)" stroke-width="1" stroke-dasharray="4 4"></line><polygon points="530,120 620,65 710,120 620,175" fill="none" stroke="var(--cds-text-primary)" stroke-width="2" stroke-linejoin="round"></polygon><path d="M620 120H632V108H620Z" fill="var(--cds-chart-categorical-1)" fill-opacity="0.18" stroke="var(--cds-chart-categorical-1)" stroke-width="1"></path><line x1="578.65" y1="98.47" x2="571.35" y2="86.53" stroke="var(--cds-chart-categorical-1)" stroke-width="2"></line><line x1="661.35" y1="98.47" x2="668.65" y2="86.53" stroke="var(--cds-chart-categorical-1)" stroke-width="2"></line><line x1="661.35" y1="141.53" x2="668.65" y2="153.47" stroke="var(--cds-chart-categorical-1)" stroke-width="2"></line><line x1="578.65" y1="141.53" x2="571.35" y2="153.47" stroke="var(--cds-chart-categorical-1)" stroke-width="2"></line><text x="620" y="205" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">Rhombus (Raute)</text><text x="620" y="223" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">4 gleiche Seiten, schief</text></g><g><line x1="50" y1="390" x2="230" y2="290" stroke="var(--cds-chart-axis)" stroke-width="1" stroke-dasharray="4 4"></line><line x1="190" y1="390" x2="90" y2="290" stroke="var(--cds-chart-axis)" stroke-width="1" stroke-dasharray="4 4"></line><polygon points="50,390 190,390 230,290 90,290" fill="none" stroke="var(--cds-text-primary)" stroke-width="2" stroke-linejoin="round"></polygon><line x1="120" y1="397" x2="120" y2="383" stroke="var(--cds-chart-categorical-1)" stroke-width="2"></line><line x1="160" y1="297" x2="160" y2="283" stroke="var(--cds-chart-categorical-1)" stroke-width="2"></line><line x1="75.39" y1="345.39" x2="62.39" y2="340.19" stroke="var(--cds-chart-categorical-1)" stroke-width="2"></line><line x1="77.61" y1="339.81" x2="64.61" y2="334.61" stroke="var(--cds-chart-categorical-1)" stroke-width="2"></line><line x1="215.39" y1="345.39" x2="202.39" y2="340.19" stroke="var(--cds-chart-categorical-1)" stroke-width="2"></line><line x1="217.61" y1="339.81" x2="204.61" y2="334.61" stroke="var(--cds-chart-categorical-1)" stroke-width="2"></line><text x="140" y="430" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">Rhomboid</text><text x="140" y="448" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">Gegenseiten gleich und parallel</text></g><g><polygon points="285,390 475,390 430,290 345,290" fill="none" stroke="var(--cds-text-primary)" stroke-width="2" stroke-linejoin="round"></polygon><line x1="285" y1="390" x2="475" y2="390" stroke="var(--cds-chart-categorical-1)" stroke-width="3.5" stroke-linecap="round"></line><line x1="345" y1="290" x2="430" y2="290" stroke="var(--cds-chart-categorical-1)" stroke-width="3.5" stroke-linecap="round"></line><text x="380" y="430" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">Trapez</text><text x="380" y="448" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">1 Paar parallele Seiten</text></g><g><line x1="620" y1="280" x2="620" y2="405" stroke="var(--cds-chart-axis)" stroke-width="1" stroke-dasharray="4 4"></line><line x1="560" y1="315" x2="680" y2="315" stroke="var(--cds-chart-axis)" stroke-width="1" stroke-dasharray="4 4"></line><polygon points="620,280 680,315 620,405 560,315" fill="none" stroke="var(--cds-text-primary)" stroke-width="2" stroke-linejoin="round"></polygon><path d="M620 315H632V303H620Z" fill="var(--cds-chart-categorical-1)" fill-opacity="0.18" stroke="var(--cds-chart-categorical-1)" stroke-width="1"></path><line x1="646.47" y1="303.55" x2="653.53" y2="291.45" stroke="var(--cds-chart-categorical-1)" stroke-width="2"></line><line x1="586.47" y1="291.45" x2="593.53" y2="303.55" stroke="var(--cds-chart-categorical-1)" stroke-width="2"></line><line x1="645.84" y1="353.62" x2="657.49" y2="361.39" stroke="var(--cds-chart-categorical-1)" stroke-width="2"></line><line x1="642.51" y1="358.61" x2="654.16" y2="366.38" stroke="var(--cds-chart-categorical-1)" stroke-width="2"></line><line x1="582.51" y1="361.39" x2="594.16" y2="353.62" stroke="var(--cds-chart-categorical-1)" stroke-width="2"></line><line x1="585.84" y1="366.38" x2="597.49" y2="358.61" stroke="var(--cds-chart-categorical-1)" stroke-width="2"></line><text x="620" y="430" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">Drachenviereck</text><text x="620" y="448" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">2 Paar gleiche Nachbarseiten</text></g></svg><figcaption>Vierecke · 6 Formen mit Merkzeichen</figcaption></figure>
+  <p>Beim Rhombus und beim Drachen stehen die Diagonalen senkrecht aufeinander; beim Quadrat und Rechteck sind sie gleich lang.</p>
+
+  <h3>Die wichtigsten Unterschiede</h3>
+  <ul>
+    <li><strong>Quadrat oder Rechteck?</strong> Beide haben vier rechte Winkel. Beim Quadrat sind alle Seiten gleich lang, beim Rechteck nur die gegenüberliegenden.</li>
+    <li><strong>Quadrat oder Rhombus?</strong> Beide haben vier gleich lange Seiten. Das Quadrat hat rechte Winkel, der Rhombus ist «schief gedrückt». Ein Rhombus mit rechten Winkeln ist ein Quadrat.</li>
+    <li><strong>Rechteck oder Rhomboid?</strong> Bei beiden sind gegenüberliegende Seiten gleich lang und parallel. Das Rechteck hat rechte Winkel, der Rhomboid ist schief. Ein Rhomboid mit rechten Winkeln ist ein Rechteck.</li>
+    <li><strong>Rhombus oder Rhomboid?</strong> Beide sind schief und haben parallele Gegenseiten. Beim Rhombus sind alle vier Seiten gleich lang, beim Rhomboid nur die gegenüberliegenden.</li>
+    <li><strong>Trapez oder Rhomboid?</strong> Das Trapez braucht nur ein Paar paralleler Seiten, der Rhomboid hat zwei Paare.</li>
+    <li><strong>Rhombus oder Drachenviereck?</strong> Beim Drachen sind nur benachbarte Seiten paarweise gleich lang. Sind alle vier gleich lang, ist der Drachen ein Rhombus.</li>
+  </ul>
+
+  <h3>Merksatz: Familien von Vierecken</h3>
+  <p>Jede Form erbt die Eigenschaften der Form darüber. Deshalb gilt:</p>
+  <ul>
+    <li>Jedes Quadrat ist ein Rechteck, ein Rhombus, ein Rhomboid, ein Trapez und ein Drachenviereck.</li>
+    <li>Jedes Rechteck ist ein Rhomboid, aber nicht jedes Rechteck ist ein Quadrat.</li>
+    <li>Jeder Rhombus ist ein Rhomboid und ein Drachenviereck, aber nicht jeder Rhombus ist ein Quadrat.</li>
+  </ul>
+  <p>Das «Haus der Vierecke» zeigt diese Familie als Bild: Je weiter unten eine Form steht, desto mehr Eigenschaften hat sie.</p>
+  <figure class="fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 512" role="img" aria-label="Haus der Vierecke: Je weiter unten, desto mehr Eigenschaften" font-size="13"><defs><marker id="haus-arrow" viewBox="0 0 10 10" ref-x="9" ref-y="5" marker-width="6" marker-height="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--cds-chart-axis)"></path></marker></defs><text x="24" y="30" font-size="15" font-weight="600" fill="var(--cds-text-primary)">Je weiter unten, desto mehr Eigenschaften: Das Quadrat erfüllt alle</text><text x="24" y="52" font-size="11.5" fill="var(--cds-text-secondary)">Ein Pfeil bedeutet: «ist ein Spezialfall von» der Form darüber</text><g fill="none" stroke="var(--cds-chart-axis)" stroke-width="1.25"><path d="M385 128L230 162" marker-end="url(#haus-arrow)"></path><path d="M385 128L560 162" marker-end="url(#haus-arrow)"></path><path d="M230 218L120 252" marker-end="url(#haus-arrow)"></path><path d="M230 218L340 252" marker-end="url(#haus-arrow)"></path><path d="M120 308L230 342" marker-end="url(#haus-arrow)"></path><path d="M340 308L230 342" marker-end="url(#haus-arrow)"></path><path d="M340 308L540 342" marker-end="url(#haus-arrow)"></path><path d="M560 218L540 342" marker-end="url(#haus-arrow)"></path><path d="M230 398L385 432" marker-end="url(#haus-arrow)"></path><path d="M540 398L385 432" marker-end="url(#haus-arrow)"></path></g><g><rect x="290" y="72" width="190" height="56" rx="8" fill="none" fill-opacity="1" stroke="var(--cds-chart-axis)" stroke-width="1.25"></rect><text x="385" y="94" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">Allgemeines Viereck</text><text x="385" y="114" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">Winkelsumme 360°</text></g><g><rect x="135" y="162" width="190" height="56" rx="8" fill="none" fill-opacity="1" stroke="var(--cds-chart-axis)" stroke-width="1.25"></rect><text x="230" y="184" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">Trapez</text><text x="230" y="204" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">1 Paar parallele Seiten</text></g><g><rect x="465" y="162" width="190" height="56" rx="8" fill="none" fill-opacity="1" stroke="var(--cds-chart-axis)" stroke-width="1.25"></rect><text x="560" y="184" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">Drachenviereck</text><text x="560" y="204" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">Nachbarseiten paarweise gleich</text></g><g><rect x="25" y="252" width="190" height="56" rx="8" fill="none" fill-opacity="1" stroke="var(--cds-chart-axis)" stroke-width="1.25"></rect><text x="120" y="274" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">gleichschenkl. Trapez</text><text x="120" y="294" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">Schenkel gleich lang</text></g><g><rect x="245" y="252" width="190" height="56" rx="8" fill="none" fill-opacity="1" stroke="var(--cds-chart-axis)" stroke-width="1.25"></rect><text x="340" y="274" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">Rhomboid</text><text x="340" y="294" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">2 Paar parallele Seiten</text></g><g><rect x="135" y="342" width="190" height="56" rx="8" fill="none" fill-opacity="1" stroke="var(--cds-chart-axis)" stroke-width="1.25"></rect><text x="230" y="364" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">Rechteck</text><text x="230" y="384" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">4 rechte Winkel</text></g><g><rect x="445" y="342" width="190" height="56" rx="8" fill="none" fill-opacity="1" stroke="var(--cds-chart-axis)" stroke-width="1.25"></rect><text x="540" y="364" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">Rhombus (Raute)</text><text x="540" y="384" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">4 gleich lange Seiten</text></g><g><rect x="290" y="432" width="190" height="56" rx="8" fill="var(--cds-chart-categorical-1)" fill-opacity="0.12" stroke="var(--cds-chart-categorical-1)" stroke-width="2"></rect><text x="385" y="454" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">Quadrat</text><text x="385" y="474" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">gleiche Seiten und 4 × 90°</text></g></svg><figcaption>Haus der Vierecke · 8 Formen</figcaption></figure>
+  <p>Folgt man den Pfeilen nach unten, kommt jedes Mal eine Eigenschaft dazu; das Quadrat ist gleichzeitig Rechteck und Rhombus.</p>
+  <p class="totop"><a href="#top">&uarr; nach oben</a></p>
+
+  <!-- 5 -->
+  <h2 id="kreis">5. Kreis</h2>
+  <p>Alle Punkte auf der Kreislinie sind genau gleich weit vom Mittelpunkt entfernt. Diesen Abstand nennt man Radius; man zeichnet einen Kreis deshalb mit dem Zirkel.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Begriff</th><th>Bedeutung</th><th>Zeichen</th></tr></thead>
+    <tbody>
+      <tr><td>Mittelpunkt</td><td>Punkt in der Mitte, hier sticht der Zirkel ein</td><td>M</td></tr>
+      <tr><td>Radius</td><td>Strecke vom Mittelpunkt bis zur Kreislinie</td><td>r</td></tr>
+      <tr><td>Durchmesser</td><td>Strecke durch den Mittelpunkt von Rand zu Rand; doppelt so lang wie der Radius</td><td>d = 2 · r</td></tr>
+      <tr><td>Kreislinie</td><td>der Rand des Kreises</td><td>k</td></tr>
+      <tr><td>Sehne</td><td>Strecke, die zwei Punkte der Kreislinie verbindet; die längste Sehne ist der Durchmesser</td><td>s</td></tr>
+      <tr><td>Tangente</td><td>Gerade, die den Kreis in genau einem Punkt berührt; sie steht dort senkrecht zum Radius</td><td>t</td></tr>
+      <tr><td>Sekante</td><td>Gerade, die den Kreis in zwei Punkten schneidet</td><td>–</td></tr>
+      <tr><td>Kreisbogen</td><td>ein Stück der Kreislinie</td><td>b</td></tr>
+      <tr><td>Kreissektor</td><td>«Tortenstück» zwischen zwei Radien und einem Bogen</td><td>–</td></tr>
+    </tbody>
+  </table></div>
+  <figure class="fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 404" role="img" aria-label="Der Kreis und seine Begriffe" font-size="13"><text x="24" y="28" font-size="15" font-weight="600" fill="var(--cds-text-primary)">Der Durchmesser ist doppelt so lang wie der Radius</text><g><path d="M300 240L440 240A140 140 0 0 0 370 118.8Z" fill="var(--cds-chart-categorical-1)" fill-opacity="0.15" stroke="none"></path><text x="384" y="196" text-anchor="middle" font-size="11.5" fill="var(--cds-text-primary)">Kreissektor</text></g><circle cx="300" cy="240" r="140" fill="none" stroke="var(--cds-text-primary)" stroke-width="2"></circle><g><line x1="160" y1="240" x2="440" y2="240" stroke="var(--cds-text-primary)" stroke-width="1.5"></line><text x="230" y="232" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">d</text></g><g><line x1="300" y1="240" x2="370" y2="118.8" stroke="var(--cds-chart-categorical-1)" stroke-width="2.5"></line><text x="322" y="172" text-anchor="middle" font-weight="600" fill="var(--cds-chart-categorical-1)">r</text></g><g><line x1="168.4" y1="287.9" x2="370" y2="361.2" stroke="var(--cds-chart-categorical-2)" stroke-width="2.5"></line><text x="276" y="308" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">s</text></g><g><line x1="134.7" y1="173.8" x2="325.3" y2="63.8" stroke="var(--cds-chart-categorical-3)" stroke-width="2"></line><circle cx="230" cy="118.8" r="4" fill="var(--cds-chart-categorical-3)"></circle><text x="333" y="64" font-weight="600" fill="var(--cds-text-primary)">t</text></g><circle cx="300" cy="240" r="4" fill="var(--cds-text-primary)"></circle><text x="292" y="260" text-anchor="end" font-weight="600" fill="var(--cds-text-primary)">M</text><g><text x="500" y="120" fill="var(--cds-text-primary)">M = Mittelpunkt</text><text x="500" y="148" fill="var(--cds-text-primary)">r = Radius</text><text x="500" y="176" fill="var(--cds-text-primary)">d = Durchmesser = 2 · r</text><text x="500" y="204" fill="var(--cds-text-primary)">s = Sehne (Rand zu Rand)</text><text x="500" y="232" fill="var(--cds-text-primary)">t = Tangente (berührt 1 Punkt)</text><text x="500" y="260" fill="var(--cds-text-primary)">Kreissektor = «Tortenstück»</text><text x="500" y="300" font-size="11.5" fill="var(--cds-text-secondary)">Umfang ≈ 3,14 × Durchmesser</text></g></svg><figcaption>Kreis mit Mittelpunkt, Radius, Durchmesser, Sehne, Tangente</figcaption></figure>
+  <p>Die Tangente t berührt den Kreis nur in einem Punkt; die Sehne s verbindet zwei Punkte auf dem Rand, geht aber nicht durch M.</p>
+  <ul>
+    <li>Ein Kreis hat <strong>keine Ecken</strong> und <strong>unendlich viele Symmetrieachsen</strong>: Jede Gerade durch den Mittelpunkt ist eine Symmetrieachse.</li>
+    <li>Die Zahl <strong>π (Pi)</strong> ≈ 3,14 sagt, wie oft der Durchmesser in den Umfang passt. Der Umfang ist also gut dreimal so lang wie der Durchmesser.</li>
+    <li>Beim Zeichnen: Ist der Durchmesser gegeben (z. B. d = 6 cm), muss der Zirkel auf den Radius (3 cm) geöffnet werden.</li>
+  </ul>
+
+  <h3 id="thales">Satz des Thales: Dreieck über dem Durchmesser</h3>
+  <p>Ist die Seite AB ein <strong>Durchmesser</strong> des Kreises und liegt die dritte Ecke C <strong>auf der Kreislinie</strong>, dann hat das Dreieck bei C immer einen <strong>rechten Winkel (90°)</strong>. Den Halbkreis über AB nennt man <strong>Thaleskreis</strong>.</p>
+  <figure class="fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 318" role="img" aria-label="Satz des Thales: drei Beispiele" font-size="13"><text x="24" y="30" font-size="15" font-weight="600" fill="var(--cds-text-primary)">Egal wo C auf dem Kreis liegt: Der Winkel bei C ist immer 90°</text><g><g><circle cx="132" cy="160" r="90" fill="none" stroke="var(--cds-chart-axis)" stroke-width="1.25"></circle><polygon points="42,160 222,160 63.06,102.15" fill="var(--cds-chart-categorical-1)" fill-opacity="0.15" stroke="var(--cds-text-primary)" stroke-width="2" stroke-linejoin="round"></polygon><path d="M63.06 102.15L58.61 114.37L70.83 118.81L75.27 106.6Z" fill="var(--cds-chart-categorical-1)" fill-opacity="0.35" stroke="var(--cds-chart-categorical-1)" stroke-width="1.25"></path><circle cx="132" cy="160" r="3" fill="var(--cds-text-primary)"></circle><circle cx="42" cy="160" r="3.5" fill="var(--cds-text-primary)"></circle><circle cx="222" cy="160" r="3.5" fill="var(--cds-text-primary)"></circle><circle cx="63.06" cy="102.15" r="3.5" fill="var(--cds-chart-categorical-1)"></circle></g><text x="36" y="164" text-anchor="end" font-weight="600" fill="var(--cds-text-primary)">A</text><text x="228" y="164" font-weight="600" fill="var(--cds-text-primary)">B</text><text x="132" y="180" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">M</text><text x="50.8" y="95.86" text-anchor="middle" font-weight="600" fill="var(--cds-chart-categorical-1)">C</text><text x="132" y="280" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">Beispiel 1</text><text x="132" y="298" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">C links oben: 90°</text></g><g><g><circle cx="380" cy="160" r="90" fill="none" stroke="var(--cds-chart-axis)" stroke-width="1.25"></circle><polygon points="290,160 470,160 380,70" fill="var(--cds-chart-categorical-1)" fill-opacity="0.15" stroke="var(--cds-text-primary)" stroke-width="2" stroke-linejoin="round"></polygon><path d="M380 70L370.81 79.19L380 88.38L389.19 79.19Z" fill="var(--cds-chart-categorical-1)" fill-opacity="0.35" stroke="var(--cds-chart-categorical-1)" stroke-width="1.25"></path><circle cx="380" cy="160" r="3" fill="var(--cds-text-primary)"></circle><circle cx="290" cy="160" r="3.5" fill="var(--cds-text-primary)"></circle><circle cx="470" cy="160" r="3.5" fill="var(--cds-text-primary)"></circle><circle cx="380" cy="70" r="3.5" fill="var(--cds-chart-categorical-1)"></circle></g><text x="284" y="164" text-anchor="end" font-weight="600" fill="var(--cds-text-primary)">A</text><text x="476" y="164" font-weight="600" fill="var(--cds-text-primary)">B</text><text x="380" y="180" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">M</text><text x="380" y="58" text-anchor="middle" font-weight="600" fill="var(--cds-chart-categorical-1)">C</text><text x="380" y="280" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">Beispiel 2</text><text x="380" y="298" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">C ganz oben: 90°</text></g><g><g><circle cx="628" cy="160" r="90" fill="none" stroke="var(--cds-chart-axis)" stroke-width="1.25"></circle><polygon points="538,160 718,160 701.72,108.38" fill="var(--cds-chart-categorical-1)" fill-opacity="0.15" stroke="var(--cds-text-primary)" stroke-width="2" stroke-linejoin="round"></polygon><path d="M701.72 108.38L689.33 112.29L693.23 124.69L705.63 120.78Z" fill="var(--cds-chart-categorical-1)" fill-opacity="0.35" stroke="var(--cds-chart-categorical-1)" stroke-width="1.25"></path><circle cx="628" cy="160" r="3" fill="var(--cds-text-primary)"></circle><circle cx="538" cy="160" r="3.5" fill="var(--cds-text-primary)"></circle><circle cx="718" cy="160" r="3.5" fill="var(--cds-text-primary)"></circle><circle cx="701.72" cy="108.38" r="3.5" fill="var(--cds-chart-categorical-1)"></circle></g><text x="532" y="164" text-anchor="end" font-weight="600" fill="var(--cds-text-primary)">A</text><text x="724" y="164" font-weight="600" fill="var(--cds-text-primary)">B</text><text x="628" y="180" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">M</text><text x="714.83" y="103.2" text-anchor="middle" font-weight="600" fill="var(--cds-chart-categorical-1)">C</text><text x="628" y="280" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">Beispiel 3</text><text x="628" y="298" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">C rechts oben: 90°</text></g></svg><figcaption>Satz des Thales · 3 Beispiele</figcaption></figure>
+  <p>In allen drei Beispielen ist AB derselbe Durchmesser, C liegt jedes Mal an einer anderen Stelle, und trotzdem ist der Winkel bei C genau 90°. Probiere es selbst: Kreis zeichnen, Durchmesser AB einzeichnen, irgendeinen Punkt C auf den Kreis setzen und den Winkel bei C mit dem Geodreieck messen.</p>
+  <p><strong>Warum stimmt das?</strong> Die Strecke MC teilt das Dreieck in zwei gleichschenklige Dreiecke, denn MA, MB und MC sind alles Radien.</p>
+  <figure class="fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 372" role="img" aria-label="Begründung des Satzes von Thales" font-size="13"><text x="24" y="30" font-size="15" font-weight="600" fill="var(--cds-text-primary)">Warum der Winkel bei C immer 90° ist</text><g><circle cx="230" cy="200" r="140" fill="none" stroke="var(--cds-chart-axis)" stroke-width="1.25"></circle><polygon points="90,200 230,200 170.83,73.12" fill="var(--cds-chart-categorical-1)" fill-opacity="0.12" stroke="none"></polygon><polygon points="230,200 370,200 170.83,73.12" fill="var(--cds-chart-categorical-2)" fill-opacity="0.12" stroke="none"></polygon><path d="M90 200L112 200A22 22 0 0 0 101.82 181.45Z" fill="var(--cds-chart-categorical-1)" fill-opacity="0.4" stroke="var(--cds-chart-categorical-1)" stroke-width="1"></path><path d="M170.83 73.12L159.01 91.67A22 22 0 0 0 180.13 93.06Z" fill="var(--cds-chart-categorical-1)" fill-opacity="0.4" stroke="var(--cds-chart-categorical-1)" stroke-width="1"></path><path d="M370 200L351.45 188.18A22 22 0 0 0 348 200Z" fill="var(--cds-chart-categorical-2)" fill-opacity="0.4" stroke="var(--cds-chart-categorical-2)" stroke-width="1"></path><path d="M170.83 73.12L180.13 93.06A22 22 0 0 0 189.39 84.94Z" fill="var(--cds-chart-categorical-2)" fill-opacity="0.4" stroke="var(--cds-chart-categorical-2)" stroke-width="1"></path><polygon points="90,200 370,200 170.83,73.12" fill="none" stroke="var(--cds-text-primary)" stroke-width="2" stroke-linejoin="round"></polygon><line x1="230" y1="200" x2="170.83" y2="73.12" stroke="var(--cds-text-primary)" stroke-width="1.5" stroke-dasharray="5 4"></line><circle cx="230" cy="200" r="3.5" fill="var(--cds-text-primary)"></circle><text x="82" y="204" text-anchor="end" font-weight="600" fill="var(--cds-text-primary)">A</text><text x="378" y="204" font-weight="600" fill="var(--cds-text-primary)">B</text><text x="230" y="222" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">M</text><text x="164.83" y="63.12" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">C</text><text x="121.56" y="186.68" text-anchor="middle" font-weight="600" fill="var(--cds-chart-categorical-1)">α</text><text x="168.48" y="113.04" text-anchor="middle" font-weight="600" fill="var(--cds-chart-categorical-1)">α</text><text x="335.44" y="193.93" text-anchor="middle" font-weight="600" fill="var(--cds-chart-categorical-2)">β</text><text x="194.57" y="104.18" text-anchor="middle" font-weight="600" fill="var(--cds-chart-categorical-2)">β</text><text x="212" y="140" text-anchor="end" font-size="11.5" fill="var(--cds-text-secondary)">r</text></g><g><text x="430" y="100" fill="var(--cds-text-primary)">1. MA = MB = MC (alles Radien r)</text><text x="430" y="132" fill="var(--cds-text-primary)">2. Dreieck AMC ist gleichschenklig:</text><text x="448" y="152" fill="var(--cds-chart-categorical-1)">beide blauen Winkel sind α</text><text x="430" y="184" fill="var(--cds-text-primary)">3. Dreieck MBC ist gleichschenklig:</text><text x="448" y="204" fill="var(--cds-chart-categorical-2)">beide orangen Winkel sind β</text><text x="430" y="236" fill="var(--cds-text-primary)">4. Winkelsumme im Dreieck ABC:</text><text x="448" y="256" fill="var(--cds-text-primary)">α + β + α + β = 180°</text><text x="430" y="288" font-weight="600" fill="var(--cds-text-primary)">5. Also α + β = 90° = Winkel bei C</text></g></svg><figcaption>Begründung des Satzes von Thales</figcaption></figure>
+  <p>Der Winkel bei C besteht aus einem α und einem β. Weil alle vier Winkel zusammen 180° ergeben, ist α + β genau die Hälfte: 90°.</p>
+  <p class="totop"><a href="#top">&uarr; nach oben</a></p>
+
+  <!-- 6 -->
+  <h2 id="umfang-flaeche">6. Umfang und Fläche</h2>
+  <p>Der <strong>Umfang</strong> ist die Länge des Randes (Einheit: cm, m). Die <strong>Fläche</strong> ist die Grösse der Innenfläche (Einheit: cm², m²). Die häufigste Gymi-Falle ist die falsche Einheit.</p>
+  <h3>Formeln</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Figur</th><th>Umfang u</th><th>Fläche A</th></tr></thead>
+    <tbody>
+      <tr><td>Quadrat (Seite a)</td><td>u = 4 · a</td><td>A = a · a</td></tr>
+      <tr><td>Rechteck (Seiten a, b)</td><td>u = 2 · (a + b)</td><td>A = a · b</td></tr>
+      <tr><td>Rhomboid (Seiten a, b, Höhe h auf a)</td><td>u = 2 · (a + b)</td><td>A = a · h</td></tr>
+      <tr><td>Rhombus (Seite a, Diagonalen e, f)</td><td>u = 4 · a</td><td>A = a · h oder A = e · f : 2</td></tr>
+      <tr><td>Drachenviereck (Diagonalen e, f)</td><td>u = 2 · (a + b)</td><td>A = e · f : 2</td></tr>
+      <tr><td>Trapez (parallele Seiten a, c, Höhe h)</td><td>u = a + b + c + d</td><td>A = (a + c) : 2 · h</td></tr>
+      <tr><td>Dreieck (Grundseite g, Höhe h)</td><td>u = a + b + c</td><td>A = g · h : 2</td></tr>
+      <tr><td>rechtwinkliges Dreieck (Katheten a, b)</td><td>u = a + b + c</td><td>A = a · b : 2</td></tr>
+      <tr><td>Kreis (Radius r)</td><td>u = 2 · π · r = π · d</td><td>A = π · r · r</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Warum die Formeln stimmen</h3>
+  <ul>
+    <li><strong>Rhomboid:</strong> Man schneidet links ein Dreieck ab und setzt es rechts an. Es entsteht ein Rechteck mit den Seiten a und h. Darum A = a · h, und nicht a · b.</li>
+    <li><strong>Dreieck:</strong> Zwei gleiche Dreiecke ergeben zusammen einen Rhomboid. Ein Dreieck ist also die Hälfte: A = g · h : 2.</li>
+    <li><strong>Trapez:</strong> Man rechnet mit der mittleren Breite (a + c) : 2 und multipliziert mit der Höhe.</li>
+    <li><strong>Kreis:</strong> Die Kreisformeln mit π werden meist erst in der Sekundarschule vertieft. Für das Gymi reicht es, den Kreis und seine Begriffe sicher zu kennen.</li>
+  </ul>
+  <figure class="fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 350" role="img" aria-label="So entstehen die Flächenformeln für Rhomboid und Dreieck" font-size="13"><defs><marker id="fl-arrow" viewBox="0 0 10 10" ref-x="9" ref-y="5" marker-width="6" marker-height="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--cds-chart-categorical-1)"></path></marker></defs><text x="24" y="30" font-size="15" font-weight="600" fill="var(--cds-text-primary)">Umlegen statt auswendig lernen: so entstehen die Formeln</text><g><text x="24" y="72" font-weight="600" fill="var(--cds-text-primary)">Rhomboid wird zum Rechteck</text><path d="M60 220L120 220L120 120Z" fill="var(--cds-chart-categorical-1)" fill-opacity="0.3" stroke="none"></path><path d="M240 220L300 220L300 120Z" fill="var(--cds-chart-categorical-1)" fill-opacity="0.12" stroke="var(--cds-chart-categorical-1)" stroke-width="1.25" stroke-dasharray="5 4"></path><polygon points="60,220 240,220 300,120 120,120" fill="none" stroke="var(--cds-text-primary)" stroke-width="2" stroke-linejoin="round"></polygon><line x1="120" y1="120" x2="120" y2="220" stroke="var(--cds-text-primary)" stroke-width="1.25" stroke-dasharray="4 4"></line><path d="M120 220H132V208H120Z" fill="none" stroke="var(--cds-chart-axis)" stroke-width="1"></path><text x="128" y="175" font-weight="600" fill="var(--cds-text-primary)">h</text><text x="150" y="238" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">a</text><path d="M90 250Q180 290 270 250" fill="none" stroke="var(--cds-chart-categorical-1)" stroke-width="1.5" marker-end="url(#fl-arrow)"></path><text x="24" y="310" font-size="11.5" fill="var(--cds-text-secondary)">Dreieck links abschneiden und rechts anlegen</text><text x="24" y="328" font-weight="600" fill="var(--cds-text-primary)">Rechteck: A = a · h</text></g><g><text x="420" y="72" font-weight="600" fill="var(--cds-text-primary)">Dreieck ist ein halbes Rechteck</text><rect x="440" y="120" width="260" height="100" fill="none" stroke="var(--cds-chart-axis)" stroke-width="1.25" stroke-dasharray="5 4"></rect><polygon points="440,220 700,220 600,120" fill="var(--cds-chart-categorical-1)" fill-opacity="0.25" stroke="var(--cds-text-primary)" stroke-width="2" stroke-linejoin="round"></polygon><line x1="600" y1="120" x2="600" y2="220" stroke="var(--cds-text-primary)" stroke-width="1.25" stroke-dasharray="4 4"></line><path d="M600 220H612V208H600Z" fill="none" stroke="var(--cds-chart-axis)" stroke-width="1"></path><text x="608" y="175" font-weight="600" fill="var(--cds-text-primary)">h</text><text x="570" y="238" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">g</text><text x="420" y="310" font-size="11.5" fill="var(--cds-text-secondary)">Weisse Teile zusammen = blaues Dreieck</text><text x="420" y="328" font-weight="600" fill="var(--cds-text-primary)">Dreieck: A = g · h : 2</text></g></svg><figcaption>Herleitung: Rhomboid und Dreieck</figcaption></figure>
+  <p>Die Fläche ändert sich beim Umlegen nicht. Darum braucht man beim Rhomboid und beim Dreieck immer die senkrechte Höhe h, nie die schräge Seite.</p>
+
+  <h3>Flächeneinheiten umrechnen</h3>
+  <p>Bei Flächen ist der Umrechnungsschritt <strong>100</strong>, nicht 10.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Einheit</th><th>entspricht</th></tr></thead>
+    <tbody>
+      <tr><td>1 cm²</td><td>100 mm²</td></tr>
+      <tr><td>1 dm²</td><td>100 cm²</td></tr>
+      <tr><td>1 m²</td><td>100 dm² = 10 000 cm²</td></tr>
+      <tr><td>1 a (Are)</td><td>100 m²</td></tr>
+      <tr><td>1 ha (Hektare)</td><td>100 a = 10 000 m²</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Beispiele</h3>
+  <ol>
+    <li><strong>Rechteck</strong> 8 cm × 5 cm: u = 2 · (8 + 5) = 26 cm; A = 8 · 5 = 40 cm².</li>
+    <li><strong>Quadrat</strong> mit a = 6 cm: u = 4 · 6 = 24 cm; A = 6 · 6 = 36 cm².</li>
+    <li><strong>Rhomboid</strong> mit a = 7 cm, b = 4 cm, h = 3 cm: u = 2 · (7 + 4) = 22 cm; A = 7 · 3 = 21 cm².</li>
+    <li><strong>Dreieck</strong> mit g = 6 cm, h = 4 cm: A = 6 · 4 : 2 = 12 cm².</li>
+    <li><strong>Trapez</strong> mit a = 10 cm, c = 6 cm, h = 4 cm: A = (10 + 6) : 2 · 4 = 8 · 4 = 32 cm².</li>
+    <li><strong>Kreis</strong> mit r = 3 cm: u ≈ 2 · 3,14 · 3 ≈ 18,84 cm; A ≈ 3,14 · 3 · 3 ≈ 28,26 cm².</li>
+  </ol>
+
+  <h3 id="stumpf">Beispiel: Dreieck mit stumpfem Winkel</h3>
+  <p>Auch hier gilt A = g · h : 2. Der Unterschied: Die Höhe liegt <strong>ausserhalb</strong> des Dreiecks.</p>
+  <p>Das Dreieck ABC hat die Grundseite g = |AB| = 6 cm. Der Winkel bei B ist grösser als 90°, die Ecke C liegt «hinter» B.</p>
+  <figure class="fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 310" role="img" aria-label="Fläche eines stumpfwinkligen Dreiecks" font-size="13"><text x="24" y="30" font-size="15" font-weight="600" fill="var(--cds-text-primary)">Beim stumpfwinkligen Dreieck liegt die Höhe ausserhalb</text><text x="24" y="50" font-size="11.5" fill="var(--cds-text-secondary)">Die Höhe trifft die verlängerte Grundseite im Punkt F</text><g><polygon points="120,260 360,260 480,100" fill="var(--cds-chart-categorical-1)" fill-opacity="0.15" stroke="var(--cds-text-primary)" stroke-width="2" stroke-linejoin="round"></polygon><path d="M360 260L372 244A20 20 0 0 0 340 260Z" fill="var(--cds-chart-categorical-1)" fill-opacity="0.35" stroke="var(--cds-chart-categorical-1)" stroke-width="1"></path><circle cx="120" cy="260" r="3.5" fill="var(--cds-text-primary)"></circle><circle cx="360" cy="260" r="3.5" fill="var(--cds-text-primary)"></circle><circle cx="480" cy="100" r="3.5" fill="var(--cds-text-primary)"></circle><text x="120" y="282" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">A</text><text x="360" y="282" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">B</text><text x="488" y="96" font-weight="600" fill="var(--cds-text-primary)">C</text><text x="240" y="282" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">g = 6 cm</text><text x="330" y="236" text-anchor="end" font-size="11.5" fill="var(--cds-text-secondary)">stumpfer Winkel</text></g><g><line x1="360" y1="260" x2="480" y2="260" stroke="var(--cds-chart-axis)" stroke-width="1.25" stroke-dasharray="5 4"></line><line x1="480" y1="100" x2="480" y2="260" stroke="var(--cds-chart-categorical-1)" stroke-width="2" stroke-dasharray="6 4"></line><path d="M480 260H468V248H480Z" fill="none" stroke="var(--cds-chart-categorical-1)" stroke-width="1"></path><text x="480" y="282" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">F</text><text x="420" y="282" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">3 cm</text><text x="492" y="184" font-weight="600" fill="var(--cds-chart-categorical-1)">h = 4 cm</text></g><g><text x="590" y="150" font-weight="600" fill="var(--cds-text-primary)">A = g · h : 2</text><text x="590" y="176" fill="var(--cds-text-primary)">= 6 · 4 : 2</text><text x="590" y="202" font-weight="600" fill="var(--cds-text-primary)">= 12 cm²</text></g></svg><figcaption>Stumpfwinkliges Dreieck · Höhe ausserhalb</figcaption></figure>
+  <ol>
+    <li><strong>Grundseite verlängern:</strong> Die Strecke AB mit dem Lineal gestrichelt über B hinaus verlängern.</li>
+    <li><strong>Höhe zeichnen:</strong> Mit dem Geodreieck von C aus senkrecht auf die Verlängerung fahren. Der Fusspunkt heisst F. Die Höhe ist h = |CF| = 4 cm.</li>
+    <li><strong>Rechnen:</strong> A = g · h : 2 = 6 · 4 : 2 = <strong>12 cm²</strong>.</li>
+  </ol>
+  <p><strong>Kontrolle:</strong> Das grosse rechtwinklige Dreieck AFC hat die Katheten 9 cm (6 cm + 3 cm Verlängerung) und 4 cm, also 9 · 4 : 2 = 18 cm². Davon zieht man das kleine Dreieck BFC ab: 3 · 4 : 2 = 6 cm². Es bleibt 18 − 6 = 12 cm², das gleiche Resultat.</p>
+  <p class="note"><strong>Achtung, häufiger Fehler:</strong> Die schräge Seite BC ist <strong>nicht</strong> die Höhe. Die Höhe steht immer senkrecht (90°) auf der Grundseite oder ihrer Verlängerung.</p>
+
+  <h3>Zusammengesetzte Figuren</h3>
+  <p>Eine L-Form oder ein «Haus» zerlegt man in Rechtecke und Dreiecke, berechnet jede Teilfläche und zählt sie zusammen. Manchmal ist es einfacher, ein grosses Rechteck zu nehmen und das fehlende Stück abzuziehen.</p>
+  <p class="totop"><a href="#top">&uarr; nach oben</a></p>
+
+  <!-- 7 -->
+  <h2 id="volumen">7. Volumen und Hohlmasse</h2>
+  <p>Das <strong>Volumen</strong> ist der Rauminhalt eines Körpers. Bei Kubikeinheiten (cm³, dm³, m³) ist der Umrechnungsschritt <strong>1000</strong>, bei den Liter-Einheiten meist <strong>10</strong>. Die wichtigste Brücke: <strong>1 Liter = 1 dm³</strong> und <strong>1 ml = 1 cm³</strong>.</p>
+  <figure class="fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 340" role="img" aria-label="Umrechnung von Raummassen und Hohlmassen" font-size="13"><defs><marker id="vol-arrow" viewBox="0 0 10 10" ref-x="9" ref-y="5" marker-width="6" marker-height="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--cds-chart-axis)"></path></marker></defs><text x="24" y="28" font-size="15" font-weight="600" fill="var(--cds-text-primary)">Kubikeinheiten: Schritt 1000 · Liter-Einheiten: Schritt 10</text><text x="24" y="48" font-size="11.5" fill="var(--cds-text-secondary)">Nach rechts (kleinere Einheit): mal rechnen · nach links (grössere Einheit): geteilt durch</text><text x="24" y="84" font-size="11.5" font-weight="600" fill="var(--cds-text-secondary)">Raummasse</text><text x="24" y="226" font-size="11.5" font-weight="600" fill="var(--cds-text-secondary)">Hohlmasse (Flüssigkeiten)</text><g fill="none" stroke="var(--cds-chart-axis)" stroke-width="1.25"><path d="M128 120H212" marker-end="url(#vol-arrow)"></path><path d="M308 120H512" marker-end="url(#vol-arrow)"></path><path d="M608 120H642" marker-end="url(#vol-arrow)"></path><path d="M156 260H224" marker-end="url(#vol-arrow)"></path><path d="M296 260H324" marker-end="url(#vol-arrow)"></path><path d="M396 260H424" marker-end="url(#vol-arrow)"></path><path d="M496 260H524" marker-end="url(#vol-arrow)"></path></g><g font-size="11.5" fill="var(--cds-text-secondary)" text-anchor="middle"><text x="170" y="112">× 1000</text><text x="410" y="112">× 1000</text><text x="625" y="88">× 1000</text><text x="190" y="252">× 100</text><text x="310" y="228">× 10</text><text x="410" y="228">× 10</text><text x="510" y="228">× 10</text></g><g><rect x="36" y="96" width="88" height="48" rx="8" fill="none" stroke="var(--cds-chart-axis)" stroke-width="1.25"></rect><rect x="216" y="96" width="88" height="48" rx="8" fill="none" stroke="var(--cds-chart-axis)" stroke-width="1.25"></rect><rect x="516" y="96" width="88" height="48" rx="8" fill="none" stroke="var(--cds-chart-axis)" stroke-width="1.25"></rect><rect x="646" y="96" width="88" height="48" rx="8" fill="none" stroke="var(--cds-chart-axis)" stroke-width="1.25"></rect><text x="80" y="125" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">m³</text><text x="260" y="125" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">dm³</text><text x="560" y="125" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">cm³</text><text x="690" y="125" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">mm³</text><text x="80" y="162" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">= 1000 Liter</text></g><g><rect x="88" y="236" width="64" height="48" rx="8" fill="none" fill-opacity="1" stroke="var(--cds-chart-axis)" stroke-width="1.25"></rect><rect x="228" y="236" width="64" height="48" rx="8" fill="var(--cds-chart-categorical-1)" fill-opacity="0.12" stroke="var(--cds-chart-categorical-1)" stroke-width="2"></rect><rect x="328" y="236" width="64" height="48" rx="8" fill="none" fill-opacity="1" stroke="var(--cds-chart-axis)" stroke-width="1.25"></rect><rect x="428" y="236" width="64" height="48" rx="8" fill="none" fill-opacity="1" stroke="var(--cds-chart-axis)" stroke-width="1.25"></rect><rect x="528" y="236" width="64" height="48" rx="8" fill="var(--cds-chart-categorical-1)" fill-opacity="0.12" stroke="var(--cds-chart-categorical-1)" stroke-width="2"></rect><text x="120" y="265" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">hl</text><text x="260" y="265" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">l</text><text x="360" y="265" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">dl</text><text x="460" y="265" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">cl</text><text x="560" y="265" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">ml</text></g><g><line x1="260" y1="144" x2="260" y2="236" stroke="var(--cds-chart-categorical-1)" stroke-width="2" stroke-dasharray="5 4"></line><line x1="560" y1="144" x2="560" y2="236" stroke="var(--cds-chart-categorical-1)" stroke-width="2" stroke-dasharray="5 4"></line><text x="270" y="194" font-weight="600" fill="var(--cds-text-primary)">1 dm³ = 1 l</text><text x="570" y="194" font-weight="600" fill="var(--cds-text-primary)">1 cm³ = 1 ml = 1 cc</text></g><text x="24" y="320" font-size="11.5" fill="var(--cds-text-secondary)">Blau umrandet: die zwei Brücken zwischen Kubik- und Liter-Einheiten</text></svg><figcaption>Umrechnungstreppe Volumen</figcaption></figure>
+
+  <h3>Warum Schritt 1000?</h3>
+  <p>Ein Würfel mit 1 dm = 10 cm Kantenlänge hat 10 · 10 · 10 = <strong>1000</strong> kleine Würfelchen von 1 cm³. Also 1 dm³ = 1000 cm³. Genau dieser Würfel fasst <strong>1 Liter</strong> Wasser (wie ein Milchpack).</p>
+  <p class="note">Merkregel: Länge × 10 (1 Dimension), Fläche × 100 (2 Dimensionen), Volumen × 1000 (3 Dimensionen).</p>
+
+  <h3>Umrechnungstabelle</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Einheit</th><th>Name</th><th>in cm³</th><th>in Liter</th></tr></thead>
+    <tbody>
+      <tr><td>1 m³</td><td>Kubikmeter</td><td>1 000 000 cm³</td><td>1000 l</td></tr>
+      <tr><td>1 hl</td><td>Hektoliter</td><td>100 000 cm³</td><td>100 l</td></tr>
+      <tr><td>1 dm³ = 1 l</td><td>Kubikdezimeter = Liter</td><td>1000 cm³</td><td>1 l</td></tr>
+      <tr><td>1 dl</td><td>Deziliter</td><td>100 cm³</td><td>0,1 l</td></tr>
+      <tr><td>1 cl</td><td>Zentiliter</td><td>10 cm³</td><td>0,01 l</td></tr>
+      <tr><td>1 ml = 1 cm³ = 1 cc</td><td>Milliliter = Kubikzentimeter</td><td>1 cm³</td><td>0,001 l</td></tr>
+      <tr><td>1 mm³</td><td>Kubikmillimeter</td><td>0,001 cm³</td><td>0,000 001 l</td></tr>
+    </tbody>
+  </table></div>
+  <p><strong>cc</strong> (oder ccm) ist nur ein anderer Name für cm³. Man findet ihn z. B. beim Hubraum von Motorrädern: 125 cc = 125 cm³.</p>
+
+  <h3>Volumen von Würfel und Quader</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Körper</th><th>Volumen V</th></tr></thead>
+    <tbody>
+      <tr><td>Würfel (Kante a)</td><td>V = a · a · a</td></tr>
+      <tr><td>Quader (Länge a, Breite b, Höhe c)</td><td>V = a · b · c</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Beispiele</h3>
+  <ol>
+    <li>2,5 l = 25 dl = 2500 ml = <strong>2500 cm³</strong></li>
+    <li>750 cm³ = 750 ml = 7,5 dl = <strong>0,75 l</strong></li>
+    <li>3 m³ = 3000 dm³ = <strong>3000 l</strong></li>
+    <li>40 dl = <strong>4 l</strong> = 4 dm³</li>
+    <li>Quader 10 cm × 5 cm × 4 cm: V = 10 · 5 · 4 = 200 cm³ = <strong>2 dl</strong></li>
+    <li>Aquarium 50 cm × 30 cm × 40 cm: V = 60 000 cm³ = 60 dm³ = <strong>60 l</strong></li>
+  </ol>
+
+  <h3>Übe selbst</h3>
+  <ul class="tasks">
+    <li>a) 1,2 l = ? cm³</li>
+    <li>b) 350 ml = ? dl</li>
+    <li>c) 4500 cm³ = ? l</li>
+    <li>d) 0,5 m³ = ? l</li>
+    <li>e) Ein Würfel hat die Kante 5 cm. Passt ein Deziliter Wasser hinein?</li>
+  </ul>
+  <details class="solution">
+    <summary>Lösungen anzeigen</summary>
+    <p>a) 1200 cm³ · b) 3,5 dl · c) 4,5 l · d) 500 l · e) V = 5 · 5 · 5 = 125 cm³ = 1,25 dl, also ja (1 dl = 100 cm³).</p>
+  </details>
+  <p class="totop"><a href="#top">&uarr; nach oben</a></p>
+
+  <!-- 8 -->
+  <h2 id="uebungen">8. Übungsaufgaben</h2>
+  <p>Zuerst selbst lösen, dann unten kontrollieren. Zu jeder Aufgabe eine kleine Skizze zeichnen.</p>
+  <ul class="tasks">
+    <li><strong>1.</strong> Welche Linie kann man mit dem Lineal messen: Gerade, Strahl oder Strecke? Begründe.</li>
+    <li><strong>2.</strong> Ein Dreieck hat die Winkel 35° und 75°. Wie gross ist der dritte Winkel? Was für ein Dreieck ist es (nach Winkeln)?</li>
+    <li><strong>3.</strong> Ein gleichschenkliges Dreieck hat an der Spitze einen Winkel von 40°. Wie gross sind die beiden Basiswinkel?</li>
+    <li><strong>4.</strong> Kann man aus den Seiten 4 cm, 5 cm und 10 cm ein Dreieck zeichnen?</li>
+    <li><strong>5.</strong> Ein Viereck hat die Winkel 90°, 90° und 110°. Wie gross ist der vierte Winkel?</li>
+    <li><strong>6.</strong> Richtig oder falsch? a) Jedes Quadrat ist ein Rhombus. b) Jedes Rechteck ist ein Quadrat. c) Jeder Rhombus ist ein Rhomboid. d) Ein Drachenviereck hat immer parallele Seiten.</li>
+    <li><strong>7.</strong> Ein Rechteck hat einen Umfang von 30 cm, eine Seite ist 9 cm lang. Wie lang ist die andere Seite, und wie gross ist die Fläche?</li>
+    <li><strong>8.</strong> Ein Quadrat hat eine Fläche von 49 cm². Wie lang ist eine Seite, und wie gross ist der Umfang?</li>
+    <li><strong>9.</strong> Aus einem Rechteck von 10 cm × 6 cm wird an einer Ecke ein Rechteck von 4 cm × 3 cm ausgeschnitten (L-Form). Berechne Fläche und Umfang.</li>
+    <li><strong>10.</strong> Ein Kreis hat einen Durchmesser von 8 cm. Wie gross ist der Radius, und wie weit öffnest du den Zirkel?</li>
+  </ul>
+  <figure class="fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 300" role="img" aria-label="Figur zu Aufgabe 9: L-Form" font-size="13"><text x="24" y="30" font-size="15" font-weight="600" fill="var(--cds-text-primary)">Aufgabe 9: Rechteck 10 cm × 6 cm, Ecke 4 cm × 3 cm ausgeschnitten</text><g><rect x="410" y="70" width="120" height="90" fill="none" stroke="var(--cds-chart-axis)" stroke-width="1.25" stroke-dasharray="5 4"></rect><text x="470" y="120" text-anchor="middle" font-size="11.5" fill="var(--cds-text-secondary)">weg</text></g><g><polygon points="230,70 410,70 410,160 530,160 530,250 230,250" fill="var(--cds-chart-categorical-1)" fill-opacity="0.15" stroke="var(--cds-text-primary)" stroke-width="2" stroke-linejoin="round"></polygon><text x="380" y="272" text-anchor="middle" font-weight="600" fill="var(--cds-text-primary)">10 cm</text><text x="220" y="164" text-anchor="end" font-weight="600" fill="var(--cds-text-primary)">6 cm</text><text x="470" y="62" text-anchor="middle" fill="var(--cds-text-secondary)">4 cm</text><text x="538" y="120" fill="var(--cds-text-secondary)">3 cm</text></g></svg><figcaption>Figur zu Aufgabe 9</figcaption></figure>
+  <p>Skizze zu Aufgabe 9: Die blaue Fläche ist die L-Form, das gestrichelte Rechteck ist das ausgeschnittene Stück.</p>
+
+  <details class="solution">
+    <summary>Lösungen anzeigen</summary>
+    <ol>
+      <li>Die <strong>Strecke</strong>, weil sie zwei Endpunkte hat. Gerade und Strahl sind unendlich lang.</li>
+      <li>180° − 35° − 75° = <strong>70°</strong>. Alle Winkel sind kleiner als 90°, also <strong>spitzwinklig</strong>.</li>
+      <li>180° − 40° = 140°; 140° : 2 = <strong>70°</strong> pro Basiswinkel.</li>
+      <li><strong>Nein</strong>, denn 4 + 5 = 9 ist kleiner als 10 (Dreiecksungleichung).</li>
+      <li>360° − 90° − 90° − 110° = <strong>70°</strong>.</li>
+      <li>a) richtig, b) falsch, c) richtig, d) falsch.</li>
+      <li>a + b = 30 : 2 = 15 cm, also b = 15 − 9 = <strong>6 cm</strong>; A = 9 · 6 = <strong>54 cm²</strong>.</li>
+      <li>7 · 7 = 49, also a = <strong>7 cm</strong>; u = 4 · 7 = <strong>28 cm</strong>.</li>
+      <li>Fläche: 10 · 6 − 4 · 3 = 60 − 12 = <strong>48 cm²</strong>. Umfang: <strong>32 cm</strong>, gleich wie beim ganzen Rechteck, denn die zwei neuen Kanten (4 cm und 3 cm) ersetzen genau die weggeschnittenen Stücke.</li>
+      <li>r = 8 : 2 = <strong>4 cm</strong>; der Zirkel wird auf 4 cm geöffnet.</li>
+    </ol>
+  </details>
+
+  <h3>Tipps für die Gymi-Prüfung</h3>
+  <ul>
+    <li>Immer eine <strong>Skizze</strong> machen und die gegebenen Masse eintragen.</li>
+    <li><strong>Einheiten</strong> kontrollieren: Umfang in cm, Fläche in cm², Volumen in cm³.</li>
+    <li>Beim Rhomboid und beim Dreieck die <strong>Höhe</strong> verwenden, nicht die schräge Seite.</li>
+    <li>Winkel kontrollieren: Dreieck = 180°, Viereck = 360°.</li>
+    <li>Sauber konstruieren: spitzer Bleistift, Geodreieck, Zirkel fest einstellen.</li>
+    <li>Zuerst überschlagen: Kann das Resultat ungefähr stimmen?</li>
+  </ul>
+  <p class="note">Weiter üben mit echten Prüfungen: <a href="../../mathe-bern/">Frühere Aufnahmeprüfungen Mathematik&nbsp;I (Kanton Bern, 2021–2025)</a>.</p>
+
+  <nav class="pager" aria-label="Weiter">
+    <a class="prev" href="../"><small>&larr; Zurück</small>Mathematik &middot; Übersicht</a>
+    <a class="next" href="../../mathe-bern/"><small>Weiter &rarr;</small>Frühere Prüfungen Kanton Bern</a>
+  </nav>
+
+  <footer>gymi-prep &middot; <a href="../../">Startseite</a> &middot; <a href="../">Mathematik</a> &middot; laufend ergänzt</footer>
+</div>
+</body>
+</html>
