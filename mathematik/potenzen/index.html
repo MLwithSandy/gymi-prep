@@ -1,0 +1,817 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Potenzen &middot; Mathematik &middot; Gymi-Prep</title>
+<style>
+  :root {
+    --bg: #faf8f5; --panel: #ffffff; --ink: #2b2420; --ink-soft: #5c524a;
+    --accent: #8a4b2e; --accent-soft: #c97b4a; --line: #e7ddd1;
+    --cds-text-primary: var(--ink); --cds-text-secondary: var(--ink-soft);
+    --cds-chart-axis: #b3a99d; --cds-chart-categorical-1: #2f6fb5;
+    --cds-chart-categorical-2: #d9692b; --cds-chart-categorical-3: #2e9e6b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1c1814; --panel: #26211c; --ink: #f1ebe3; --ink-soft: #c9bfb3;
+      --accent: #e0a179; --accent-soft: #c97b4a; --line: #3a332c;
+      --cds-chart-axis: #7a7065; --cds-chart-categorical-1: #6aa6e8;
+      --cds-chart-categorical-2: #f08a4b; --cds-chart-categorical-3: #4cc58d;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1c1814; --panel: #26211c; --ink: #f1ebe3; --ink-soft: #c9bfb3;
+    --accent: #e0a179; --accent-soft: #c97b4a; --line: #3a332c;
+    --cds-chart-axis: #7a7065; --cds-chart-categorical-1: #6aa6e8;
+    --cds-chart-categorical-2: #f08a4b; --cds-chart-categorical-3: #4cc58d;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Iowan Old Style", "Georgia", "Charter", serif; line-height: 1.6; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 32px 16px 80px; }
+  .sans, .crumbs, .eyebrow, table, figcaption, .toc, .note, .pager, footer, .solution summary {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  .crumbs { font-size: 13px; color: var(--ink-soft); margin-bottom: 18px; }
+  .crumbs a { color: var(--ink-soft); text-decoration: none; }
+  .crumbs a:hover { color: var(--accent); }
+  .crumbs .sep { margin: 0 6px; opacity: .6; }
+  .eyebrow { text-transform: uppercase; letter-spacing: 0.12em; font-size: 12px;
+    color: var(--accent-soft); font-weight: 700; margin: 0 0 10px; }
+  h1 { font-size: 2em; margin: 0 0 10px; line-height: 1.2; }
+  .subtitle { color: var(--ink-soft); font-size: 1.05em; margin: 0 0 24px; }
+  h2 { font-size: 1.55em; line-height: 1.25; margin: 56px 0 12px; padding-top: 16px;
+    border-top: 1px solid var(--line); scroll-margin-top: 16px; }
+  h3 { font-size: 1.15em; margin: 32px 0 8px; scroll-margin-top: 16px; }
+  p, li { font-size: 1.02em; }
+  a { color: var(--accent); }
+  strong { font-weight: 700; }
+  .toc { background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+    padding: 16px 20px; margin: 0 0 8px; font-size: 14px; }
+  .toc p { margin: 0 0 8px; font-weight: 700; font-size: 13px; text-transform: uppercase;
+    letter-spacing: .08em; color: var(--accent-soft); }
+  .toc ol { margin: 0; padding-left: 20px; columns: 2; column-gap: 28px; }
+  .toc li { font-size: 14px; margin: 2px 0; break-inside: avoid; }
+  .toc a { color: var(--ink); text-decoration: none; }
+  .toc a:hover { color: var(--accent); }
+  .table-wrap { overflow-x: auto; margin: 14px 0 18px; border: 1px solid var(--line);
+    border-radius: 10px; background: var(--panel); }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th, td { text-align: left; vertical-align: top; padding: 8px 12px; border-bottom: 1px solid var(--line); }
+  th { font-weight: 700; color: var(--ink); background: color-mix(in srgb, var(--accent-soft) 10%, transparent); }
+  tr:last-child td { border-bottom: none; }
+  td:first-child { font-weight: 600; }
+  .fig { margin: 18px 0 8px; background: var(--panel); border: 1px solid var(--line);
+    border-radius: 12px; padding: 12px; }
+  .fig svg { display: block; width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  .fig figcaption { font-size: 12px; color: var(--ink-soft); margin-top: 6px; text-align: center; }
+  .note { font-size: 14px; color: var(--ink); background: var(--panel);
+    border: 1px solid var(--line); border-left: 3px solid var(--accent-soft);
+    border-radius: 8px; padding: 12px 16px; margin: 16px 0; }
+  .tasks { list-style: none; padding-left: 0; }
+  .tasks li { padding-left: 28px; position: relative; margin: 6px 0; }
+  .tasks li::before { content: ""; position: absolute; left: 0; top: 6px; width: 15px; height: 15px;
+    border: 1.5px solid var(--accent-soft); border-radius: 4px; }
+  details.solution { background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+    padding: 10px 16px; margin: 14px 0; }
+  details.solution summary { cursor: pointer; font-weight: 700; font-size: 14px; color: var(--accent); }
+  details.solution[open] summary { margin-bottom: 8px; }
+  .pager { display: flex; justify-content: space-between; gap: 12px; margin-top: 48px; }
+  .pager a { flex: 1; font-size: 14px; text-decoration: none; color: var(--ink); background: var(--panel);
+    border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px; }
+  .pager a:hover { border-color: var(--accent-soft); }
+  .pager .next { text-align: right; }
+  .pager small { display: block; color: var(--ink-soft); font-size: 12px; }
+  .totop { font-size: 13px; text-align: right; margin: 6px 0 0; }
+  .totop a { color: var(--ink-soft); text-decoration: none; }
+  footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--line);
+    font-size: 12px; color: var(--ink-soft); text-align: center; }
+  footer a { color: var(--ink-soft); }
+  @media (max-width: 560px) { h1 { font-size: 1.6em; } .toc ol { columns: 1; } .fig { padding: 6px; } }
+  @media print {
+    .toc, .pager, .totop, footer, .crumbs { display: none; }
+    details.solution { display: block; } details.solution > * { display: block; }
+    .fig, table { break-inside: avoid; }
+    h2 { break-before: page; }
+  }
+
+  .per { text-decoration: overline; text-decoration-thickness: 1.5px; }
+  .pager > span { flex: 1; }
+  sup { font-size: 0.72em; line-height: 0; }
+  details.hint p, details.answer p { margin: 4px 0 8px; }
+  ol li { margin: 2px 0; }
+  h3.lvl { display: flex; align-items: center; gap: 10px; }
+  h3.lvl::before { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+    padding: 3px 10px; border-radius: 100px; }
+  h3.lvl-1::before { content: "Stufe 1"; color: #2e7d4f; background: color-mix(in srgb, #2e9e6b 16%, transparent); }
+  h3.lvl-2::before { content: "Stufe 2"; color: #8a5a00; background: color-mix(in srgb, #d99a1e 20%, transparent); }
+  h3.lvl-3::before { content: "Stufe 3"; color: #a33a2a; background: color-mix(in srgb, #d9542b 18%, transparent); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) h3.lvl-1::before { color: #6fd39e; }
+    :root:not([data-theme="light"]) h3.lvl-2::before { color: #f0c060; } :root:not([data-theme="light"]) h3.lvl-3::before { color: #f39a80; } }
+  .task { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px 6px; margin: 14px 0; }
+  .task > p:first-child { margin-top: 0; }
+  details.hint, details.answer { margin: 8px 0 10px; }
+  details.hint summary, details.answer summary { cursor: pointer; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 13px; font-weight: 700; display: inline-block; padding: 3px 12px; border-radius: 100px; }
+  details.hint summary { color: #8a5a00; background: color-mix(in srgb, #d99a1e 16%, transparent); }
+  details.answer summary { color: var(--accent); background: color-mix(in srgb, var(--accent-soft) 16%, transparent); }
+  details.hint[open] summary, details.answer[open] summary { margin-bottom: 6px; }
+  details.hint > *:not(summary), details.answer > *:not(summary) { font-size: 0.97em; }
+  .keybox { background: color-mix(in srgb, var(--cds-chart-categorical-1) 9%, var(--panel)); border: 1px solid color-mix(in srgb, var(--cds-chart-categorical-1) 35%, transparent);
+    border-radius: 12px; padding: 12px 18px; margin: 16px 0; }
+  .keybox p { margin: 6px 0; }
+  @media print { details.hint, details.answer { display: block; } }
+</style>
+</head>
+<body>
+<div class="wrap" id="top">
+  <div class="crumbs"><a href="../../">Gymi-Prep</a><span class="sep">/</span><a href="../">Mathematik</a><span class="sep">/</span>Potenzen</div>
+  <p class="eyebrow">Mathematik &middot; Zahlen &middot; Gymi-Vorbereitung</p>
+  <h1>Potenzen verstehen und berechnen</h1>
+  <p class="subtitle">Potenzen sind eine Abkürzung für wiederholtes Malnehmen. Hier lernst du, wie man sie liest, ausrechnet und geschickt mit ihnen rechnet – mit Übungen in drei Schwierigkeitsstufen.</p>
+
+  <nav class="toc" aria-label="Inhalt">
+    <p>Inhalt</p>
+    <ol>
+      <li><a href="#was">Was ist eine Potenz?</a></li>
+      <li><a href="#auswendig">Potenzen, die man kennen sollte</a></li>
+      <li><a href="#besonders">Besondere Fälle</a></li>
+      <li><a href="#reihenfolge">Reihenfolge: Klammer – Potenz – Punkt – Strich</a></li>
+      <li><a href="#regeln">Rechenregeln für Potenzen</a></li>
+      <li><a href="#tricks">Schlaue Tricks</a></li>
+      <li><a href="#alltag">Potenzen im Alltag</a></li>
+      <li><a href="#uebungen">Übungen</a></li>
+    </ol>
+  </nav>
+
+<h2 id="was">Was ist eine Potenz?</h2>
+<p>Statt 2 · 2 · 2 · 2 schreibt man kürzer <strong>2<sup>4</sup></strong>. Man liest: «2 hoch 4».</p>
+<div class="keybox">
+<p><strong>2<sup>4</sup> = 2 · 2 · 2 · 2 = 16</strong></p>
+<p>Der <strong>Exponent</strong> (die kleine Zahl oben) sagt, <strong>wie oft</strong> die <strong>Basis</strong> (die grosse Zahl unten) mit sich selbst malgenommen wird.</p>
+</div>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Begriff</th>
+<th>anderes Wort</th>
+<th>Bedeutung</th>
+<th>bei 2<sup>4</sup></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Basis</td>
+<td>Grundzahl</td>
+<td>die Zahl, die malgenommen wird</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Exponent</td>
+<td>Hochzahl</td>
+<td>wie oft man sie malnimmt</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Potenz</td>
+<td>–</td>
+<td>der ganze Ausdruck</td>
+<td>2<sup>4</sup></td>
+</tr>
+<tr>
+<td>Potenzwert</td>
+<td>–</td>
+<td>das Resultat</td>
+<td>16</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Sprechweise:</strong> 5<sup>2</sup> liest man «5 hoch 2» oder «5 im Quadrat», 4<sup>3</sup> liest man «4 hoch 3».</p>
+<figure class="fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 286" role="img" aria-label="4 hoch 2 als Quadrat, 3 hoch 3 als Würfel" font-size="13"><text x="24" y="30" font-size="15" font-weight="600" fill="var(--cds-text-primary)">Quadratzahlen sind Flächen, Kubikzahlen sind Würfel</text><g><rect x="122" y="70" width="34" height="34" fill="var(--cds-chart-categorical-1)" fill-opacity="0.14" stroke="var(--cds-chart-categorical-1)" stroke-width="1.25"></rect><rect x="122" y="104" width="34" height="34" fill="var(--cds-chart-categorical-1)" fill-opacity="0.14" stroke="var(--cds-chart-categorical-1)" stroke-width="1.25"></rect><rect x="122" y="138" width="34" height="34" fill="var(--cds-chart-categorical-1)" fill-opacity="0.14" stroke="var(--cds-chart-categorical-1)" stroke-width="1.25"></rect><rect x="122" y="172" width="34" height="34" fill="var(--cds-chart-categorical-1)" fill-opacity="0.14" stroke="var(--cds-chart-categorical-1)" stroke-width="1.25"></rect><rect x="156" y="70" width="34" height="34" fill="var(--cds-chart-categorical-1)" fill-opacity="0.14" stroke="var(--cds-chart-categorical-1)" stroke-width="1.25"></rect><rect x="156" y="104" width="34" height="34" fill="var(--cds-chart-categorical-1)" fill-opacity="0.14" stroke="var(--cds-chart-categorical-1)" stroke-width="1.25"></rect><rect x="156" y="138" width="34" height="34" fill="var(--cds-chart-categorical-1)" fill-opacity="0.14" stroke="var(--cds-chart-categorical-1)" stroke-width="1.25"></rect><rect x="156" y="172" width="34" height="34" fill="var(--cds-chart-categorical-1)" fill-opacity="0.14" stroke="var(--cds-chart-categorical-1)" stroke-width="1.25"></rect><rect x="190" y="70" width="34" height="34" fill="var(--cds-chart-categorical-1)" fill-opacity="0.14" stroke="var(--cds-chart-categorical-1)" stroke-width="1.25"></rect><rect x="190" y="104" width="34" height="34" fill="var(--cds-chart-categorical-1)" fill-opacity="0.14" stroke="var(--cds-chart-categorical-1)" stroke-width="1.25"></rect><rect x="190" y="138" width="34" height="34" fill="var(--cds-chart-categorical-1)" fill-opacity="0.14" stroke="var(--cds-chart-categorical-1)" stroke-width="1.25"></rect><rect x="190" y="172" width="34" height="34" fill="var(--cds-chart-categorical-1)" fill-opacity="0.14" stroke="var(--cds-chart-categorical-1)" stroke-width="1.25"></rect><rect x="224" y="70" width="34" height="34" fill="var(--cds-chart-categorical-1)" fill-opacity="0.14" stroke="var(--cds-chart-categorical-1)" stroke-width="1.25"></rect><rect x="224" y="104" width="34" height="34" fill="var(--cds-chart-categorical-1)" fill-opacity="0.14" stroke="var(--cds-chart-categorical-1)" stroke-width="1.25"></rect><rect x="224" y="138" width="34" height="34" fill="var(--cds-chart-categorical-1)" fill-opacity="0.14" stroke="var(--cds-chart-categorical-1)" stroke-width="1.25"></rect><rect x="224" y="172" width="34" height="34" fill="var(--cds-chart-categorical-1)" fill-opacity="0.14" stroke="var(--cds-chart-categorical-1)" stroke-width="1.25"></rect><text x="190" y="224" text-anchor="middle" fill="var(--cds-text-secondary)">4</text><text x="112" y="142" text-anchor="end" fill="var(--cds-text-secondary)">4</text><text x="190" y="248" font-size="15" font-weight="600" fill="var(--cds-text-primary)" text-anchor="middle">4² = 4 · 4 = 16</text><text x="190" y="268" font-size="11.5" font-weight="400" fill="var(--cds-text-secondary)" text-anchor="middle">16 Häuschen: Fläche eines Quadrats</text></g><g><polygon points="554,206 590,170 590,68 554,104" fill="var(--cds-chart-categorical-2)" fill-opacity="0.07" stroke="var(--cds-chart-categorical-2)" stroke-width="1.75" stroke-linejoin="round"></polygon><polygon points="452,104 554,104 590,68 488,68" fill="var(--cds-chart-categorical-2)" fill-opacity="0.26" stroke="var(--cds-chart-categorical-2)" stroke-width="1.75" stroke-linejoin="round"></polygon><polygon points="452,206 554,206 554,104 452,104" fill="var(--cds-chart-categorical-2)" fill-opacity="0.14" stroke="var(--cds-chart-categorical-2)" stroke-width="1.75" stroke-linejoin="round"></polygon><line x1="486" y1="206" x2="486" y2="104" stroke="var(--cds-chart-categorical-2)" stroke-width="1"></line><line x1="452" y1="172" x2="554" y2="172" stroke="var(--cds-chart-categorical-2)" stroke-width="1"></line><line x1="486" y1="104" x2="522" y2="68" stroke="var(--cds-chart-categorical-2)" stroke-width="1"></line><line x1="464" y1="92" x2="566" y2="92" stroke="var(--cds-chart-categorical-2)" stroke-width="1"></line><line x1="554" y1="172" x2="590" y2="136" stroke="var(--cds-chart-categorical-2)" stroke-width="1"></line><line x1="566" y1="194" x2="566" y2="92" stroke="var(--cds-chart-categorical-2)" stroke-width="1"></line><line x1="520" y1="206" x2="520" y2="104" stroke="var(--cds-chart-categorical-2)" stroke-width="1"></line><line x1="452" y1="138" x2="554" y2="138" stroke="var(--cds-chart-categorical-2)" stroke-width="1"></line><line x1="520" y1="104" x2="556" y2="68" stroke="var(--cds-chart-categorical-2)" stroke-width="1"></line><line x1="476" y1="80" x2="578" y2="80" stroke="var(--cds-chart-categorical-2)" stroke-width="1"></line><line x1="554" y1="138" x2="590" y2="102" stroke="var(--cds-chart-categorical-2)" stroke-width="1"></line><line x1="578" y1="182" x2="578" y2="80" stroke="var(--cds-chart-categorical-2)" stroke-width="1"></line><text x="503" y="224" text-anchor="middle" fill="var(--cds-text-secondary)">3</text><text x="442" y="159" text-anchor="end" fill="var(--cds-text-secondary)">3</text><text x="580" y="196" fill="var(--cds-text-secondary)">3</text><text x="521" y="248" font-size="15" font-weight="600" fill="var(--cds-text-primary)" text-anchor="middle">3³ = 3 · 3 · 3 = 27</text><text x="521" y="268" font-size="11.5" font-weight="400" fill="var(--cds-text-secondary)" text-anchor="middle">27 Würfelchen: Volumen eines Würfels</text></g></svg><figcaption>Quadratzahl als Fläche, Kubikzahl als Würfel</figcaption></figure>
+
+<p>Darum heissen die Zahlen 1, 4, 9, 16, 25 … <strong>Quadratzahlen</strong> und die Zahlen 1, 8, 27, 64, 125 … <strong>Kubikzahlen</strong> (Kubus = Würfel).</p>
+<p class="note"><strong>Häufigster Fehler:</strong> 2<sup>3</sup> ist <strong>nicht</strong> 2 · 3 = 6, sondern 2 · 2 · 2 = 8. Und 5<sup>2</sup> ist nicht 10, sondern 25.</p>
+
+<p class="totop"><a href="#top">&uarr; nach oben</a></p>
+<h2 id="auswendig">Potenzen, die man kennen sollte</h2>
+<p>Diese Werte kommen in Prüfungen immer wieder vor. Wer sie auswendig weiss, spart viel Zeit.</p>
+<p><strong>Quadratzahlen</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>n</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n<sup>2</sup></td>
+<td>1</td>
+<td>4</td>
+<td>9</td>
+<td>16</td>
+<td>25</td>
+<td>36</td>
+<td>49</td>
+<td>64</td>
+<td>81</td>
+<td>100</td>
+</tr>
+</tbody>
+</table></div>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>n</th>
+<th>11</th>
+<th>12</th>
+<th>13</th>
+<th>14</th>
+<th>15</th>
+<th>16</th>
+<th>17</th>
+<th>18</th>
+<th>19</th>
+<th>20</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n<sup>2</sup></td>
+<td>121</td>
+<td>144</td>
+<td>169</td>
+<td>196</td>
+<td>225</td>
+<td>256</td>
+<td>289</td>
+<td>324</td>
+<td>361</td>
+<td>400</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Kubikzahlen</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>n</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n<sup>3</sup></td>
+<td>1</td>
+<td>8</td>
+<td>27</td>
+<td>64</td>
+<td>125</td>
+<td>216</td>
+<td>343</td>
+<td>512</td>
+<td>729</td>
+<td>1000</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Zweierpotenzen</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>2<sup>1</sup></th>
+<th>2<sup>2</sup></th>
+<th>2<sup>3</sup></th>
+<th>2<sup>4</sup></th>
+<th>2<sup>5</sup></th>
+<th>2<sup>6</sup></th>
+<th>2<sup>7</sup></th>
+<th>2<sup>8</sup></th>
+<th>2<sup>9</sup></th>
+<th>2<sup>10</sup></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>4</td>
+<td>8</td>
+<td>16</td>
+<td>32</td>
+<td>64</td>
+<td>128</td>
+<td>256</td>
+<td>512</td>
+<td>1024</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Zehnerpotenzen:</strong> Der Exponent sagt, wie viele Nullen hinter der 1 stehen.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Potenz</th>
+<th>Zahl</th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10<sup>1</sup></td>
+<td>10</td>
+<td>Zehn</td>
+</tr>
+<tr>
+<td>10<sup>2</sup></td>
+<td>100</td>
+<td>Hundert</td>
+</tr>
+<tr>
+<td>10<sup>3</sup></td>
+<td>1000</td>
+<td>Tausend</td>
+</tr>
+<tr>
+<td>10<sup>4</sup></td>
+<td>10 000</td>
+<td>Zehntausend</td>
+</tr>
+<tr>
+<td>10<sup>5</sup></td>
+<td>100 000</td>
+<td>Hunderttausend</td>
+</tr>
+<tr>
+<td>10<sup>6</sup></td>
+<td>1 000 000</td>
+<td>eine Million</td>
+</tr>
+<tr>
+<td>10<sup>9</sup></td>
+<td>1 000 000 000</td>
+<td>eine Milliarde</td>
+</tr>
+</tbody>
+</table></div>
+<p class="totop"><a href="#top">&uarr; nach oben</a></p>
+<h2 id="besonders">Besondere Fälle</h2>
+<h3>Exponent 1 und 0</h3>
+<ul>
+<li><strong>a<sup>1</sup> = a</strong>: Die Zahl kommt nur einmal vor. 7<sup>1</sup> = 7.</li>
+<li><strong>a<sup>0</sup> = 1</strong>: Das sieht seltsam aus, folgt aber aus dem Muster. Bei jedem Schritt nach unten wird halbiert:</li>
+</ul>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>2<sup>3</sup></th>
+<th>2<sup>2</sup></th>
+<th>2<sup>1</sup></th>
+<th>2<sup>0</sup></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>8</td>
+<td>4</td>
+<td>2</td>
+<td><strong>1</strong></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>1<sup>n</sup> = 1</strong>: 1 · 1 · 1 · … bleibt immer 1.</li>
+<li><strong>0<sup>n</sup> = 0</strong> (für n ≥ 1): 0 · 0 · … bleibt 0.</li>
+</ul>
+<h3>Dezimalzahlen hoch n</h3>
+<p>Man rechnet zuerst ohne Komma und setzt am Schluss so viele Nachkommastellen, wie alle Faktoren zusammen haben.</p>
+<ul>
+<li>0,3<sup>2</sup> = 0,3 · 0,3 = <strong>0,09</strong> (3 · 3 = 9, und 1 + 1 = 2 Nachkommastellen)</li>
+<li>0,2<sup>3</sup> = 0,2 · 0,2 · 0,2 = <strong>0,008</strong> (2 · 2 · 2 = 8, 3 Nachkommastellen)</li>
+<li>1,5<sup>2</sup> = 1,5 · 1,5 = <strong>2,25</strong></li>
+</ul>
+<p class="note"><strong>Achtung:</strong> 0,3<sup>2</sup> ist <strong>nicht</strong> 0,9. Eine Zahl kleiner als 1 wird beim Potenzieren <strong>kleiner</strong>: 0,5<sup>2</sup> = 0,25.</p>
+
+<h3>Brüche hoch n</h3>
+<p>Zähler und Nenner werden beide potenziert: (2/3)<sup>2</sup> = (2 · 2)/(3 · 3) = <strong>4/9</strong> und (1/2)<sup>3</sup> = <strong>1/8</strong>.</p>
+<h3>Grosse Zahlen mit Zehnerpotenzen</h3>
+<ul>
+<li>3 · 10<sup>6</sup> = 3 · 1 000 000 = <strong>3 000 000</strong> (drei Millionen)</li>
+<li>4,5 · 10<sup>3</sup> = <strong>4500</strong> (das Komma rutscht 3 Stellen nach rechts)</li>
+<li>250 000 = 2,5 · 10<sup>5</sup> oder 25 · 10<sup>4</sup></li>
+</ul>
+<p class="totop"><a href="#top">&uarr; nach oben</a></p>
+<h2 id="reihenfolge">Reihenfolge: Klammer – Potenz – Punkt – Strich</h2>
+<p>Potenzen werden <strong>vor</strong> dem Malnehmen und Teilen berechnet, aber <strong>nach</strong> den Klammern.</p>
+<figure class="fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 352" role="img" aria-label="Reihenfolge Klammer Potenz Punkt Strich" font-size="13"><defs><marker id="rf-arrow" viewBox="0 0 10 10" ref-x="9" ref-y="5" marker-width="6" marker-height="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--cds-chart-axis)"></path></marker></defs><text x="24" y="30" font-size="15" font-weight="600" fill="var(--cds-text-primary)">KlaPoPuStri: Klammer vor Potenz vor Punkt vor Strich</text><g><rect x="24" y="52" width="160" height="60" rx="8" fill="var(--cds-chart-categorical-1)" fill-opacity="0.12" stroke="var(--cds-chart-categorical-1)" stroke-width="1.75"></rect><text x="104" y="78" font-size="14" font-weight="600" fill="var(--cds-text-primary)" text-anchor="middle">1. Klammern</text><text x="104" y="99" font-size="13" font-weight="400" fill="var(--cds-text-secondary)" text-anchor="middle">( … )</text></g><g><rect x="208" y="52" width="160" height="60" rx="8" fill="var(--cds-chart-categorical-2)" fill-opacity="0.12" stroke="var(--cds-chart-categorical-2)" stroke-width="1.75"></rect><text x="288" y="78" font-size="14" font-weight="600" fill="var(--cds-text-primary)" text-anchor="middle">2. Potenzen</text><text x="288" y="99" font-size="13" font-weight="400" fill="var(--cds-text-secondary)" text-anchor="middle">x², x³ …</text></g><g><rect x="392" y="52" width="160" height="60" rx="8" fill="var(--cds-chart-categorical-3)" fill-opacity="0.12" stroke="var(--cds-chart-categorical-3)" stroke-width="1.75"></rect><text x="472" y="78" font-size="14" font-weight="600" fill="var(--cds-text-primary)" text-anchor="middle">3. Punktrechnung</text><text x="472" y="99" font-size="13" font-weight="400" fill="var(--cds-text-secondary)" text-anchor="middle">·  und  :</text></g><g><rect x="576" y="52" width="160" height="60" rx="8" fill="var(--accent)" fill-opacity="0.12" stroke="var(--accent)" stroke-width="1.75"></rect><text x="656" y="78" font-size="14" font-weight="600" fill="var(--cds-text-primary)" text-anchor="middle">4. Strichrechnung</text><text x="656" y="99" font-size="13" font-weight="400" fill="var(--cds-text-secondary)" text-anchor="middle">+  und  −</text></g><path d="M186 82H206" stroke="var(--cds-chart-axis)" stroke-width="1.5" marker-end="url(#rf-arrow)" fill="none"></path><path d="M370 82H390" stroke="var(--cds-chart-axis)" stroke-width="1.5" marker-end="url(#rf-arrow)" fill="none"></path><path d="M554 82H574" stroke="var(--cds-chart-axis)" stroke-width="1.5" marker-end="url(#rf-arrow)" fill="none"></path><text x="24" y="152" font-size="13" font-weight="600" fill="var(--cds-text-secondary)" text-anchor="start">Beispiel</text><g><text x="120" y="182" font-size="17" font-weight="400" fill="var(--cds-text-primary)" text-anchor="start">2 · (1 + 2)² − 5</text></g><g><text x="120" y="218" font-size="17" font-weight="400" fill="var(--cds-text-primary)" text-anchor="start">= 2 · 3² − 5</text><g><rect x="380" y="198" width="12" height="26" rx="3" fill="var(--cds-chart-categorical-1)"></rect><text x="402" y="217" font-size="13" font-weight="400" fill="var(--cds-text-primary)" text-anchor="start">Klammer: 1 + 2 = 3</text></g></g><g><text x="120" y="254" font-size="17" font-weight="400" fill="var(--cds-text-primary)" text-anchor="start">= 2 · 9 − 5</text><g><rect x="380" y="234" width="12" height="26" rx="3" fill="var(--cds-chart-categorical-2)"></rect><text x="402" y="253" font-size="13" font-weight="400" fill="var(--cds-text-primary)" text-anchor="start">Potenz: 3² = 9</text></g></g><g><text x="120" y="290" font-size="17" font-weight="400" fill="var(--cds-text-primary)" text-anchor="start">= 18 − 5</text><g><rect x="380" y="270" width="12" height="26" rx="3" fill="var(--cds-chart-categorical-3)"></rect><text x="402" y="289" font-size="13" font-weight="400" fill="var(--cds-text-primary)" text-anchor="start">Punkt: 2 · 9 = 18</text></g></g><g><text x="120" y="326" font-size="17" font-weight="700" fill="var(--cds-text-primary)" text-anchor="start">= 13</text><g><rect x="380" y="306" width="12" height="26" rx="3" fill="var(--accent)"></rect><text x="402" y="325" font-size="13" font-weight="400" fill="var(--cds-text-primary)" text-anchor="start">Strich: 18 − 5 = 13</text></g></g></svg><figcaption>Reihenfolge der Rechenoperationen</figcaption></figure>
+
+<p>Eine Klammer verändert alles. Vergleiche:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>ohne Klammer</th>
+<th>mit Klammer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2 + 3<sup>2</sup> = 2 + 9 = <strong>11</strong></td>
+<td>(2 + 3)<sup>2</sup> = 5<sup>2</sup> = <strong>25</strong></td>
+</tr>
+<tr>
+<td>2 · 3<sup>2</sup> = 2 · 9 = <strong>18</strong></td>
+<td>(2 · 3)<sup>2</sup> = 6<sup>2</sup> = <strong>36</strong></td>
+</tr>
+<tr>
+<td>10 − 2<sup>2</sup> = 10 − 4 = <strong>6</strong></td>
+<td>(10 − 2)<sup>2</sup> = 8<sup>2</sup> = <strong>64</strong></td>
+</tr>
+<tr>
+<td>3<sup>2</sup> + 4<sup>2</sup> = 9 + 16 = <strong>25</strong></td>
+<td>(3 + 4)<sup>2</sup> = 7<sup>2</sup> = <strong>49</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p class="note"><strong>Merke:</strong> (3 + 4)<sup>2</sup> ist <strong>nicht</strong> 3<sup>2</sup> + 4<sup>2</sup>. Bei Plus in der Klammer zuerst die Klammer ausrechnen!</p>
+
+<p class="totop"><a href="#top">&uarr; nach oben</a></p>
+<h2 id="regeln">Rechenregeln für Potenzen</h2>
+<p>Für das Malnehmen und Teilen von Potenzen gibt es Abkürzungen. Man muss sie nicht auswendig lernen: Man kann die Faktoren einfach zählen.</p>
+<figure class="fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 384" role="img" aria-label="Potenzgesetze durch Faktoren zählen" font-size="13"><text x="24" y="30" font-size="15" font-weight="600" fill="var(--cds-text-primary)">Nicht auswendig lernen: einfach die Faktoren zählen</text><text x="24" y="50" font-size="11.5" fill="var(--cds-text-secondary)">Jedes Kästchen ist ein Faktor 2 (oder 5). Malpunkte zwischen den Kästchen denkt man sich dazu.</text><text x="24" y="82" font-size="16" font-weight="600" fill="var(--cds-text-primary)" text-anchor="start">2³ · 2⁴</text><text x="24" y="101" font-size="11.5" font-weight="400" fill="var(--cds-text-secondary)" text-anchor="start">gleiche Basis malnehmen</text><g><rect x="170" y="67" width="34" height="34" rx="7" fill="var(--cds-chart-categorical-1)" fill-opacity="0.16" stroke="var(--cds-chart-categorical-1)" stroke-width="1.5" stroke-opacity="1"></rect><text x="187" y="89" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)" fill-opacity="1">2</text></g><g><rect x="208" y="67" width="34" height="34" rx="7" fill="var(--cds-chart-categorical-1)" fill-opacity="0.16" stroke="var(--cds-chart-categorical-1)" stroke-width="1.5" stroke-opacity="1"></rect><text x="225" y="89" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)" fill-opacity="1">2</text></g><g><rect x="246" y="67" width="34" height="34" rx="7" fill="var(--cds-chart-categorical-1)" fill-opacity="0.16" stroke="var(--cds-chart-categorical-1)" stroke-width="1.5" stroke-opacity="1"></rect><text x="263" y="89" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)" fill-opacity="1">2</text></g><text x="286" y="90" font-size="18" font-weight="700" fill="var(--cds-text-primary)" text-anchor="middle">·</text><g><rect x="300" y="67" width="34" height="34" rx="7" fill="var(--cds-chart-categorical-2)" fill-opacity="0.16" stroke="var(--cds-chart-categorical-2)" stroke-width="1.5" stroke-opacity="1"></rect><text x="317" y="89" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)" fill-opacity="1">2</text></g><g><rect x="338" y="67" width="34" height="34" rx="7" fill="var(--cds-chart-categorical-2)" fill-opacity="0.16" stroke="var(--cds-chart-categorical-2)" stroke-width="1.5" stroke-opacity="1"></rect><text x="355" y="89" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)" fill-opacity="1">2</text></g><g><rect x="376" y="67" width="34" height="34" rx="7" fill="var(--cds-chart-categorical-2)" fill-opacity="0.16" stroke="var(--cds-chart-categorical-2)" stroke-width="1.5" stroke-opacity="1"></rect><text x="393" y="89" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)" fill-opacity="1">2</text></g><g><rect x="414" y="67" width="34" height="34" rx="7" fill="var(--cds-chart-categorical-2)" fill-opacity="0.16" stroke="var(--cds-chart-categorical-2)" stroke-width="1.5" stroke-opacity="1"></rect><text x="431" y="89" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)" fill-opacity="1">2</text></g><text x="540" y="89" font-size="15" font-weight="600" fill="var(--cds-text-primary)" text-anchor="start">= 2⁷ = 128</text><text x="540" y="108" font-size="11.5" font-weight="400" fill="var(--cds-text-secondary)" text-anchor="start">3 + 4 = 7 Faktoren</text><text x="24" y="174" font-size="16" font-weight="600" fill="var(--cds-text-primary)" text-anchor="start">2⁵ : 2²</text><text x="24" y="193" font-size="11.5" font-weight="400" fill="var(--cds-text-secondary)" text-anchor="start">gleiche Basis teilen</text><g><rect x="170" y="137" width="34" height="34" rx="7" fill="var(--cds-chart-categorical-1)" fill-opacity="0.05" stroke="var(--cds-chart-categorical-1)" stroke-width="1.5" stroke-opacity="0.45"></rect><text x="187" y="159" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)" fill-opacity="0.4">2</text><line x1="174" y1="167" x2="200" y2="141" stroke="var(--cds-chart-categorical-2)" stroke-width="2"></line></g><g><rect x="208" y="137" width="34" height="34" rx="7" fill="var(--cds-chart-categorical-1)" fill-opacity="0.05" stroke="var(--cds-chart-categorical-1)" stroke-width="1.5" stroke-opacity="0.45"></rect><text x="225" y="159" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)" fill-opacity="0.4">2</text><line x1="212" y1="167" x2="238" y2="141" stroke="var(--cds-chart-categorical-2)" stroke-width="2"></line></g><g><rect x="246" y="137" width="34" height="34" rx="7" fill="var(--cds-chart-categorical-1)" fill-opacity="0.16" stroke="var(--cds-chart-categorical-1)" stroke-width="1.5" stroke-opacity="1"></rect><text x="263" y="159" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)" fill-opacity="1">2</text></g><g><rect x="284" y="137" width="34" height="34" rx="7" fill="var(--cds-chart-categorical-1)" fill-opacity="0.16" stroke="var(--cds-chart-categorical-1)" stroke-width="1.5" stroke-opacity="1"></rect><text x="301" y="159" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)" fill-opacity="1">2</text></g><g><rect x="322" y="137" width="34" height="34" rx="7" fill="var(--cds-chart-categorical-1)" fill-opacity="0.16" stroke="var(--cds-chart-categorical-1)" stroke-width="1.5" stroke-opacity="1"></rect><text x="339" y="159" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)" fill-opacity="1">2</text></g><line x1="166" y1="176" x2="362" y2="176" stroke="var(--cds-text-primary)" stroke-width="1.5"></line><g><rect x="170" y="181" width="34" height="34" rx="7" fill="var(--cds-chart-categorical-1)" fill-opacity="0.05" stroke="var(--cds-chart-categorical-1)" stroke-width="1.5" stroke-opacity="0.45"></rect><text x="187" y="203" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)" fill-opacity="0.4">2</text><line x1="174" y1="211" x2="200" y2="185" stroke="var(--cds-chart-categorical-2)" stroke-width="2"></line></g><g><rect x="208" y="181" width="34" height="34" rx="7" fill="var(--cds-chart-categorical-1)" fill-opacity="0.05" stroke="var(--cds-chart-categorical-1)" stroke-width="1.5" stroke-opacity="0.45"></rect><text x="225" y="203" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)" fill-opacity="0.4">2</text><line x1="212" y1="211" x2="238" y2="185" stroke="var(--cds-chart-categorical-2)" stroke-width="2"></line></g><text x="540" y="181" font-size="15" font-weight="600" fill="var(--cds-text-primary)" text-anchor="start">= 2³ = 8</text><text x="540" y="200" font-size="11.5" font-weight="400" fill="var(--cds-text-secondary)" text-anchor="start">5 − 2 = 3 Faktoren bleiben (kürzen)</text><text x="24" y="266" font-size="16" font-weight="600" fill="var(--cds-text-primary)" text-anchor="start">(2³)²</text><text x="24" y="285" font-size="11.5" font-weight="400" fill="var(--cds-text-secondary)" text-anchor="start">Potenz einer Potenz</text><rect x="164" y="244" width="122" height="48" rx="10" fill="none" stroke="var(--cds-text-secondary)" stroke-dasharray="4 3"></rect><rect x="298" y="244" width="122" height="48" rx="10" fill="none" stroke="var(--cds-text-secondary)" stroke-dasharray="4 3"></rect><g><rect x="170" y="251" width="34" height="34" rx="7" fill="var(--cds-chart-categorical-1)" fill-opacity="0.16" stroke="var(--cds-chart-categorical-1)" stroke-width="1.5" stroke-opacity="1"></rect><text x="187" y="273" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)" fill-opacity="1">2</text></g><g><rect x="208" y="251" width="34" height="34" rx="7" fill="var(--cds-chart-categorical-1)" fill-opacity="0.16" stroke="var(--cds-chart-categorical-1)" stroke-width="1.5" stroke-opacity="1"></rect><text x="225" y="273" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)" fill-opacity="1">2</text></g><g><rect x="246" y="251" width="34" height="34" rx="7" fill="var(--cds-chart-categorical-1)" fill-opacity="0.16" stroke="var(--cds-chart-categorical-1)" stroke-width="1.5" stroke-opacity="1"></rect><text x="263" y="273" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)" fill-opacity="1">2</text></g><g><rect x="304" y="251" width="34" height="34" rx="7" fill="var(--cds-chart-categorical-2)" fill-opacity="0.16" stroke="var(--cds-chart-categorical-2)" stroke-width="1.5" stroke-opacity="1"></rect><text x="321" y="273" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)" fill-opacity="1">2</text></g><g><rect x="342" y="251" width="34" height="34" rx="7" fill="var(--cds-chart-categorical-2)" fill-opacity="0.16" stroke="var(--cds-chart-categorical-2)" stroke-width="1.5" stroke-opacity="1"></rect><text x="359" y="273" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)" fill-opacity="1">2</text></g><g><rect x="380" y="251" width="34" height="34" rx="7" fill="var(--cds-chart-categorical-2)" fill-opacity="0.16" stroke="var(--cds-chart-categorical-2)" stroke-width="1.5" stroke-opacity="1"></rect><text x="397" y="273" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)" fill-opacity="1">2</text></g><text x="540" y="273" font-size="15" font-weight="600" fill="var(--cds-text-primary)" text-anchor="start">= 2⁶ = 64</text><text x="540" y="292" font-size="11.5" font-weight="400" fill="var(--cds-text-secondary)" text-anchor="start">2 Gruppen à 3 = 6 Faktoren</text><text x="24" y="342" font-size="16" font-weight="600" fill="var(--cds-text-primary)" text-anchor="start">2³ · 5³</text><text x="24" y="361" font-size="11.5" font-weight="400" fill="var(--cds-text-secondary)" text-anchor="start">gleicher Exponent</text><g><rect x="164" y="321" width="84" height="46" rx="10" fill="none" stroke="var(--cds-text-secondary)" stroke-dasharray="4 3"></rect><g><rect x="170" y="327" width="34" height="34" rx="7" fill="var(--cds-chart-categorical-1)" fill-opacity="0.16" stroke="var(--cds-chart-categorical-1)" stroke-width="1.5" stroke-opacity="1"></rect><text x="187" y="349" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)" fill-opacity="1">2</text></g><g><rect x="208" y="327" width="34" height="34" rx="7" fill="var(--cds-chart-categorical-2)" fill-opacity="0.16" stroke="var(--cds-chart-categorical-2)" stroke-width="1.5" stroke-opacity="1"></rect><text x="225" y="349" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)" fill-opacity="1">5</text></g></g><g><rect x="254" y="321" width="84" height="46" rx="10" fill="none" stroke="var(--cds-text-secondary)" stroke-dasharray="4 3"></rect><g><rect x="260" y="327" width="34" height="34" rx="7" fill="var(--cds-chart-categorical-1)" fill-opacity="0.16" stroke="var(--cds-chart-categorical-1)" stroke-width="1.5" stroke-opacity="1"></rect><text x="277" y="349" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)" fill-opacity="1">2</text></g><g><rect x="298" y="327" width="34" height="34" rx="7" fill="var(--cds-chart-categorical-2)" fill-opacity="0.16" stroke="var(--cds-chart-categorical-2)" stroke-width="1.5" stroke-opacity="1"></rect><text x="315" y="349" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)" fill-opacity="1">5</text></g></g><g><rect x="344" y="321" width="84" height="46" rx="10" fill="none" stroke="var(--cds-text-secondary)" stroke-dasharray="4 3"></rect><g><rect x="350" y="327" width="34" height="34" rx="7" fill="var(--cds-chart-categorical-1)" fill-opacity="0.16" stroke="var(--cds-chart-categorical-1)" stroke-width="1.5" stroke-opacity="1"></rect><text x="367" y="349" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)" fill-opacity="1">2</text></g><g><rect x="388" y="327" width="34" height="34" rx="7" fill="var(--cds-chart-categorical-2)" fill-opacity="0.16" stroke="var(--cds-chart-categorical-2)" stroke-width="1.5" stroke-opacity="1"></rect><text x="405" y="349" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)" fill-opacity="1">5</text></g></g><text x="540" y="349" font-size="15" font-weight="600" fill="var(--cds-text-primary)" text-anchor="start">= 10³ = 1000</text><text x="540" y="368" font-size="11.5" font-weight="400" fill="var(--cds-text-secondary)" text-anchor="start">jedes Paar 2 · 5 = 10</text></svg><figcaption>Potenzgesetze durch Faktoren zählen</figcaption></figure>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Regel</th>
+<th>Beispiel</th>
+<th>Warum</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gleiche Basis <strong>mal</strong>: Exponenten <strong>addieren</strong></td>
+<td>3<sup>2</sup> · 3<sup>4</sup> = 3<sup>6</sup></td>
+<td>2 + 4 = 6 Faktoren 3</td>
+</tr>
+<tr>
+<td>gleiche Basis <strong>geteilt</strong>: Exponenten <strong>subtrahieren</strong></td>
+<td>5<sup>6</sup> : 5<sup>2</sup> = 5<sup>4</sup></td>
+<td>2 Faktoren kürzen sich weg</td>
+</tr>
+<tr>
+<td>Potenz <strong>hoch</strong> eine Zahl: Exponenten <strong>malnehmen</strong></td>
+<td>(2<sup>3</sup>)<sup>2</sup> = 2<sup>6</sup></td>
+<td>2 Gruppen à 3 Faktoren</td>
+</tr>
+<tr>
+<td>gleicher Exponent: Basen zusammennehmen</td>
+<td>2<sup>3</sup> · 5<sup>3</sup> = 10<sup>3</sup></td>
+<td>(2 · 5) · (2 · 5) · (2 · 5)</td>
+</tr>
+</tbody>
+</table></div>
+<p class="note"><strong>Wichtig:</strong> Für <strong>Plus und Minus</strong> gibt es keine solche Regel! 2<sup>3</sup> + 2<sup>4</sup> = 8 + 16 = 24, nicht 2<sup>7</sup> = 128. Und bei verschiedener Basis und verschiedenem Exponenten einfach ausrechnen: 2<sup>3</sup> · 3<sup>2</sup> = 8 · 9 = 72.</p>
+
+<p><strong>Geschickt rechnen mit 2 · 5 = 10:</strong></p>
+<ul>
+<li>2<sup>4</sup> · 5<sup>4</sup> = 10<sup>4</sup> = <strong>10 000</strong></li>
+<li>4<sup>2</sup> · 25<sup>2</sup> = (4 · 25)<sup>2</sup> = 100<sup>2</sup> = <strong>10 000</strong></li>
+<li>5<sup>3</sup> · 8 = 5<sup>3</sup> · 2<sup>3</sup> = 10<sup>3</sup> = <strong>1000</strong></li>
+</ul>
+<p class="totop"><a href="#top">&uarr; nach oben</a></p>
+<h2 id="tricks">Schlaue Tricks</h2>
+<h3>Quadratzahlen und ungerade Zahlen</h3>
+<figure class="fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 316" role="img" aria-label="Quadratzahlen sind Summen von ungeraden Zahlen" font-size="13"><text x="24" y="30" font-size="15" font-weight="600" fill="var(--cds-text-primary)">Jede Quadratzahl ist eine Summe der ungeraden Zahlen</text><text x="24" y="50" font-size="11.5" fill="var(--cds-text-secondary)">Jede neue «Ecke» (L-Form) hat 2 Kästchen mehr als die vorherige</text><rect x="60" y="250" width="40" height="40" fill="var(--cds-chart-categorical-1)" fill-opacity="0.1" stroke="var(--cds-chart-categorical-1)" stroke-width="1"></rect><rect x="60" y="210" width="40" height="40" fill="var(--cds-chart-categorical-2)" fill-opacity="0.14" stroke="var(--cds-chart-categorical-2)" stroke-width="1"></rect><rect x="60" y="170" width="40" height="40" fill="var(--cds-chart-categorical-1)" fill-opacity="0.18" stroke="var(--cds-chart-categorical-1)" stroke-width="1"></rect><rect x="60" y="130" width="40" height="40" fill="var(--cds-chart-categorical-2)" fill-opacity="0.22" stroke="var(--cds-chart-categorical-2)" stroke-width="1"></rect><rect x="60" y="90" width="40" height="40" fill="var(--cds-chart-categorical-1)" fill-opacity="0.26" stroke="var(--cds-chart-categorical-1)" stroke-width="1"></rect><rect x="100" y="250" width="40" height="40" fill="var(--cds-chart-categorical-2)" fill-opacity="0.14" stroke="var(--cds-chart-categorical-2)" stroke-width="1"></rect><rect x="100" y="210" width="40" height="40" fill="var(--cds-chart-categorical-2)" fill-opacity="0.14" stroke="var(--cds-chart-categorical-2)" stroke-width="1"></rect><rect x="100" y="170" width="40" height="40" fill="var(--cds-chart-categorical-1)" fill-opacity="0.18" stroke="var(--cds-chart-categorical-1)" stroke-width="1"></rect><rect x="100" y="130" width="40" height="40" fill="var(--cds-chart-categorical-2)" fill-opacity="0.22" stroke="var(--cds-chart-categorical-2)" stroke-width="1"></rect><rect x="100" y="90" width="40" height="40" fill="var(--cds-chart-categorical-1)" fill-opacity="0.26" stroke="var(--cds-chart-categorical-1)" stroke-width="1"></rect><rect x="140" y="250" width="40" height="40" fill="var(--cds-chart-categorical-1)" fill-opacity="0.18" stroke="var(--cds-chart-categorical-1)" stroke-width="1"></rect><rect x="140" y="210" width="40" height="40" fill="var(--cds-chart-categorical-1)" fill-opacity="0.18" stroke="var(--cds-chart-categorical-1)" stroke-width="1"></rect><rect x="140" y="170" width="40" height="40" fill="var(--cds-chart-categorical-1)" fill-opacity="0.18" stroke="var(--cds-chart-categorical-1)" stroke-width="1"></rect><rect x="140" y="130" width="40" height="40" fill="var(--cds-chart-categorical-2)" fill-opacity="0.22" stroke="var(--cds-chart-categorical-2)" stroke-width="1"></rect><rect x="140" y="90" width="40" height="40" fill="var(--cds-chart-categorical-1)" fill-opacity="0.26" stroke="var(--cds-chart-categorical-1)" stroke-width="1"></rect><rect x="180" y="250" width="40" height="40" fill="var(--cds-chart-categorical-2)" fill-opacity="0.22" stroke="var(--cds-chart-categorical-2)" stroke-width="1"></rect><rect x="180" y="210" width="40" height="40" fill="var(--cds-chart-categorical-2)" fill-opacity="0.22" stroke="var(--cds-chart-categorical-2)" stroke-width="1"></rect><rect x="180" y="170" width="40" height="40" fill="var(--cds-chart-categorical-2)" fill-opacity="0.22" stroke="var(--cds-chart-categorical-2)" stroke-width="1"></rect><rect x="180" y="130" width="40" height="40" fill="var(--cds-chart-categorical-2)" fill-opacity="0.22" stroke="var(--cds-chart-categorical-2)" stroke-width="1"></rect><rect x="180" y="90" width="40" height="40" fill="var(--cds-chart-categorical-1)" fill-opacity="0.26" stroke="var(--cds-chart-categorical-1)" stroke-width="1"></rect><rect x="220" y="250" width="40" height="40" fill="var(--cds-chart-categorical-1)" fill-opacity="0.26" stroke="var(--cds-chart-categorical-1)" stroke-width="1"></rect><rect x="220" y="210" width="40" height="40" fill="var(--cds-chart-categorical-1)" fill-opacity="0.26" stroke="var(--cds-chart-categorical-1)" stroke-width="1"></rect><rect x="220" y="170" width="40" height="40" fill="var(--cds-chart-categorical-1)" fill-opacity="0.26" stroke="var(--cds-chart-categorical-1)" stroke-width="1"></rect><rect x="220" y="130" width="40" height="40" fill="var(--cds-chart-categorical-1)" fill-opacity="0.26" stroke="var(--cds-chart-categorical-1)" stroke-width="1"></rect><rect x="220" y="90" width="40" height="40" fill="var(--cds-chart-categorical-1)" fill-opacity="0.26" stroke="var(--cds-chart-categorical-1)" stroke-width="1"></rect><text x="80" y="275" text-anchor="middle" font-size="14" font-weight="700" fill="var(--cds-text-primary)">1</text><text x="120" y="235" text-anchor="middle" font-size="14" font-weight="700" fill="var(--cds-text-primary)">3</text><text x="160" y="195" text-anchor="middle" font-size="14" font-weight="700" fill="var(--cds-text-primary)">5</text><text x="200" y="155" text-anchor="middle" font-size="14" font-weight="700" fill="var(--cds-text-primary)">7</text><text x="240" y="115" text-anchor="middle" font-size="14" font-weight="700" fill="var(--cds-text-primary)">9</text><text x="330" y="108" font-size="16" font-weight="400" fill="var(--cds-text-primary)" text-anchor="start">1 = 1 = 1²</text><text x="330" y="148" font-size="16" font-weight="400" fill="var(--cds-text-primary)" text-anchor="start">1 + 3 = 4 = 2²</text><text x="330" y="188" font-size="16" font-weight="400" fill="var(--cds-text-primary)" text-anchor="start">1 + 3 + 5 = 9 = 3²</text><text x="330" y="228" font-size="16" font-weight="400" fill="var(--cds-text-primary)" text-anchor="start">1 + 3 + 5 + 7 = 16 = 4²</text><text x="330" y="268" font-size="16" font-weight="700" fill="var(--cds-text-primary)" text-anchor="start">1 + 3 + 5 + 7 + 9 = 25 = 5²</text><text x="330" y="300" font-size="12.5" font-weight="400" fill="var(--cds-text-secondary)" text-anchor="start">Die n ersten ungeraden Zahlen ergeben zusammen n².</text></svg><figcaption>Quadratzahlen als Summe ungerader Zahlen</figcaption></figure>
+
+<p>Damit rechnest du blitzschnell: 1 + 3 + 5 + … + 19 sind 10 ungerade Zahlen, also 10<sup>2</sup> = <strong>100</strong>.</p>
+<h3>Zahlen mit 5 am Ende im Quadrat</h3>
+<p>Nimm die Zahl vor der 5, multipliziere sie mit der nächsten Zahl und hänge 25 an.</p>
+<ul>
+<li>35<sup>2</sup>: 3 · 4 = 12, dann 25 anhängen → <strong>1225</strong></li>
+<li>65<sup>2</sup>: 6 · 7 = 42 → <strong>4225</strong></li>
+<li>15<sup>2</sup>: 1 · 2 = 2 → <strong>225</strong></li>
+</ul>
+<h3>Nachbarn von bekannten Quadratzahlen</h3>
+<p>(n + 1)<sup>2</sup> = n<sup>2</sup> + n + (n + 1). Man addiert also die Zahl und ihren Nachbarn.</p>
+<ul>
+<li>21<sup>2</sup> = 20<sup>2</sup> + 20 + 21 = 400 + 41 = <strong>441</strong></li>
+<li>31<sup>2</sup> = 900 + 30 + 31 = <strong>961</strong></li>
+</ul>
+<h3>Die letzte Ziffer</h3>
+<p>Die letzten Ziffern von Potenzen wiederholen sich in einem Muster:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Basis</th>
+<th>letzte Ziffern von Basis<sup>1</sup>, Basis<sup>2</sup>, Basis<sup>3</sup>, …</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>2, 4, 8, 6, 2, 4, 8, 6, … (alle 4 Schritte gleich)</td>
+</tr>
+<tr>
+<td>3</td>
+<td>3, 9, 7, 1, 3, 9, 7, 1, …</td>
+</tr>
+<tr>
+<td>4</td>
+<td>4, 6, 4, 6, …</td>
+</tr>
+<tr>
+<td>5</td>
+<td>immer 5</td>
+</tr>
+<tr>
+<td>6</td>
+<td>immer 6</td>
+</tr>
+<tr>
+<td>7</td>
+<td>7, 9, 3, 1, 7, 9, 3, 1, …</td>
+</tr>
+<tr>
+<td>9</td>
+<td>9, 1, 9, 1, …</td>
+</tr>
+</tbody>
+</table></div>
+<p class="totop"><a href="#top">&uarr; nach oben</a></p>
+<h2 id="alltag">Potenzen im Alltag</h2>
+<p>Wenn sich etwas immer wieder <strong>verdoppelt</strong> (oder verdreifacht), entstehen Potenzen. Sie wachsen viel schneller, als man denkt.</p>
+<figure class="fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 356" role="img" aria-label="Verdoppeln: 2 hoch 0 bis 2 hoch 10" font-size="13"><text x="24" y="30" font-size="15" font-weight="600" fill="var(--cds-text-primary)">Verdoppeln wächst explosiv: nach 10 Schritten über 1000</text><text x="24" y="50" font-size="11.5" fill="var(--cds-text-secondary)">Säulenhöhe = Wert von 2ⁿ. Die ersten Säulen sind kaum zu sehen.</text><line x1="56" y1="300" x2="748" y2="300" stroke="var(--cds-chart-axis)" stroke-width="1.25"></line><g><rect x="66" y="298" width="40" height="2" rx="3" fill="var(--cds-chart-categorical-1)" fill-opacity="0.55"></rect><text x="86" y="292" text-anchor="middle" font-size="11.5" font-weight="400" fill="var(--cds-text-primary)">1</text><text x="86" y="318" text-anchor="middle" font-size="13" fill="var(--cds-text-secondary)">2⁰</text></g><g><rect x="128" y="298" width="40" height="2" rx="3" fill="var(--cds-chart-categorical-1)" fill-opacity="0.55"></rect><text x="148" y="292" text-anchor="middle" font-size="11.5" font-weight="400" fill="var(--cds-text-primary)">2</text><text x="148" y="318" text-anchor="middle" font-size="13" fill="var(--cds-text-secondary)">2¹</text></g><g><rect x="190" y="298" width="40" height="2" rx="3" fill="var(--cds-chart-categorical-1)" fill-opacity="0.55"></rect><text x="210" y="292" text-anchor="middle" font-size="11.5" font-weight="400" fill="var(--cds-text-primary)">4</text><text x="210" y="318" text-anchor="middle" font-size="13" fill="var(--cds-text-secondary)">2²</text></g><g><rect x="252" y="298" width="40" height="2" rx="3" fill="var(--cds-chart-categorical-1)" fill-opacity="0.55"></rect><text x="272" y="292" text-anchor="middle" font-size="11.5" font-weight="400" fill="var(--cds-text-primary)">8</text><text x="272" y="318" text-anchor="middle" font-size="13" fill="var(--cds-text-secondary)">2³</text></g><g><rect x="314" y="296.56" width="40" height="3.44" rx="3" fill="var(--cds-chart-categorical-1)" fill-opacity="0.55"></rect><text x="334" y="290.56" text-anchor="middle" font-size="11.5" font-weight="400" fill="var(--cds-text-primary)">16</text><text x="334" y="318" text-anchor="middle" font-size="13" fill="var(--cds-text-secondary)">2⁴</text></g><g><rect x="376" y="293.13" width="40" height="6.88" rx="3" fill="var(--cds-chart-categorical-1)" fill-opacity="0.55"></rect><text x="396" y="287.13" text-anchor="middle" font-size="11.5" font-weight="400" fill="var(--cds-text-primary)">32</text><text x="396" y="318" text-anchor="middle" font-size="13" fill="var(--cds-text-secondary)">2⁵</text></g><g><rect x="438" y="286.25" width="40" height="13.75" rx="3" fill="var(--cds-chart-categorical-1)" fill-opacity="0.55"></rect><text x="458" y="280.25" text-anchor="middle" font-size="11.5" font-weight="400" fill="var(--cds-text-primary)">64</text><text x="458" y="318" text-anchor="middle" font-size="13" fill="var(--cds-text-secondary)">2⁶</text></g><g><rect x="500" y="272.5" width="40" height="27.5" rx="3" fill="var(--cds-chart-categorical-1)" fill-opacity="0.55"></rect><text x="520" y="266.5" text-anchor="middle" font-size="11.5" font-weight="400" fill="var(--cds-text-primary)">128</text><text x="520" y="318" text-anchor="middle" font-size="13" fill="var(--cds-text-secondary)">2⁷</text></g><g><rect x="562" y="245" width="40" height="55" rx="3" fill="var(--cds-chart-categorical-1)" fill-opacity="0.55"></rect><text x="582" y="239" text-anchor="middle" font-size="11.5" font-weight="400" fill="var(--cds-text-primary)">256</text><text x="582" y="318" text-anchor="middle" font-size="13" fill="var(--cds-text-secondary)">2⁸</text></g><g><rect x="624" y="190" width="40" height="110" rx="3" fill="var(--cds-chart-categorical-1)" fill-opacity="0.55"></rect><text x="644" y="184" text-anchor="middle" font-size="11.5" font-weight="400" fill="var(--cds-text-primary)">512</text><text x="644" y="318" text-anchor="middle" font-size="13" fill="var(--cds-text-secondary)">2⁹</text></g><g><rect x="686" y="80" width="40" height="220" rx="3" fill="var(--cds-chart-categorical-1)" fill-opacity="0.9"></rect><text x="706" y="74" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--cds-text-primary)">1024</text><text x="706" y="318" text-anchor="middle" font-size="13" fill="var(--cds-text-secondary)">2¹⁰</text></g><text x="24" y="348" font-size="12" font-weight="400" fill="var(--cds-text-secondary)" text-anchor="start">Ein Blatt Papier (0,1 mm) 10-mal gefaltet: 0,1 mm · 2¹⁰ = 102,4 mm, also über 10 cm dick.</text></svg><figcaption>Zweierpotenzen von 2<sup>0</sup> bis 2<sup>10</sup></figcaption></figure>
+
+<p><strong>Beispiel Bakterien:</strong> Eine Bakterie teilt sich alle 30 Minuten in zwei. In 5 Stunden gibt es 10 Teilungen, also 2<sup>10</sup> = <strong>1024</strong> Bakterien.</p>
+<p><strong>Beispiel Würfel:</strong> Verdoppelt man die Kantenlänge eines Würfels, wird jede Seitenfläche 2<sup>2</sup> = <strong>4-mal</strong> so gross und das Volumen 2<sup>3</sup> = <strong>8-mal</strong> so gross.</p>
+<p class="totop"><a href="#top">&uarr; nach oben</a></p>
+<h2 id="uebungen">Übungen</h2>
+<p>Arbeite die Stufen der Reihe nach durch. Bei Stufe 3 zuerst selbst knobeln, dann den Tipp öffnen und erst am Schluss die Lösung.</p>
+<h3 class="lvl lvl-1">Einfach</h3>
+<p><strong>E1. Schreibe als Potenz.</strong></p>
+<ul class="tasks">
+<li>a) 5 · 5 · 5 &emsp; b) 7 · 7 &emsp; c) 10 · 10 · 10 · 10 &emsp; d) 2 · 2 · 2 · 2 · 2 · 2 &emsp; e) x · x · x · x · x</li>
+</ul>
+<p><strong>E2. Berechne.</strong></p>
+<ul class="tasks">
+<li>a) 2<sup>5</sup> &emsp; b) 3<sup>4</sup> &emsp; c) 4<sup>3</sup> &emsp; d) 10<sup>5</sup> &emsp; e) 1<sup>9</sup> &emsp; f) 7<sup>0</sup> &emsp; g) 6<sup>1</sup> &emsp; h) 0<sup>3</sup></li>
+</ul>
+<p><strong>E3. Berechne.</strong></p>
+<ul class="tasks">
+<li>a) 9<sup>2</sup> &emsp; b) 12<sup>2</sup> &emsp; c) 15<sup>2</sup> &emsp; d) 20<sup>2</sup> &emsp; e) 5<sup>3</sup> &emsp; f) 0,5<sup>2</sup> &emsp; g) 0,1<sup>3</sup> &emsp; h) (3/4)<sup>2</sup></li>
+</ul>
+<p><strong>E4. Welche Zahl gehört ins Kästchen?</strong></p>
+<ul class="tasks">
+<li>a) □<sup>2</sup> = 49 &emsp; b) □<sup>3</sup> = 8 &emsp; c) 2<sup>□</sup> = 32 &emsp; d) 10<sup>□</sup> = 1 000 000 &emsp; e) 3<sup>□</sup> = 81</li>
+</ul>
+<p><strong>E5. Richtig oder falsch? Verbessere, was falsch ist.</strong></p>
+<ul class="tasks">
+<li>a) 2<sup>3</sup> = 6 &emsp; b) 5<sup>2</sup> = 25 &emsp; c) 10<sup>0</sup> = 0 &emsp; d) 3<sup>2</sup> = 2<sup>3</sup> &emsp; e) 0,2<sup>2</sup> = 0,4</li>
+</ul>
+<details class="solution">
+<summary>Lösungen Stufe 1 anzeigen</summary>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Aufgabe</th>
+<th>Lösungen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E1</td>
+<td>a) 5<sup>3</sup> · b) 7<sup>2</sup> · c) 10<sup>4</sup> · d) 2<sup>6</sup> · e) x<sup>5</sup></td>
+</tr>
+<tr>
+<td>E2</td>
+<td>a) 32 · b) 81 · c) 64 · d) 100 000 · e) 1 · f) 1 · g) 6 · h) 0</td>
+</tr>
+<tr>
+<td>E3</td>
+<td>a) 81 · b) 144 · c) 225 · d) 400 · e) 125 · f) 0,25 · g) 0,001 · h) 9/16</td>
+</tr>
+<tr>
+<td>E4</td>
+<td>a) 7 · b) 2 · c) 5 · d) 6 · e) 4</td>
+</tr>
+<tr>
+<td>E5</td>
+<td>a) falsch: 2<sup>3</sup> = 8 · b) richtig · c) falsch: 10<sup>0</sup> = 1 · d) falsch: 9 ≠ 8 · e) falsch: 0,2<sup>2</sup> = 0,04</td>
+</tr>
+</tbody>
+</table></div>
+</details>
+<h3 class="lvl lvl-2">Mittel</h3>
+<p><strong>M1. Achte auf die Reihenfolge (Klammer – Potenz – Punkt – Strich).</strong></p>
+<ul class="tasks">
+<li>a) 3 + 2<sup>3</sup> &emsp; b) (3 + 2)<sup>3</sup> &emsp; c) 4 · 5<sup>2</sup> &emsp; d) (4 · 5)<sup>2</sup></li>
+<li>e) 50 − 3<sup>2</sup> · 4 &emsp; f) 2<sup>4</sup> : 4 + 3<sup>2</sup> &emsp; g) (10 − 7)<sup>3</sup> − 2<sup>4</sup> &emsp; h) 100 : 5<sup>2</sup> · 2</li>
+</ul>
+<p><strong>M2. Schreibe das Resultat als eine Potenz.</strong></p>
+<ul class="tasks">
+<li>a) 3<sup>2</sup> · 3<sup>5</sup> &emsp; b) 5<sup>6</sup> : 5<sup>4</sup> &emsp; c) (2<sup>3</sup>)<sup>4</sup> &emsp; d) 10<sup>4</sup> · 10<sup>3</sup> &emsp; e) 7<sup>8</sup> : 7<sup>7</sup> &emsp; f) a<sup>3</sup> · a · a<sup>2</sup></li>
+</ul>
+<p><strong>M3. Rechne geschickt im Kopf.</strong></p>
+<ul class="tasks">
+<li>a) 2<sup>4</sup> · 5<sup>4</sup> &emsp; b) 25<sup>2</sup> · 4<sup>2</sup> &emsp; c) 35<sup>2</sup> &emsp; d) 41<sup>2</sup> &emsp; e) 2<sup>10</sup> : 2<sup>8</sup></li>
+</ul>
+<p><strong>M4. Grosse Zahlen.</strong></p>
+<ul class="tasks">
+<li>a) Schreibe 4 · 10<sup>5</sup> als gewöhnliche Zahl. &emsp; b) Ebenso 2,5 · 10<sup>3</sup>.</li>
+<li>c) Schreibe 7 000 000 mit einer Zehnerpotenz. &emsp; d) Ebenso 30 000.</li>
+<li>e) Wie viele Nullen hat 1000<sup>3</sup> ausgeschrieben?</li>
+</ul>
+<p><strong>M5. Setze &lt;, &gt; oder = ein.</strong></p>
+<ul class="tasks">
+<li>a) 2<sup>5</sup> □ 5<sup>2</sup> &emsp; b) 3<sup>4</sup> □ 9<sup>2</sup> &emsp; c) 2<sup>6</sup> □ 4<sup>3</sup> &emsp; d) 10<sup>2</sup> □ 2<sup>10</sup> &emsp; e) 0,5<sup>2</sup> □ 0,5</li>
+</ul>
+<p><strong>M6. Ein Würfel hat die Kantenlänge 4 cm.</strong></p>
+<ul class="tasks">
+<li>a) Wie gross ist eine Seitenfläche? &emsp; b) Wie gross ist die ganze Oberfläche? &emsp; c) Wie gross ist das Volumen?</li>
+</ul>
+<details class="solution">
+<summary>Lösungen Stufe 2 anzeigen</summary>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Aufgabe</th>
+<th>Lösungen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>M1</td>
+<td>a) 3 + 8 = <strong>11</strong> · b) 5<sup>3</sup> = <strong>125</strong> · c) 4 · 25 = <strong>100</strong> · d) 20<sup>2</sup> = <strong>400</strong> · e) 50 − 9 · 4 = 50 − 36 = <strong>14</strong> · f) 16 : 4 + 9 = 4 + 9 = <strong>13</strong> · g) 3<sup>3</sup> − 16 = 27 − 16 = <strong>11</strong> · h) 100 : 25 · 2 = 4 · 2 = <strong>8</strong></td>
+</tr>
+<tr>
+<td>M2</td>
+<td>a) 3<sup>7</sup> · b) 5<sup>2</sup> · c) 2<sup>12</sup> · d) 10<sup>7</sup> · e) 7<sup>1</sup> = 7 · f) a<sup>6</sup> (a = a<sup>1</sup>: 3 + 1 + 2 = 6)</td>
+</tr>
+<tr>
+<td>M3</td>
+<td>a) 10<sup>4</sup> = <strong>10 000</strong> · b) 100<sup>2</sup> = <strong>10 000</strong> · c) 3 · 4 = 12 → <strong>1225</strong> · d) 1600 + 40 + 41 = <strong>1681</strong> · e) 2<sup>2</sup> = <strong>4</strong></td>
+</tr>
+<tr>
+<td>M4</td>
+<td>a) <strong>400 000</strong> · b) <strong>2500</strong> · c) <strong>7 · 10<sup>6</sup></strong> · d) <strong>3 · 10<sup>4</sup></strong> · e) 1000<sup>3</sup> = 10<sup>9</sup>: <strong>9 Nullen</strong></td>
+</tr>
+<tr>
+<td>M5</td>
+<td>a) 32 <strong>&gt;</strong> 25 · b) 81 <strong>=</strong> 81 · c) 64 <strong>=</strong> 64 · d) 100 <strong>&lt;</strong> 1024 · e) 0,25 <strong>&lt;</strong> 0,5</td>
+</tr>
+<tr>
+<td>M6</td>
+<td>a) 4<sup>2</sup> = <strong>16 cm<sup>2</sup></strong> · b) 6 · 16 = <strong>96 cm<sup>2</sup></strong> · c) 4<sup>3</sup> = <strong>64 cm<sup>3</sup></strong></td>
+</tr>
+</tbody>
+</table></div>
+</details>
+<h3 class="lvl lvl-3">Schwierig</h3>
+<div class="task">
+<p><strong>S1. Papier falten.</strong> Ein Blatt Papier ist 0,1 mm dick. Bei jedem Falten wird der Stapel doppelt so dick. a) Wie dick ist der Stapel nach 10-mal Falten? b) Wie oft müsste man falten, damit der Stapel dicker als 1 m ist?</p>
+<details class="hint">
+<summary>Tipp</summary>
+<p>Nach n-mal Falten ist der Stapel 0,1 mm · 2<sup>n</sup> dick. Rechne 1 m in mm um.</p>
+</details>
+<details class="answer">
+<summary>Lösung</summary>
+<p>a) 0,1 mm · 2<sup>10</sup> = 0,1 mm · 1024 = <strong>102,4 mm</strong> (gut 10 cm). b) 1 m = 1000 mm, also braucht man 2<sup>n</sup> &gt; 10 000. 2<sup>13</sup> = 8192 ist zu wenig, 2<sup>14</sup> = 16 384 reicht: <strong>14-mal</strong> (dann ist der Stapel 1,6384 m dick).</p>
+</details>
+</div>
+<div class="task">
+<p><strong>S2. Bakterien.</strong> Eine Bakterie teilt sich alle 20 Minuten in zwei. a) Wie viele Bakterien sind es nach 3 Stunden? b) Nach wie vielen Stunden und Minuten sind es zum ersten Mal mehr als eine Million?</p>
+<details class="hint">
+<summary>Tipp</summary>
+<p>Wie viele Teilungen passen in 3 Stunden? Für b) hilft 2<sup>10</sup> = 1024, also ist 2<sup>20</sup> = 1024 · 1024.</p>
+</details>
+<details class="answer">
+<summary>Lösung</summary>
+<p>a) 3 h = 180 min = 9 Teilungen: 2<sup>9</sup> = <strong>512</strong> Bakterien. b) 2<sup>19</sup> = 524 288 ist noch zu wenig, 2<sup>20</sup> = 1 048 576 ist mehr als eine Million. 20 Teilungen · 20 min = 400 min = <strong>6 h 40 min</strong>.</p>
+</details>
+</div>
+<div class="task">
+<p><strong>S3. Die letzte Ziffer.</strong> a) Mit welcher Ziffer endet 3<sup>20</sup>? b) Mit welcher Ziffer endet 7<sup>101</sup>?</p>
+<details class="hint">
+<summary>Tipp</summary>
+<p>Schau in die Tabelle «Die letzte Ziffer». Das Muster wiederholt sich alle 4 Schritte. Teile den Exponenten durch 4 und schau auf den Rest.</p>
+</details>
+<details class="answer">
+<summary>Lösung</summary>
+<p>a) Muster 3, 9, 7, 1. 20 : 4 = 5 Rest 0, also endet 3<sup>20</sup> wie 3<sup>4</sup> auf <strong>1</strong>. b) Muster 7, 9, 3, 1. 101 : 4 = 25 Rest 1, also endet 7<sup>101</sup> wie 7<sup>1</sup> auf <strong>7</strong>.</p>
+</details>
+</div>
+<div class="task">
+<p><strong>S4. Ungerade Zahlen.</strong> a) Berechne 1 + 3 + 5 + … + 39 ohne alles zusammenzuzählen. b) Wie viele ungerade Zahlen (ab 1) muss man addieren, um 625 zu erhalten? Welches ist die letzte?</p>
+<details class="hint">
+<summary>Tipp</summary>
+<p>Zähle, wie viele ungerade Zahlen von 1 bis 39 es gibt. Die Summe der ersten n ungeraden Zahlen ist n<sup>2</sup>.</p>
+</details>
+<details class="answer">
+<summary>Lösung</summary>
+<p>a) Von 1 bis 39 gibt es 20 ungerade Zahlen, also 20<sup>2</sup> = <strong>400</strong>. b) 625 = 25<sup>2</sup>, also <strong>25 Zahlen</strong>. Die 25. ungerade Zahl ist 2 · 25 − 1 = <strong>49</strong>.</p>
+</details>
+</div>
+<div class="task">
+<p><strong>S5. Der bemalte Würfel.</strong> Ein grosser Würfel wird aus 3 · 3 · 3 = 27 kleinen Würfelchen gebaut und dann aussen rot angemalt. Wie viele Würfelchen haben a) 3 rote Seiten, b) 2 rote Seiten, c) 1 rote Seite, d) keine rote Seite? e) Wie ist es bei einem 4 · 4 · 4-Würfel?</p>
+<details class="hint">
+<summary>Tipp</summary>
+<p>3 rote Seiten haben nur die Ecken. 2 rote Seiten: an den Kanten, aber nicht an den Ecken. 1 rote Seite: in der Mitte der Seitenflächen. Ein Würfel hat 8 Ecken, 12 Kanten und 6 Flächen. Kontrolliere, dass die Summe stimmt.</p>
+</details>
+<details class="answer">
+<summary>Lösung</summary>
+<p>a) 8 Ecken: <strong>8</strong>. b) 12 Kanten mit je 1 Würfelchen: <strong>12</strong>. c) 6 Flächen mit je 1: <strong>6</strong>. d) nur der innerste: <strong>1</strong>. Kontrolle: 8 + 12 + 6 + 1 = 27 ✓. e) 4 · 4 · 4: 8 Ecken, 12 · 2 = 24 Kanten-Würfelchen, 6 · 4 = 24 Flächen-Würfelchen, innen 2<sup>3</sup> = 8. Kontrolle: 8 + 24 + 24 + 8 = 64 = 4<sup>3</sup> ✓.</p>
+</details>
+</div>
+<div class="task">
+<p><strong>S6. Riesenzahlen vergleichen.</strong> Welche Zahl ist grösser: 2<sup>100</sup> oder 10<sup>30</sup>? Begründe, ohne sie auszurechnen.</p>
+<details class="hint">
+<summary>Tipp</summary>
+<p>2<sup>10</sup> = 1024 und 10<sup>3</sup> = 1000. Schreibe 2<sup>100</sup> als (2<sup>10</sup>)<sup>10</sup> und 10<sup>30</sup> als (10<sup>3</sup>)<sup>10</sup>.</p>
+</details>
+<details class="answer">
+<summary>Lösung</summary>
+<p>2<sup>100</sup> = (2<sup>10</sup>)<sup>10</sup> = 1024<sup>10</sup> und 10<sup>30</sup> = (10<sup>3</sup>)<sup>10</sup> = 1000<sup>10</sup>. Weil 1024 grösser als 1000 ist, ist <strong>2<sup>100</sup> grösser</strong>.</p>
+</details>
+</div>
+<div class="task">
+<p><strong>S7. Viele Wege zur gleichen Zahl.</strong> a) Schreibe 64 auf alle möglichen Arten als Potenz mit natürlicher Basis und Exponent grösser als 1. b) Ebenso 729. c) Welche Zahl zwischen 2 und 100 ist gleichzeitig Quadratzahl und Kubikzahl?</p>
+<details class="hint">
+<summary>Tipp</summary>
+<p>Zerlege die Zahl zuerst in gleiche Faktoren: 64 = 2 · 2 · 2 · 2 · 2 · 2. Dann gruppiere die Faktoren auf verschiedene Arten.</p>
+</details>
+<details class="answer">
+<summary>Lösung</summary>
+<p>a) 64 = <strong>2<sup>6</sup> = 4<sup>3</sup> = 8<sup>2</sup></strong>. b) 729 = <strong>3<sup>6</sup> = 9<sup>3</sup> = 27<sup>2</sup></strong>. c) <strong>64</strong> (= 8<sup>2</sup> = 4<sup>3</sup>).</p>
+</details>
+</div>
+<div class="task">
+<p><strong>S8. Würfel vergrössern.</strong> a) Die Kantenlänge eines Würfels wird verdreifacht. Wie viele Male grösser werden die Oberfläche und das Volumen? b) Ein Holzwürfel mit 2 cm Kante wiegt 20 g. Wie schwer ist ein Würfel aus dem gleichen Holz mit 6 cm Kante?</p>
+<details class="hint">
+<summary>Tipp</summary>
+<p>Eine Fläche hat zwei Richtungen (Länge und Breite), ein Volumen drei. Das Gewicht wächst wie das Volumen.</p>
+</details>
+<details class="answer">
+<summary>Lösung</summary>
+<p>a) Oberfläche 3<sup>2</sup> = <strong>9-mal</strong>, Volumen 3<sup>3</sup> = <strong>27-mal</strong> so gross. b) 6 cm ist 3-mal so lang wie 2 cm, also ist das Volumen 27-mal so gross: 27 · 20 g = <strong>540 g</strong>.</p>
+</details>
+</div>
+<div class="task">
+<p><strong>S9. Gibt es sie?</strong> a) Welche Zahl hoch 3 ergibt 343? b) Gibt es eine Quadratzahl zwischen 200 und 220? c) Welche zwei aufeinanderfolgenden Quadratzahlen haben die Differenz 31?</p>
+<details class="hint">
+<summary>Tipp</summary>
+<p>Für b) die Quadratzahlen-Tabelle anschauen. Für c) hilft das Bild mit den ungeraden Zahlen: Zwei Nachbar-Quadratzahlen unterscheiden sich immer um eine ungerade Zahl.</p>
+</details>
+<details class="answer">
+<summary>Lösung</summary>
+<p>a) 7 · 7 · 7 = 343, also <strong>7</strong>. b) <strong>Nein</strong>: 14<sup>2</sup> = 196 und 15<sup>2</sup> = 225. c) Der Unterschied zwischen n<sup>2</sup> und (n + 1)<sup>2</sup> ist 2n + 1 = 31, also n = 15: <strong>15<sup>2</sup> = 225 und 16<sup>2</sup> = 256</strong> (256 − 225 = 31 ✓).</p>
+</details>
+</div>
+<div class="task">
+<p><strong>S10. Reiskörner auf dem Schachbrett.</strong> Auf das 1. Feld legt man 1 Reiskorn, auf das 2. Feld 2, auf das 3. Feld 4 und so weiter, immer doppelt so viele. a) Wie viele Körner liegen auf dem 11. Feld? b) Wie viele Körner liegen auf den ersten 10 Feldern zusammen?</p>
+<details class="hint">
+<summary>Tipp</summary>
+<p>Feld n hat 2<sup>n</sup>⁻<sup>1</sup> Körner. Für b) zähle die ersten Summen: 1, 1 + 2, 1 + 2 + 4, … und vergleiche mit der nächsten Zweierpotenz.</p>
+</details>
+<details class="answer">
+<summary>Lösung</summary>
+<p>a) 2<sup>10</sup> = <strong>1024</strong> Körner. b) Die Summen sind 1, 3, 7, 15, 31 … immer 1 weniger als die nächste Zweierpotenz. Also 1 + 2 + … + 512 = 2<sup>10</sup> − 1 = <strong>1023</strong> Körner.</p>
+</details>
+</div>
+<h3>Tipps für die Prüfung</h3>
+<ul>
+<li>Potenz immer zuerst <strong>ausschreiben</strong>, wenn du unsicher bist: 2<sup>4</sup> = 2 · 2 · 2 · 2.</li>
+<li><strong>Reihenfolge</strong> beachten: Klammer, Potenz, Punkt, Strich.</li>
+<li>Bei Dezimalzahlen die <strong>Nachkommastellen zählen</strong>: 0,3<sup>2</sup> = 0,09.</li>
+<li>Quadratzahlen bis 20<sup>2</sup>, Kubikzahlen bis 10<sup>3</sup> und Zweierpotenzen bis 2<sup>10</sup> <strong>auswendig</strong> können.</li>
+<li>Bei Plus und Minus gibt es <strong>keine</strong> Potenzregel: einzeln ausrechnen.</li>
+</ul>
+<p>Weiter üben: <a href="../terme-gleichungen/">Terme vereinfachen und Gleichungen lösen</a> (x<sup>2</sup>, x<sup>3</sup>) und <a href="../masseinheiten/">Masseinheiten umrechnen</a> (cm<sup>2</sup>, cm<sup>3</sup>).</p>
+
+  <nav class="pager" aria-label="Weiter">
+    <a class="prev" href="../terme-gleichungen/"><small>&larr; Leitfaden</small>Terme und Gleichungen</a>
+    <a class="next" href="../masseinheiten/"><small>Nächster Leitfaden &rarr;</small>Masseinheiten umrechnen</a>
+  </nav>
+
+  <footer>gymi-prep &middot; <a href="../../">Startseite</a> &middot; <a href="../">Mathematik</a> &middot; laufend ergänzt</footer>
+</div>
+</body>
+</html>

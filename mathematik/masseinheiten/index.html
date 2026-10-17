@@ -1,0 +1,690 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Masseinheiten umrechnen &middot; Mathematik &middot; Gymi-Prep</title>
+<style>
+  :root {
+    --bg: #faf8f5; --panel: #ffffff; --ink: #2b2420; --ink-soft: #5c524a;
+    --accent: #8a4b2e; --accent-soft: #c97b4a; --line: #e7ddd1;
+    --cds-text-primary: var(--ink); --cds-text-secondary: var(--ink-soft);
+    --cds-chart-axis: #b3a99d; --cds-chart-categorical-1: #2f6fb5;
+    --cds-chart-categorical-2: #d9692b; --cds-chart-categorical-3: #2e9e6b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1c1814; --panel: #26211c; --ink: #f1ebe3; --ink-soft: #c9bfb3;
+      --accent: #e0a179; --accent-soft: #c97b4a; --line: #3a332c;
+      --cds-chart-axis: #7a7065; --cds-chart-categorical-1: #6aa6e8;
+      --cds-chart-categorical-2: #f08a4b; --cds-chart-categorical-3: #4cc58d;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1c1814; --panel: #26211c; --ink: #f1ebe3; --ink-soft: #c9bfb3;
+    --accent: #e0a179; --accent-soft: #c97b4a; --line: #3a332c;
+    --cds-chart-axis: #7a7065; --cds-chart-categorical-1: #6aa6e8;
+    --cds-chart-categorical-2: #f08a4b; --cds-chart-categorical-3: #4cc58d;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Iowan Old Style", "Georgia", "Charter", serif; line-height: 1.6; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 32px 16px 80px; }
+  .sans, .crumbs, .eyebrow, table, figcaption, .toc, .note, .pager, footer, .solution summary {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  .crumbs { font-size: 13px; color: var(--ink-soft); margin-bottom: 18px; }
+  .crumbs a { color: var(--ink-soft); text-decoration: none; }
+  .crumbs a:hover { color: var(--accent); }
+  .crumbs .sep { margin: 0 6px; opacity: .6; }
+  .eyebrow { text-transform: uppercase; letter-spacing: 0.12em; font-size: 12px;
+    color: var(--accent-soft); font-weight: 700; margin: 0 0 10px; }
+  h1 { font-size: 2em; margin: 0 0 10px; line-height: 1.2; }
+  .subtitle { color: var(--ink-soft); font-size: 1.05em; margin: 0 0 24px; }
+  h2 { font-size: 1.55em; line-height: 1.25; margin: 56px 0 12px; padding-top: 16px;
+    border-top: 1px solid var(--line); scroll-margin-top: 16px; }
+  h3 { font-size: 1.15em; margin: 32px 0 8px; scroll-margin-top: 16px; }
+  p, li { font-size: 1.02em; }
+  a { color: var(--accent); }
+  strong { font-weight: 700; }
+  .toc { background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+    padding: 16px 20px; margin: 0 0 8px; font-size: 14px; }
+  .toc p { margin: 0 0 8px; font-weight: 700; font-size: 13px; text-transform: uppercase;
+    letter-spacing: .08em; color: var(--accent-soft); }
+  .toc ol { margin: 0; padding-left: 20px; columns: 2; column-gap: 28px; }
+  .toc li { font-size: 14px; margin: 2px 0; break-inside: avoid; }
+  .toc a { color: var(--ink); text-decoration: none; }
+  .toc a:hover { color: var(--accent); }
+  .table-wrap { overflow-x: auto; margin: 14px 0 18px; border: 1px solid var(--line);
+    border-radius: 10px; background: var(--panel); }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th, td { text-align: left; vertical-align: top; padding: 8px 12px; border-bottom: 1px solid var(--line); }
+  th { font-weight: 700; color: var(--ink); background: color-mix(in srgb, var(--accent-soft) 10%, transparent); }
+  tr:last-child td { border-bottom: none; }
+  td:first-child { font-weight: 600; }
+  .fig { margin: 18px 0 8px; background: var(--panel); border: 1px solid var(--line);
+    border-radius: 12px; padding: 12px; }
+  .fig svg { display: block; width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  .fig figcaption { font-size: 12px; color: var(--ink-soft); margin-top: 6px; text-align: center; }
+  .note { font-size: 14px; color: var(--ink); background: var(--panel);
+    border: 1px solid var(--line); border-left: 3px solid var(--accent-soft);
+    border-radius: 8px; padding: 12px 16px; margin: 16px 0; }
+  .tasks { list-style: none; padding-left: 0; }
+  .tasks li { padding-left: 28px; position: relative; margin: 6px 0; }
+  .tasks li::before { content: ""; position: absolute; left: 0; top: 6px; width: 15px; height: 15px;
+    border: 1.5px solid var(--accent-soft); border-radius: 4px; }
+  details.solution { background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+    padding: 10px 16px; margin: 14px 0; }
+  details.solution summary { cursor: pointer; font-weight: 700; font-size: 14px; color: var(--accent); }
+  details.solution[open] summary { margin-bottom: 8px; }
+  .pager { display: flex; justify-content: space-between; gap: 12px; margin-top: 48px; }
+  .pager a { flex: 1; font-size: 14px; text-decoration: none; color: var(--ink); background: var(--panel);
+    border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px; }
+  .pager a:hover { border-color: var(--accent-soft); }
+  .pager .next { text-align: right; }
+  .pager small { display: block; color: var(--ink-soft); font-size: 12px; }
+  .totop { font-size: 13px; text-align: right; margin: 6px 0 0; }
+  .totop a { color: var(--ink-soft); text-decoration: none; }
+  footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--line);
+    font-size: 12px; color: var(--ink-soft); text-align: center; }
+  footer a { color: var(--ink-soft); }
+  @media (max-width: 560px) { h1 { font-size: 1.6em; } .toc ol { columns: 1; } .fig { padding: 6px; } }
+  @media print {
+    .toc, .pager, .totop, footer, .crumbs { display: none; }
+    details.solution { display: block; } details.solution > * { display: block; }
+    .fig, table { break-inside: avoid; }
+    h2 { break-before: page; }
+  }
+
+  .per { text-decoration: overline; text-decoration-thickness: 1.5px; }
+  .pager > span { flex: 1; }
+  sup { font-size: 0.72em; line-height: 0; }
+  details.hint p, details.answer p { margin: 4px 0 8px; }
+  ol li { margin: 2px 0; }
+  h3.lvl { display: flex; align-items: center; gap: 10px; }
+  h3.lvl::before { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+    padding: 3px 10px; border-radius: 100px; }
+  h3.lvl-1::before { content: "Stufe 1"; color: #2e7d4f; background: color-mix(in srgb, #2e9e6b 16%, transparent); }
+  h3.lvl-2::before { content: "Stufe 2"; color: #8a5a00; background: color-mix(in srgb, #d99a1e 20%, transparent); }
+  h3.lvl-3::before { content: "Stufe 3"; color: #a33a2a; background: color-mix(in srgb, #d9542b 18%, transparent); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) h3.lvl-1::before { color: #6fd39e; }
+    :root:not([data-theme="light"]) h3.lvl-2::before { color: #f0c060; } :root:not([data-theme="light"]) h3.lvl-3::before { color: #f39a80; } }
+  .task { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px 6px; margin: 14px 0; }
+  .task > p:first-child { margin-top: 0; }
+  details.hint, details.answer { margin: 8px 0 10px; }
+  details.hint summary, details.answer summary { cursor: pointer; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 13px; font-weight: 700; display: inline-block; padding: 3px 12px; border-radius: 100px; }
+  details.hint summary { color: #8a5a00; background: color-mix(in srgb, #d99a1e 16%, transparent); }
+  details.answer summary { color: var(--accent); background: color-mix(in srgb, var(--accent-soft) 16%, transparent); }
+  details.hint[open] summary, details.answer[open] summary { margin-bottom: 6px; }
+  details.hint > *:not(summary), details.answer > *:not(summary) { font-size: 0.97em; }
+  .keybox { background: color-mix(in srgb, var(--cds-chart-categorical-1) 9%, var(--panel)); border: 1px solid color-mix(in srgb, var(--cds-chart-categorical-1) 35%, transparent);
+    border-radius: 12px; padding: 12px 18px; margin: 16px 0; }
+  .keybox p { margin: 6px 0; }
+  @media print { details.hint, details.answer { display: block; } }
+</style>
+</head>
+<body>
+<div class="wrap" id="top">
+  <div class="crumbs"><a href="../../">Gymi-Prep</a><span class="sep">/</span><a href="../">Mathematik</a><span class="sep">/</span>Masseinheiten</div>
+  <p class="eyebrow">Mathematik &middot; Grössen &middot; Gymi-Vorbereitung</p>
+  <h1>Masseinheiten umrechnen: Länge, Fläche, Volumen</h1>
+  <p class="subtitle">Längen, Flächen und Volumen sicher umrechnen – von Millimeter bis Kilometer, von cm<sup>2</sup> bis Hektare und von cc bis Kubikmeter. Mit Übungen in drei Schwierigkeitsstufen.</p>
+
+  <nav class="toc" aria-label="Inhalt">
+    <p>Inhalt</p>
+    <ol>
+      <li><a href="#treppen">Die drei Treppen</a></li>
+      <li><a href="#laenge">Längen</a></li>
+      <li><a href="#flaeche">Flächen</a></li>
+      <li><a href="#volumen">Volumen und Hohlmasse</a></li>
+      <li><a href="#tabelle">Die Stellenwerttabelle</a></li>
+      <li><a href="#rechnen">Rechnen mit verschiedenen Einheiten</a></li>
+      <li><a href="#fehler">Typische Fehler</a></li>
+      <li><a href="#uebungen">Übungen</a></li>
+    </ol>
+  </nav>
+
+<h2 id="treppen">Die drei Treppen</h2>
+<p>Alle Masseinheiten funktionieren gleich: Sie bilden eine <strong>Treppe</strong>. Bei jeder Stufe gibt es einen festen Faktor.</p>
+<figure class="fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 420" role="img" aria-label="Einheitentreppen für Länge, Fläche, Volumen und Hohlmasse" font-size="13"><defs><marker id="ax-arrow" viewBox="0 0 10 10" ref-x="9" ref-y="5" marker-width="6" marker-height="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--cds-chart-axis)"></path></marker><marker id="c1-arrow" viewBox="0 0 10 10" ref-x="9" ref-y="5" marker-width="6" marker-height="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--cds-chart-categorical-1)"></path></marker><marker id="c2-arrow" viewBox="0 0 10 10" ref-x="9" ref-y="5" marker-width="6" marker-height="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--cds-chart-categorical-2)"></path></marker><marker id="ink-arrow" viewBox="0 0 10 10" ref-x="9" ref-y="5" marker-width="6" marker-height="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--cds-text-primary)"></path></marker></defs><text x="24" y="30" font-size="15" font-weight="600" fill="var(--cds-text-primary)">Länge: Schritt 10 · Fläche: Schritt 100 · Volumen: Schritt 1000</text><text x="24" y="50" font-size="11.5" fill="var(--cds-text-secondary)">Nach rechts (kleinere Einheit) mal rechnen, nach links (grössere Einheit) geteilt rechnen</text><text x="24" y="94" font-size="14" font-weight="600" fill="var(--cds-text-primary)" text-anchor="start">Länge</text><text x="24" y="112" font-size="11.5" font-weight="400" fill="var(--cds-text-secondary)" text-anchor="start">Schritt × 10</text><g><rect x="170" y="76" width="56" height="40" rx="8" fill="var(--cds-chart-categorical-1)" fill-opacity="0.12" stroke="var(--cds-chart-categorical-1)" stroke-width="1.75"></rect><text x="198" y="102" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)">km</text></g><g><rect x="270" y="76" width="56" height="40" rx="8" fill="var(--cds-chart-categorical-1)" fill-opacity="0.12" stroke="var(--cds-chart-categorical-1)" stroke-width="1.75"></rect><text x="298" y="102" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)">m</text></g><g><rect x="370" y="76" width="56" height="40" rx="8" fill="var(--cds-chart-categorical-1)" fill-opacity="0.12" stroke="var(--cds-chart-categorical-1)" stroke-width="1.75"></rect><text x="398" y="102" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)">dm</text></g><g><rect x="470" y="76" width="56" height="40" rx="8" fill="var(--cds-chart-categorical-1)" fill-opacity="0.12" stroke="var(--cds-chart-categorical-1)" stroke-width="1.75"></rect><text x="498" y="102" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)">cm</text></g><g><rect x="570" y="76" width="56" height="40" rx="8" fill="var(--cds-chart-categorical-1)" fill-opacity="0.12" stroke="var(--cds-chart-categorical-1)" stroke-width="1.75"></rect><text x="598" y="102" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)">mm</text></g><g><path d="M229 96H267" stroke="var(--cds-chart-axis)" stroke-width="1.25" fill="none" marker-end="url(#ax-arrow)"></path><text x="248" y="88" text-anchor="middle" font-size="11" fill="var(--cds-text-secondary)">× 1000</text></g><g><path d="M329 96H367" stroke="var(--cds-chart-axis)" stroke-width="1.25" fill="none" marker-end="url(#ax-arrow)"></path><text x="348" y="88" text-anchor="middle" font-size="11" fill="var(--cds-text-secondary)">× 10</text></g><g><path d="M429 96H467" stroke="var(--cds-chart-axis)" stroke-width="1.25" fill="none" marker-end="url(#ax-arrow)"></path><text x="448" y="88" text-anchor="middle" font-size="11" fill="var(--cds-text-secondary)">× 10</text></g><g><path d="M529 96H567" stroke="var(--cds-chart-axis)" stroke-width="1.25" fill="none" marker-end="url(#ax-arrow)"></path><text x="548" y="88" text-anchor="middle" font-size="11" fill="var(--cds-text-secondary)">× 10</text></g><text x="24" y="184" font-size="14" font-weight="600" fill="var(--cds-text-primary)" text-anchor="start">Fläche</text><text x="24" y="202" font-size="11.5" font-weight="400" fill="var(--cds-text-secondary)" text-anchor="start">Schritt × 100</text><g><rect x="140" y="166" width="50" height="40" rx="8" fill="var(--cds-chart-categorical-2)" fill-opacity="0.12" stroke="var(--cds-chart-categorical-2)" stroke-width="1.75"></rect><text x="165" y="192" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)">km²</text></g><g><rect x="228" y="166" width="50" height="40" rx="8" fill="var(--cds-chart-categorical-2)" fill-opacity="0.12" stroke="var(--cds-chart-categorical-2)" stroke-width="1.75"></rect><text x="253" y="192" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)">ha</text></g><g><rect x="316" y="166" width="50" height="40" rx="8" fill="var(--cds-chart-categorical-2)" fill-opacity="0.12" stroke="var(--cds-chart-categorical-2)" stroke-width="1.75"></rect><text x="341" y="192" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)">a</text></g><g><rect x="404" y="166" width="50" height="40" rx="8" fill="var(--cds-chart-categorical-2)" fill-opacity="0.12" stroke="var(--cds-chart-categorical-2)" stroke-width="1.75"></rect><text x="429" y="192" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)">m²</text></g><g><rect x="492" y="166" width="50" height="40" rx="8" fill="var(--cds-chart-categorical-2)" fill-opacity="0.12" stroke="var(--cds-chart-categorical-2)" stroke-width="1.75"></rect><text x="517" y="192" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)">dm²</text></g><g><rect x="580" y="166" width="50" height="40" rx="8" fill="var(--cds-chart-categorical-2)" fill-opacity="0.12" stroke="var(--cds-chart-categorical-2)" stroke-width="1.75"></rect><text x="605" y="192" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)">cm²</text></g><g><rect x="668" y="166" width="50" height="40" rx="8" fill="var(--cds-chart-categorical-2)" fill-opacity="0.12" stroke="var(--cds-chart-categorical-2)" stroke-width="1.75"></rect><text x="693" y="192" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)">mm²</text></g><g><path d="M193 186H225" stroke="var(--cds-chart-axis)" stroke-width="1.25" fill="none" marker-end="url(#ax-arrow)"></path><text x="209" y="178" text-anchor="middle" font-size="11" fill="var(--cds-text-secondary)">×100</text></g><g><path d="M281 186H313" stroke="var(--cds-chart-axis)" stroke-width="1.25" fill="none" marker-end="url(#ax-arrow)"></path><text x="297" y="178" text-anchor="middle" font-size="11" fill="var(--cds-text-secondary)">×100</text></g><g><path d="M369 186H401" stroke="var(--cds-chart-axis)" stroke-width="1.25" fill="none" marker-end="url(#ax-arrow)"></path><text x="385" y="178" text-anchor="middle" font-size="11" fill="var(--cds-text-secondary)">×100</text></g><g><path d="M457 186H489" stroke="var(--cds-chart-axis)" stroke-width="1.25" fill="none" marker-end="url(#ax-arrow)"></path><text x="473" y="178" text-anchor="middle" font-size="11" fill="var(--cds-text-secondary)">×100</text></g><g><path d="M545 186H577" stroke="var(--cds-chart-axis)" stroke-width="1.25" fill="none" marker-end="url(#ax-arrow)"></path><text x="561" y="178" text-anchor="middle" font-size="11" fill="var(--cds-text-secondary)">×100</text></g><g><path d="M633 186H665" stroke="var(--cds-chart-axis)" stroke-width="1.25" fill="none" marker-end="url(#ax-arrow)"></path><text x="649" y="178" text-anchor="middle" font-size="11" fill="var(--cds-text-secondary)">×100</text></g><text x="24" y="274" font-size="14" font-weight="600" fill="var(--cds-text-primary)" text-anchor="start">Volumen</text><text x="24" y="292" font-size="11.5" font-weight="400" fill="var(--cds-text-secondary)" text-anchor="start">Schritt × 1000</text><g><rect x="170" y="256" width="56" height="40" rx="8" fill="var(--cds-chart-categorical-3)" fill-opacity="0.12" stroke="var(--cds-chart-categorical-3)" stroke-width="1.75"></rect><text x="198" y="282" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)">m³</text></g><g><rect x="300" y="256" width="56" height="40" rx="8" fill="var(--cds-chart-categorical-3)" fill-opacity="0.12" stroke="var(--cds-chart-categorical-3)" stroke-width="1.75"></rect><text x="328" y="282" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)">dm³</text></g><g><rect x="560" y="256" width="56" height="40" rx="8" fill="var(--cds-chart-categorical-3)" fill-opacity="0.12" stroke="var(--cds-chart-categorical-3)" stroke-width="1.75"></rect><text x="588" y="282" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)">cm³</text></g><g><rect x="680" y="256" width="56" height="40" rx="8" fill="var(--cds-chart-categorical-3)" fill-opacity="0.12" stroke="var(--cds-chart-categorical-3)" stroke-width="1.75"></rect><text x="708" y="282" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)">mm³</text></g><g><path d="M229 276H297" stroke="var(--cds-chart-axis)" stroke-width="1.25" fill="none" marker-end="url(#ax-arrow)"></path><text x="263" y="268" text-anchor="middle" font-size="11" fill="var(--cds-text-secondary)">× 1000</text></g><g><path d="M359 276H557" stroke="var(--cds-chart-axis)" stroke-width="1.25" fill="none" marker-end="url(#ax-arrow)"></path><text x="458" y="268" text-anchor="middle" font-size="11" fill="var(--cds-text-secondary)">× 1000</text></g><g><path d="M619 276H677" stroke="var(--cds-chart-axis)" stroke-width="1.25" fill="none" marker-end="url(#ax-arrow)"></path><text x="648" y="268" text-anchor="middle" font-size="11" fill="var(--cds-text-secondary)">× 1000</text></g><text x="198" y="314" font-size="11.5" font-weight="400" fill="var(--cds-text-secondary)" text-anchor="middle">= 1000 l</text><text x="24" y="374" font-size="14" font-weight="600" fill="var(--cds-text-primary)" text-anchor="start">Hohlmasse</text><text x="24" y="392" font-size="11.5" font-weight="400" fill="var(--cds-text-secondary)" text-anchor="start">meist Schritt × 10</text><g><rect x="196" y="356" width="56" height="40" rx="8" fill="var(--cds-chart-categorical-3)" fill-opacity="0.12" stroke="var(--cds-chart-categorical-3)" stroke-width="1.75"></rect><text x="224" y="382" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)">hl</text></g><g><rect x="300" y="356" width="56" height="40" rx="8" fill="var(--cds-chart-categorical-3)" fill-opacity="0.12" stroke="var(--cds-chart-categorical-3)" stroke-width="1.75"></rect><text x="328" y="382" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)">l</text></g><g><rect x="387" y="356" width="56" height="40" rx="8" fill="var(--cds-chart-categorical-3)" fill-opacity="0.12" stroke="var(--cds-chart-categorical-3)" stroke-width="1.75"></rect><text x="415" y="382" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)">dl</text></g><g><rect x="473" y="356" width="56" height="40" rx="8" fill="var(--cds-chart-categorical-3)" fill-opacity="0.12" stroke="var(--cds-chart-categorical-3)" stroke-width="1.75"></rect><text x="501" y="382" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)">cl</text></g><g><rect x="560" y="356" width="56" height="40" rx="8" fill="var(--cds-chart-categorical-3)" fill-opacity="0.12" stroke="var(--cds-chart-categorical-3)" stroke-width="1.75"></rect><text x="588" y="382" text-anchor="middle" font-size="15" font-weight="600" fill="var(--cds-text-primary)">ml</text></g><g><path d="M255 376H297" stroke="var(--cds-chart-axis)" stroke-width="1.25" fill="none" marker-end="url(#ax-arrow)"></path><text x="276" y="368" text-anchor="middle" font-size="11" fill="var(--cds-text-secondary)">× 100</text></g><g><path d="M359 376H384" stroke="var(--cds-chart-axis)" stroke-width="1.25" fill="none" marker-end="url(#ax-arrow)"></path><text x="371.5" y="368" text-anchor="middle" font-size="11" fill="var(--cds-text-secondary)">× 10</text></g><g><path d="M446 376H470" stroke="var(--cds-chart-axis)" stroke-width="1.25" fill="none" marker-end="url(#ax-arrow)"></path><text x="458" y="368" text-anchor="middle" font-size="11" fill="var(--cds-text-secondary)">× 10</text></g><g><path d="M532 376H557" stroke="var(--cds-chart-axis)" stroke-width="1.25" fill="none" marker-end="url(#ax-arrow)"></path><text x="544.5" y="368" text-anchor="middle" font-size="11" fill="var(--cds-text-secondary)">× 10</text></g><line x1="328" y1="296" x2="328" y2="356" stroke="var(--cds-chart-categorical-3)" stroke-width="2" stroke-dasharray="5 4"></line><line x1="588" y1="296" x2="588" y2="356" stroke="var(--cds-chart-categorical-3)" stroke-width="2" stroke-dasharray="5 4"></line><text x="336" y="330" font-size="13" font-weight="600" fill="var(--cds-text-primary)" text-anchor="start">1 dm³ = 1 l</text><text x="596" y="330" font-size="13" font-weight="600" fill="var(--cds-text-primary)" text-anchor="start">1 cm³ = 1 ml = 1 cc</text></svg><figcaption>Einheitentreppen für Länge, Fläche, Volumen und Hohlmasse</figcaption></figure>
+
+<div class="keybox">
+<p><strong>Von der grossen zur kleinen Einheit: mal rechnen.</strong> Die Zahl wird grösser: 3 m = 300 cm.</p>
+<p><strong>Von der kleinen zur grossen Einheit: geteilt rechnen.</strong> Die Zahl wird kleiner: 300 cm = 3 m.</p>
+<p><strong>Kontrollfrage:</strong> Kleinere Einheit → es braucht <strong>mehr</strong> davon → die Zahl muss <strong>grösser</strong> werden.</p>
+</div>
+<h3>Warum 100 und 1000?</h3>
+<p>Eine Fläche hat <strong>zwei</strong> Richtungen (Länge und Breite), ein Volumen hat <strong>drei</strong> (Länge, Breite und Höhe). Darum wird der Faktor 10 zweimal bzw. dreimal genommen: 10 · 10 = 100 und 10 · 10 · 10 = 1000.</p>
+<figure class="fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 372" role="img" aria-label="1 dm² = 100 cm² und 1 dm³ = 1000 cm³ = 1 Liter" font-size="13"><text x="24" y="30" font-size="15" font-weight="600" fill="var(--cds-text-primary)">Warum Fläche Schritt 100 und Volumen Schritt 1000 hat</text><rect x="70" y="76" width="200" height="200" fill="var(--cds-chart-categorical-2)" fill-opacity="0.08" stroke="var(--cds-chart-categorical-2)" stroke-width="2"></rect><line x1="70" y1="76" x2="70" y2="276" stroke="var(--cds-chart-categorical-2)" stroke-opacity="0.55" stroke-width="1"></line><line x1="70" y1="76" x2="270" y2="76" stroke="var(--cds-chart-categorical-2)" stroke-opacity="0.55" stroke-width="1"></line><line x1="90" y1="76" x2="90" y2="276" stroke="var(--cds-chart-categorical-2)" stroke-opacity="0.55" stroke-width="1"></line><line x1="70" y1="96" x2="270" y2="96" stroke="var(--cds-chart-categorical-2)" stroke-opacity="0.55" stroke-width="1"></line><line x1="110" y1="76" x2="110" y2="276" stroke="var(--cds-chart-categorical-2)" stroke-opacity="0.55" stroke-width="1"></line><line x1="70" y1="116" x2="270" y2="116" stroke="var(--cds-chart-categorical-2)" stroke-opacity="0.55" stroke-width="1"></line><line x1="130" y1="76" x2="130" y2="276" stroke="var(--cds-chart-categorical-2)" stroke-opacity="0.55" stroke-width="1"></line><line x1="70" y1="136" x2="270" y2="136" stroke="var(--cds-chart-categorical-2)" stroke-opacity="0.55" stroke-width="1"></line><line x1="150" y1="76" x2="150" y2="276" stroke="var(--cds-chart-categorical-2)" stroke-opacity="0.55" stroke-width="1"></line><line x1="70" y1="156" x2="270" y2="156" stroke="var(--cds-chart-categorical-2)" stroke-opacity="0.55" stroke-width="1"></line><line x1="170" y1="76" x2="170" y2="276" stroke="var(--cds-chart-categorical-2)" stroke-opacity="0.55" stroke-width="1"></line><line x1="70" y1="176" x2="270" y2="176" stroke="var(--cds-chart-categorical-2)" stroke-opacity="0.55" stroke-width="1"></line><line x1="190" y1="76" x2="190" y2="276" stroke="var(--cds-chart-categorical-2)" stroke-opacity="0.55" stroke-width="1"></line><line x1="70" y1="196" x2="270" y2="196" stroke="var(--cds-chart-categorical-2)" stroke-opacity="0.55" stroke-width="1"></line><line x1="210" y1="76" x2="210" y2="276" stroke="var(--cds-chart-categorical-2)" stroke-opacity="0.55" stroke-width="1"></line><line x1="70" y1="216" x2="270" y2="216" stroke="var(--cds-chart-categorical-2)" stroke-opacity="0.55" stroke-width="1"></line><line x1="230" y1="76" x2="230" y2="276" stroke="var(--cds-chart-categorical-2)" stroke-opacity="0.55" stroke-width="1"></line><line x1="70" y1="236" x2="270" y2="236" stroke="var(--cds-chart-categorical-2)" stroke-opacity="0.55" stroke-width="1"></line><line x1="250" y1="76" x2="250" y2="276" stroke="var(--cds-chart-categorical-2)" stroke-opacity="0.55" stroke-width="1"></line><line x1="70" y1="256" x2="270" y2="256" stroke="var(--cds-chart-categorical-2)" stroke-opacity="0.55" stroke-width="1"></line><line x1="270" y1="76" x2="270" y2="276" stroke="var(--cds-chart-categorical-2)" stroke-opacity="0.55" stroke-width="1"></line><line x1="70" y1="276" x2="270" y2="276" stroke="var(--cds-chart-categorical-2)" stroke-opacity="0.55" stroke-width="1"></line><rect x="70" y="76" width="20" height="20" fill="var(--cds-chart-categorical-2)" fill-opacity="0.7"></rect><text x="96" y="70" font-size="11.5" font-weight="600" fill="var(--cds-text-primary)" text-anchor="start">1 cm²</text><text x="170" y="294" font-size="12" font-weight="400" fill="var(--cds-text-secondary)" text-anchor="middle">1 dm = 10 cm</text><text x="170" y="324" font-size="15" font-weight="600" fill="var(--cds-text-primary)" text-anchor="middle">1 dm² = 10 · 10 = 100 cm²</text><text x="170" y="344" font-size="11.5" font-weight="400" fill="var(--cds-text-secondary)" text-anchor="middle">10 Reihen mit je 10 Häuschen</text><polygon points="590,282 650,222 650,62 590,122" fill="var(--cds-chart-categorical-3)" fill-opacity="0.06" stroke="var(--cds-chart-categorical-3)" stroke-width="1.75" stroke-linejoin="round"></polygon><polygon points="430,122 590,122 650,62 490,62" fill="var(--cds-chart-categorical-3)" fill-opacity="0.2" stroke="var(--cds-chart-categorical-3)" stroke-width="1.75" stroke-linejoin="round"></polygon><polygon points="430,282 590,282 590,122 430,122" fill="var(--cds-chart-categorical-3)" fill-opacity="0.1" stroke="var(--cds-chart-categorical-3)" stroke-width="1.75" stroke-linejoin="round"></polygon><line x1="446" y1="282" x2="446" y2="122" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="430" y1="266" x2="590" y2="266" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="446" y1="122" x2="506" y2="62" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="436" y1="116" x2="596" y2="116" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="590" y1="266" x2="650" y2="206" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="596" y1="276" x2="596" y2="116" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="462" y1="282" x2="462" y2="122" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="430" y1="250" x2="590" y2="250" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="462" y1="122" x2="522" y2="62" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="442" y1="110" x2="602" y2="110" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="590" y1="250" x2="650" y2="190" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="602" y1="270" x2="602" y2="110" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="478" y1="282" x2="478" y2="122" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="430" y1="234" x2="590" y2="234" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="478" y1="122" x2="538" y2="62" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="448" y1="104" x2="608" y2="104" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="590" y1="234" x2="650" y2="174" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="608" y1="264" x2="608" y2="104" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="494" y1="282" x2="494" y2="122" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="430" y1="218" x2="590" y2="218" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="494" y1="122" x2="554" y2="62" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="454" y1="98" x2="614" y2="98" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="590" y1="218" x2="650" y2="158" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="614" y1="258" x2="614" y2="98" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="510" y1="282" x2="510" y2="122" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="430" y1="202" x2="590" y2="202" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="510" y1="122" x2="570" y2="62" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="460" y1="92" x2="620" y2="92" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="590" y1="202" x2="650" y2="142" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="620" y1="252" x2="620" y2="92" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="526" y1="282" x2="526" y2="122" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="430" y1="186" x2="590" y2="186" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="526" y1="122" x2="586" y2="62" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="466" y1="86" x2="626" y2="86" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="590" y1="186" x2="650" y2="126" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="626" y1="246" x2="626" y2="86" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="542" y1="282" x2="542" y2="122" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="430" y1="170" x2="590" y2="170" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="542" y1="122" x2="602" y2="62" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="472" y1="80" x2="632" y2="80" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="590" y1="170" x2="650" y2="110" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="632" y1="240" x2="632" y2="80" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="558" y1="282" x2="558" y2="122" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="430" y1="154" x2="590" y2="154" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="558" y1="122" x2="618" y2="62" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="478" y1="74" x2="638" y2="74" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="590" y1="154" x2="650" y2="94" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="638" y1="234" x2="638" y2="74" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="574" y1="282" x2="574" y2="122" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="430" y1="138" x2="590" y2="138" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="574" y1="122" x2="634" y2="62" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="484" y1="68" x2="644" y2="68" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="590" y1="138" x2="650" y2="78" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><line x1="644" y1="228" x2="644" y2="68" stroke="var(--cds-chart-categorical-3)" stroke-opacity="0.45" stroke-width="0.8"></line><polygon points="430,122 446,122 452,116 436,116" fill="var(--cds-chart-categorical-3)" fill-opacity="0.75"></polygon><rect x="430" y="122" width="16" height="16" fill="var(--cds-chart-categorical-3)" fill-opacity="0.6"></rect><text x="422" y="134" font-size="11.5" font-weight="600" fill="var(--cds-text-primary)" text-anchor="end">1 cm³</text><text x="510" y="299" font-size="12" font-weight="400" fill="var(--cds-text-secondary)" text-anchor="middle">10 cm</text><text x="540" y="324" font-size="15" font-weight="600" fill="var(--cds-text-primary)" text-anchor="middle">1 dm³ = 10 · 10 · 10 = 1000 cm³</text><text x="540" y="344" font-size="11.5" font-weight="400" fill="var(--cds-text-secondary)" text-anchor="middle">Dieser Würfel fasst genau 1 Liter (wie ein Milchpack)</text></svg><figcaption>1 dm<sup>2</sup> = 100 cm<sup>2</sup> und 1 dm<sup>3</sup> = 1000 cm<sup>3</sup></figcaption></figure>
+
+<p class="note"><strong>Merke:</strong> Länge × 10, Fläche × 100 (= 10<sup>2</sup>), Volumen × 1000 (= 10<sup>3</sup>). Die kleine Zahl bei m<sup>2</sup> und m<sup>3</sup> zeigt dir den Exponenten. Mehr dazu im Leitfaden <a href="../potenzen/">Potenzen</a>.</p>
+
+<p class="totop"><a href="#top">&uarr; nach oben</a></p>
+<h2 id="laenge">Längen</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Einheit</th>
+<th>Name</th>
+<th>in Meter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 km</td>
+<td>Kilometer</td>
+<td>1000 m</td>
+</tr>
+<tr>
+<td>1 m</td>
+<td>Meter</td>
+<td>1 m</td>
+</tr>
+<tr>
+<td>1 dm</td>
+<td>Dezimeter</td>
+<td>0,1 m</td>
+</tr>
+<tr>
+<td>1 cm</td>
+<td>Zentimeter</td>
+<td>0,01 m</td>
+</tr>
+<tr>
+<td>1 mm</td>
+<td>Millimeter</td>
+<td>0,001 m</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Beispiele</strong></p>
+<ul>
+<li>4,5 km = 4500 m (× 1000)</li>
+<li>2,3 m = 23 dm = 230 cm = 2300 mm</li>
+<li>85 mm = 8,5 cm (: 10)</li>
+<li>640 cm = 6,4 m (: 100)</li>
+</ul>
+<p><strong>Gemischte Angaben:</strong> 3 m 4 cm = 3,04 m, nicht 3,4 m! Die 4 cm sind 4 Hundertstel Meter, also gehört eine <strong>0</strong> dazwischen.</p>
+<p class="totop"><a href="#top">&uarr; nach oben</a></p>
+<h2 id="flaeche">Flächen</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Einheit</th>
+<th>Name</th>
+<th>entspricht</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 km<sup>2</sup></td>
+<td>Quadratkilometer</td>
+<td>100 ha = 1 000 000 m<sup>2</sup></td>
+</tr>
+<tr>
+<td>1 ha</td>
+<td>Hektare</td>
+<td>100 a = 10 000 m<sup>2</sup></td>
+</tr>
+<tr>
+<td>1 a</td>
+<td>Are</td>
+<td>100 m<sup>2</sup></td>
+</tr>
+<tr>
+<td>1 m<sup>2</sup></td>
+<td>Quadratmeter</td>
+<td>100 dm<sup>2</sup> = 10 000 cm<sup>2</sup></td>
+</tr>
+<tr>
+<td>1 dm<sup>2</sup></td>
+<td>Quadratdezimeter</td>
+<td>100 cm<sup>2</sup></td>
+</tr>
+<tr>
+<td>1 cm<sup>2</sup></td>
+<td>Quadratzentimeter</td>
+<td>100 mm<sup>2</sup></td>
+</tr>
+<tr>
+<td>1 mm<sup>2</sup></td>
+<td>Quadratmillimeter</td>
+<td>–</td>
+</tr>
+</tbody>
+</table></div>
+<figure class="fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 340" role="img" aria-label="Are, Hektare und Quadratkilometer" font-size="13"><text x="24" y="30" font-size="15" font-weight="600" fill="var(--cds-text-primary)">Landmasse: Are und Hektare (massstabsgetreu)</text><rect x="70" y="70" width="220" height="220" fill="var(--cds-chart-categorical-2)" fill-opacity="0.08" stroke="var(--cds-chart-categorical-2)" stroke-width="2"></rect><line x1="92" y1="70" x2="92" y2="290" stroke="var(--cds-chart-categorical-2)" stroke-opacity="0.4"></line><line x1="70" y1="92" x2="290" y2="92" stroke="var(--cds-chart-categorical-2)" stroke-opacity="0.4"></line><line x1="114" y1="70" x2="114" y2="290" stroke="var(--cds-chart-categorical-2)" stroke-opacity="0.4"></line><line x1="70" y1="114" x2="290" y2="114" stroke="var(--cds-chart-categorical-2)" stroke-opacity="0.4"></line><line x1="136" y1="70" x2="136" y2="290" stroke="var(--cds-chart-categorical-2)" stroke-opacity="0.4"></line><line x1="70" y1="136" x2="290" y2="136" stroke="var(--cds-chart-categorical-2)" stroke-opacity="0.4"></line><line x1="158" y1="70" x2="158" y2="290" stroke="var(--cds-chart-categorical-2)" stroke-opacity="0.4"></line><line x1="70" y1="158" x2="290" y2="158" stroke="var(--cds-chart-categorical-2)" stroke-opacity="0.4"></line><line x1="180" y1="70" x2="180" y2="290" stroke="var(--cds-chart-categorical-2)" stroke-opacity="0.4"></line><line x1="70" y1="180" x2="290" y2="180" stroke="var(--cds-chart-categorical-2)" stroke-opacity="0.4"></line><line x1="202" y1="70" x2="202" y2="290" stroke="var(--cds-chart-categorical-2)" stroke-opacity="0.4"></line><line x1="70" y1="202" x2="290" y2="202" stroke="var(--cds-chart-categorical-2)" stroke-opacity="0.4"></line><line x1="224" y1="70" x2="224" y2="290" stroke="var(--cds-chart-categorical-2)" stroke-opacity="0.4"></line><line x1="70" y1="224" x2="290" y2="224" stroke="var(--cds-chart-categorical-2)" stroke-opacity="0.4"></line><line x1="246" y1="70" x2="246" y2="290" stroke="var(--cds-chart-categorical-2)" stroke-opacity="0.4"></line><line x1="70" y1="246" x2="290" y2="246" stroke="var(--cds-chart-categorical-2)" stroke-opacity="0.4"></line><line x1="268" y1="70" x2="268" y2="290" stroke="var(--cds-chart-categorical-2)" stroke-opacity="0.4"></line><line x1="70" y1="268" x2="290" y2="268" stroke="var(--cds-chart-categorical-2)" stroke-opacity="0.4"></line><rect x="70" y="70" width="22" height="22" fill="var(--cds-chart-categorical-2)" fill-opacity="0.7"></rect><text x="98" y="64" font-size="12" font-weight="600" fill="var(--cds-text-primary)" text-anchor="start">1 a</text><text x="180" y="308" font-size="12" font-weight="400" fill="var(--cds-text-secondary)" text-anchor="middle">100 m</text><text x="60" y="180" text-anchor="middle" font-size="12" fill="var(--cds-text-secondary)" transform="rotate(-90 60 180)">100 m</text><text x="180" y="185" font-size="16" font-weight="700" fill="var(--cds-text-primary)" text-anchor="middle">1 ha = 100 a</text><g><text x="360" y="92" font-size="15" font-weight="700" fill="var(--cds-text-primary)" text-anchor="start">1 a (Are)</text><text x="360" y="113" font-size="13.5" font-weight="400" fill="var(--cds-text-primary)" text-anchor="start">= 10 m · 10 m = 100 m²</text><text x="360" y="132" font-size="11.5" font-weight="400" fill="var(--cds-text-secondary)" text-anchor="start">etwa die Fläche einer grossen Wohnung</text></g><g><text x="360" y="168" font-size="15" font-weight="700" fill="var(--cds-text-primary)" text-anchor="start">1 ha (Hektare)</text><text x="360" y="189" font-size="13.5" font-weight="400" fill="var(--cds-text-primary)" text-anchor="start">= 100 m · 100 m = 10 000 m² = 100 a</text><text x="360" y="208" font-size="11.5" font-weight="400" fill="var(--cds-text-secondary)" text-anchor="start">etwa so gross wie ein Fussballfeld</text></g><g><text x="360" y="244" font-size="15" font-weight="700" fill="var(--cds-text-primary)" text-anchor="start">1 km²</text><text x="360" y="265" font-size="13.5" font-weight="400" fill="var(--cds-text-primary)" text-anchor="start">= 1000 m · 1000 m = 100 ha</text><text x="360" y="284" font-size="11.5" font-weight="400" fill="var(--cds-text-secondary)" text-anchor="start">ein Quadrat mit 1 km Seitenlänge</text></g></svg><figcaption>Are, Hektare und Quadratkilometer</figcaption></figure>
+
+<p><strong>Beispiele</strong></p>
+<ul>
+<li>3 m<sup>2</sup> = 300 dm<sup>2</sup> = 30 000 cm<sup>2</sup></li>
+<li>2500 cm<sup>2</sup> = 25 dm<sup>2</sup> = 0,25 m<sup>2</sup></li>
+<li>4,7 ha = 470 a = 47 000 m<sup>2</sup></li>
+<li>85 a = 0,85 ha</li>
+</ul>
+<p class="totop"><a href="#top">&uarr; nach oben</a></p>
+<h2 id="volumen">Volumen und Hohlmasse</h2>
+<p>Für Körper (Würfel, Quader) braucht man <strong>Raummasse</strong> (m<sup>3</sup>, dm<sup>3</sup>, cm<sup>3</sup>, mm<sup>3</sup>). Für Flüssigkeiten braucht man meistens <strong>Hohlmasse</strong> (hl, l, dl, cl, ml). Beide passen genau zusammen.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Einheit</th>
+<th>Name</th>
+<th>entspricht</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 m<sup>3</sup></td>
+<td>Kubikmeter</td>
+<td>1000 dm<sup>3</sup> = <strong>1000 l</strong></td>
+</tr>
+<tr>
+<td>1 hl</td>
+<td>Hektoliter</td>
+<td>100 l</td>
+</tr>
+<tr>
+<td>1 dm<sup>3</sup></td>
+<td>Kubikdezimeter</td>
+<td><strong>1 l</strong> = 1000 cm<sup>3</sup></td>
+</tr>
+<tr>
+<td>1 l</td>
+<td>Liter</td>
+<td>10 dl = 100 cl = 1000 ml</td>
+</tr>
+<tr>
+<td>1 dl</td>
+<td>Deziliter</td>
+<td>100 ml = 100 cm<sup>3</sup></td>
+</tr>
+<tr>
+<td>1 cl</td>
+<td>Zentiliter</td>
+<td>10 ml = 10 cm<sup>3</sup></td>
+</tr>
+<tr>
+<td>1 ml</td>
+<td>Milliliter</td>
+<td><strong>1 cm<sup>3</sup> = 1 cc</strong></td>
+</tr>
+<tr>
+<td>1 mm<sup>3</sup></td>
+<td>Kubikmillimeter</td>
+<td>0,001 cm<sup>3</sup></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>cc</strong> (oder ccm) heisst «Kubikzentimeter» und ist dasselbe wie cm<sup>3</sup> und ml. Man findet es z. B. auf Spritzen beim Arzt oder beim Hubraum von Motorrädern (125 cc = 125 cm<sup>3</sup>).</p>
+<p><strong>Beispiele</strong></p>
+<ul>
+<li>3,5 l = 35 dl = 3500 ml = 3500 cm<sup>3</sup></li>
+<li>250 ml = 2,5 dl = 0,25 l</li>
+<li>2 m<sup>3</sup> = 2000 dm<sup>3</sup> = 2000 l</li>
+<li>750 cm<sup>3</sup> = 750 ml = 7,5 dl</li>
+<li>0,4 l = 400 cm<sup>3</sup> = 400 cc</li>
+</ul>
+<p class="note"><strong>Praktisch:</strong> 1 Liter Wasser wiegt ungefähr <strong>1 kg</strong>. Ein volles Aquarium mit 60 Litern wiegt also (ohne Glas) etwa 60 kg.</p>
+
+<h3>Gewicht (Masse)</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Einheit</th>
+<th>entspricht</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 t (Tonne)</td>
+<td>1000 kg</td>
+</tr>
+<tr>
+<td>1 kg</td>
+<td>1000 g</td>
+</tr>
+<tr>
+<td>1 g</td>
+<td>1000 mg</td>
+</tr>
+</tbody>
+</table></div>
+<p class="totop"><a href="#top">&uarr; nach oben</a></p>
+<h2 id="tabelle">Die Stellenwerttabelle</h2>
+<p>Mit der Stellenwerttabelle kann man jede Umrechnung sicher machen, auch mit Komma.</p>
+<figure class="fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 356" role="img" aria-label="Stellenwerttabelle für Längen, Flächen und Volumen" font-size="13"><text x="24" y="30" font-size="15" font-weight="600" fill="var(--cds-text-primary)">Stellenwerttabelle: pro Einheit 1, 2 oder 3 Spalten</text><text x="24" y="50" font-size="11.5" fill="var(--cds-text-secondary)">Die Einerziffer steht in der Spalte der Einheit, das Komma (dicker Strich) direkt dahinter. Leere Stellen mit 0 füllen (grau).</text><text x="24" y="92" font-size="15" font-weight="600" fill="var(--cds-text-primary)" text-anchor="start">3,5 m</text><text x="24" y="112" font-size="11.5" font-weight="400" fill="var(--cds-text-secondary)" text-anchor="start">Länge: 1 Spalte je Einheit</text><rect x="250" y="72" width="40" height="24" fill="var(--cds-chart-categorical-2)" fill-opacity="0.12" stroke="var(--cds-chart-axis)" stroke-width="1"></rect><text x="270" y="89" font-size="13" font-weight="600" fill="var(--cds-text-primary)" text-anchor="middle">m</text><rect x="290" y="72" width="40" height="24" fill="var(--cds-chart-categorical-1)" fill-opacity="0.12" stroke="var(--cds-chart-axis)" stroke-width="1"></rect><text x="310" y="89" font-size="13" font-weight="600" fill="var(--cds-text-primary)" text-anchor="middle">dm</text><rect x="330" y="72" width="40" height="24" fill="var(--cds-chart-categorical-2)" fill-opacity="0.12" stroke="var(--cds-chart-axis)" stroke-width="1"></rect><text x="350" y="89" font-size="13" font-weight="600" fill="var(--cds-text-primary)" text-anchor="middle">cm</text><rect x="250" y="96" width="40" height="36" fill="none" stroke="var(--cds-chart-axis)" stroke-width="1"></rect><text x="270" y="121" font-size="18" font-weight="700" fill="var(--cds-text-primary)" text-anchor="middle">3</text><rect x="290" y="96" width="40" height="36" fill="none" stroke="var(--cds-chart-axis)" stroke-width="1"></rect><text x="310" y="121" font-size="18" font-weight="700" fill="var(--cds-text-primary)" text-anchor="middle">5</text><rect x="330" y="96" width="40" height="36" fill="none" stroke="var(--cds-chart-axis)" stroke-width="1"></rect><text x="350" y="121" font-size="18" font-weight="400" fill="var(--cds-text-secondary)" text-anchor="middle">0</text><line x1="290" y1="68" x2="290" y2="136" stroke="var(--accent)" stroke-width="3"></line><text x="293" y="134" font-size="22" font-weight="700" fill="var(--accent)" text-anchor="start">,</text><text x="394" y="122" font-size="16" font-weight="700" fill="var(--cds-text-primary)" text-anchor="start">→ 350 cm</text><text x="24" y="186" font-size="15" font-weight="600" fill="var(--cds-text-primary)" text-anchor="start">3,25 m²</text><text x="24" y="206" font-size="11.5" font-weight="400" fill="var(--cds-text-secondary)" text-anchor="start">Fläche: 2 Spalten je Einheit</text><rect x="250" y="166" width="80" height="24" fill="var(--cds-chart-categorical-2)" fill-opacity="0.12" stroke="var(--cds-chart-axis)" stroke-width="1"></rect><text x="290" y="183" font-size="13" font-weight="600" fill="var(--cds-text-primary)" text-anchor="middle">m²</text><rect x="330" y="166" width="80" height="24" fill="var(--cds-chart-categorical-1)" fill-opacity="0.12" stroke="var(--cds-chart-axis)" stroke-width="1"></rect><text x="370" y="183" font-size="13" font-weight="600" fill="var(--cds-text-primary)" text-anchor="middle">dm²</text><rect x="410" y="166" width="80" height="24" fill="var(--cds-chart-categorical-2)" fill-opacity="0.12" stroke="var(--cds-chart-axis)" stroke-width="1"></rect><text x="450" y="183" font-size="13" font-weight="600" fill="var(--cds-text-primary)" text-anchor="middle">cm²</text><rect x="250" y="190" width="40" height="36" fill="none" stroke="var(--cds-chart-axis)" stroke-width="1"></rect><rect x="290" y="190" width="40" height="36" fill="none" stroke="var(--cds-chart-axis)" stroke-width="1"></rect><text x="310" y="215" font-size="18" font-weight="700" fill="var(--cds-text-primary)" text-anchor="middle">3</text><rect x="330" y="190" width="40" height="36" fill="none" stroke="var(--cds-chart-axis)" stroke-width="1"></rect><text x="350" y="215" font-size="18" font-weight="700" fill="var(--cds-text-primary)" text-anchor="middle">2</text><rect x="370" y="190" width="40" height="36" fill="none" stroke="var(--cds-chart-axis)" stroke-width="1"></rect><text x="390" y="215" font-size="18" font-weight="700" fill="var(--cds-text-primary)" text-anchor="middle">5</text><rect x="410" y="190" width="40" height="36" fill="none" stroke="var(--cds-chart-axis)" stroke-width="1"></rect><text x="430" y="215" font-size="18" font-weight="400" fill="var(--cds-text-secondary)" text-anchor="middle">0</text><rect x="450" y="190" width="40" height="36" fill="none" stroke="var(--cds-chart-axis)" stroke-width="1"></rect><text x="470" y="215" font-size="18" font-weight="400" fill="var(--cds-text-secondary)" text-anchor="middle">0</text><line x1="330" y1="162" x2="330" y2="230" stroke="var(--accent)" stroke-width="3"></line><text x="333" y="228" font-size="22" font-weight="700" fill="var(--accent)" text-anchor="start">,</text><text x="514" y="216" font-size="16" font-weight="700" fill="var(--cds-text-primary)" text-anchor="start">→ 32 500 cm²</text><text x="24" y="280" font-size="15" font-weight="600" fill="var(--cds-text-primary)" text-anchor="start">4,2 l</text><text x="24" y="300" font-size="11.5" font-weight="400" fill="var(--cds-text-secondary)" text-anchor="start">Volumen: 3 Spalten je Einheit</text><rect x="250" y="260" width="120" height="24" fill="var(--cds-chart-categorical-2)" fill-opacity="0.12" stroke="var(--cds-chart-axis)" stroke-width="1"></rect><text x="310" y="277" font-size="13" font-weight="600" fill="var(--cds-text-primary)" text-anchor="middle">dm³ = l</text><rect x="370" y="260" width="120" height="24" fill="var(--cds-chart-categorical-1)" fill-opacity="0.12" stroke="var(--cds-chart-axis)" stroke-width="1"></rect><text x="430" y="277" font-size="13" font-weight="600" fill="var(--cds-text-primary)" text-anchor="middle">cm³ = ml</text><rect x="250" y="284" width="40" height="36" fill="none" stroke="var(--cds-chart-axis)" stroke-width="1"></rect><rect x="290" y="284" width="40" height="36" fill="none" stroke="var(--cds-chart-axis)" stroke-width="1"></rect><rect x="330" y="284" width="40" height="36" fill="none" stroke="var(--cds-chart-axis)" stroke-width="1"></rect><text x="350" y="309" font-size="18" font-weight="700" fill="var(--cds-text-primary)" text-anchor="middle">4</text><rect x="370" y="284" width="40" height="36" fill="none" stroke="var(--cds-chart-axis)" stroke-width="1"></rect><text x="390" y="309" font-size="18" font-weight="700" fill="var(--cds-text-primary)" text-anchor="middle">2</text><rect x="410" y="284" width="40" height="36" fill="none" stroke="var(--cds-chart-axis)" stroke-width="1"></rect><text x="430" y="309" font-size="18" font-weight="400" fill="var(--cds-text-secondary)" text-anchor="middle">0</text><rect x="450" y="284" width="40" height="36" fill="none" stroke="var(--cds-chart-axis)" stroke-width="1"></rect><text x="470" y="309" font-size="18" font-weight="400" fill="var(--cds-text-secondary)" text-anchor="middle">0</text><line x1="370" y1="256" x2="370" y2="324" stroke="var(--accent)" stroke-width="3"></line><text x="373" y="322" font-size="22" font-weight="700" fill="var(--accent)" text-anchor="start">,</text><text x="514" y="310" font-size="16" font-weight="700" fill="var(--cds-text-primary)" text-anchor="start">→ 4200 cm³</text></svg><figcaption>Stellenwerttabelle für Länge, Fläche und Volumen</figcaption></figure>
+
+<p>So geht es:</p>
+<ol>
+<li>Zeichne für jede Einheit <strong>1 Spalte</strong> (Länge), <strong>2 Spalten</strong> (Fläche) oder <strong>3 Spalten</strong> (Volumen).</li>
+<li>Schreibe die <strong>Einerziffer</strong> der Zahl in die <strong>letzte Spalte</strong> ihrer Einheit. Das Komma steht direkt dahinter.</li>
+<li>Schreibe die anderen Ziffern der Reihe nach in die Spalten links und rechts davon.</li>
+<li>Fülle leere Spalten bis zur gewünschten Einheit mit <strong>0</strong> auf.</li>
+<li>Lies die Zahl ab: Das Komma steht jetzt hinter der letzten Spalte der neuen Einheit.</li>
+</ol>
+<p><strong>Beispiel rückwärts:</strong> 450 cm<sup>2</sup> in m<sup>2</sup>. In die Spalten: cm<sup>2</sup> = 50, dm<sup>2</sup> = 4, m<sup>2</sup> = leer → 0. Gelesen in m<sup>2</sup>: <strong>0,045 m<sup>2</sup></strong>.</p>
+<p class="totop"><a href="#top">&uarr; nach oben</a></p>
+<h2 id="rechnen">Rechnen mit verschiedenen Einheiten</h2>
+<div class="keybox">
+<p><strong>Goldene Regel:</strong> Vor dem Rechnen alle Angaben in <strong>dieselbe Einheit</strong> umrechnen.</p>
+</div>
+<p><strong>Rechteck 2,5 m lang und 40 cm breit. Wie gross ist die Fläche?</strong></p>
+<ul>
+<li>In cm: 250 cm · 40 cm = <strong>10 000 cm<sup>2</sup></strong> = 1 m<sup>2</sup></li>
+<li>Oder in m: 2,5 m · 0,4 m = <strong>1 m<sup>2</sup></strong></li>
+</ul>
+<p>Falsch wäre: 2,5 · 40 = 100 (welche Einheit?).</p>
+<p><strong>Aquarium 60 cm lang, 30 cm breit, 40 cm hoch. Wie viele Liter fasst es?</strong></p>
+<ul>
+<li>V = 60 cm · 30 cm · 40 cm = 72 000 cm<sup>3</sup></li>
+<li>72 000 cm<sup>3</sup> = 72 dm<sup>3</sup> = <strong>72 l</strong></li>
+</ul>
+<p>Tipp: Gleich in dm rechnen geht schneller: 6 dm · 3 dm · 4 dm = 72 dm<sup>3</sup> = 72 l.</p>
+<p><strong>Wie viele Gläser zu 2,5 dl kann man aus einer 1,5-l-Flasche füllen?</strong></p>
+<ul>
+<li>1,5 l = 15 dl, also 15 dl : 2,5 dl = <strong>6 Gläser</strong></li>
+</ul>
+<p class="totop"><a href="#top">&uarr; nach oben</a></p>
+<h2 id="fehler">Typische Fehler</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Falsch</th>
+<th>Richtig</th>
+<th>Warum</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 m<sup>2</sup> = 100 cm<sup>2</sup></td>
+<td>1 m<sup>2</sup> = <strong>10 000 cm<sup>2</sup></strong></td>
+<td>Fläche: m → dm → cm sind 2 Stufen à 100</td>
+</tr>
+<tr>
+<td>1 dm<sup>3</sup> = 100 cm<sup>3</sup></td>
+<td>1 dm<sup>3</sup> = <strong>1000 cm<sup>3</sup></strong></td>
+<td>Volumen: Schritt 1000</td>
+</tr>
+<tr>
+<td>3 m 4 cm = 3,4 m</td>
+<td><strong>3,04 m</strong></td>
+<td>4 cm sind 4 Hundertstel Meter</td>
+</tr>
+<tr>
+<td>1 l = 100 ml</td>
+<td>1 l = <strong>1000 ml</strong></td>
+<td>1 l = 10 dl = 100 cl = 1000 ml</td>
+</tr>
+<tr>
+<td>2,5 m · 40 cm = 100</td>
+<td><strong>1 m<sup>2</sup></strong></td>
+<td>zuerst gleiche Einheiten, Einheit hinschreiben</td>
+</tr>
+<tr>
+<td>1 ha = 1000 m<sup>2</sup></td>
+<td>1 ha = <strong>10 000 m<sup>2</sup></strong></td>
+<td>100 m · 100 m</td>
+</tr>
+</tbody>
+</table></div>
+<p class="totop"><a href="#top">&uarr; nach oben</a></p>
+<h2 id="uebungen">Übungen</h2>
+<p>Arbeite die Stufen der Reihe nach durch. Bei Stufe 3 zuerst selbst knobeln, dann den Tipp öffnen und erst am Schluss die Lösung.</p>
+<h3 class="lvl lvl-1">Einfach</h3>
+<p><strong>E1. Längen.</strong></p>
+<ul class="tasks">
+<li>a) 4 m = … cm &emsp; b) 2,5 km = … m &emsp; c) 350 mm = … cm &emsp; d) 7 dm = … m &emsp; e) 1,05 m = … cm &emsp; f) 80 cm = … m</li>
+</ul>
+<p><strong>E2. Flächen.</strong></p>
+<ul class="tasks">
+<li>a) 3 m<sup>2</sup> = … dm<sup>2</sup> &emsp; b) 5 dm<sup>2</sup> = … cm<sup>2</sup> &emsp; c) 2 m<sup>2</sup> = … cm<sup>2</sup> &emsp; d) 600 mm<sup>2</sup> = … cm<sup>2</sup> &emsp; e) 4 ha = … a &emsp; f) 1 a = … m<sup>2</sup></li>
+</ul>
+<p><strong>E3. Volumen.</strong></p>
+<ul class="tasks">
+<li>a) 2 dm<sup>3</sup> = … cm<sup>3</sup> &emsp; b) 5000 cm<sup>3</sup> = … dm<sup>3</sup> &emsp; c) 3 m<sup>3</sup> = … dm<sup>3</sup> &emsp; d) 1 cm<sup>3</sup> = … mm<sup>3</sup></li>
+</ul>
+<p><strong>E4. Hohlmasse.</strong></p>
+<ul class="tasks">
+<li>a) 2 l = … dl &emsp; b) 3 dl = … ml &emsp; c) 750 ml = … l &emsp; d) 4 hl = … l &emsp; e) 50 cl = … l &emsp; f) 250 cc = … ml</li>
+</ul>
+<p><strong>E5. Liter und Kubik.</strong></p>
+<ul class="tasks">
+<li>a) 1 l = … cm<sup>3</sup> &emsp; b) 3 dm<sup>3</sup> = … l &emsp; c) 500 cm<sup>3</sup> = … dl &emsp; d) 2 m<sup>3</sup> = … l</li>
+</ul>
+<details class="solution">
+<summary>Lösungen Stufe 1 anzeigen</summary>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Aufgabe</th>
+<th>Lösungen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E1</td>
+<td>a) 400 cm · b) 2500 m · c) 35 cm · d) 0,7 m · e) 105 cm · f) 0,8 m</td>
+</tr>
+<tr>
+<td>E2</td>
+<td>a) 300 dm<sup>2</sup> · b) 500 cm<sup>2</sup> · c) 20 000 cm<sup>2</sup> · d) 6 cm<sup>2</sup> · e) 400 a · f) 100 m<sup>2</sup></td>
+</tr>
+<tr>
+<td>E3</td>
+<td>a) 2000 cm<sup>3</sup> · b) 5 dm<sup>3</sup> · c) 3000 dm<sup>3</sup> · d) 1000 mm<sup>3</sup></td>
+</tr>
+<tr>
+<td>E4</td>
+<td>a) 20 dl · b) 300 ml · c) 0,75 l · d) 400 l · e) 0,5 l · f) 250 ml</td>
+</tr>
+<tr>
+<td>E5</td>
+<td>a) 1000 cm<sup>3</sup> · b) 3 l · c) 5 dl · d) 2000 l</td>
+</tr>
+</tbody>
+</table></div>
+</details>
+<h3 class="lvl lvl-2">Mittel</h3>
+<p><strong>M1. Mit Komma (Stellenwerttabelle hilft).</strong></p>
+<ul class="tasks">
+<li>a) 3,25 m<sup>2</sup> = … cm<sup>2</sup> &emsp; b) 0,8 dm<sup>2</sup> = … cm<sup>2</sup> &emsp; c) 4,2 l = … cm<sup>3</sup></li>
+<li>d) 0,035 m<sup>3</sup> = … l &emsp; e) 12 500 m<sup>2</sup> = … ha &emsp; f) 0,6 km<sup>2</sup> = … ha</li>
+</ul>
+<p><strong>M2. Gemischte Angaben in eine Einheit.</strong></p>
+<ul class="tasks">
+<li>a) 3 m 4 cm = … m &emsp; b) 2 l 5 dl = … l &emsp; c) 5 m<sup>2</sup> 8 dm<sup>2</sup> = … m<sup>2</sup> &emsp; d) 1 dm<sup>3</sup> 20 cm<sup>3</sup> = … cm<sup>3</sup></li>
+</ul>
+<p><strong>M3. Ordne der Grösse nach (kleinste zuerst).</strong></p>
+<ul class="tasks">
+<li>0,5 m<sup>2</sup> &emsp; 4800 cm<sup>2</sup> &emsp; 52 dm<sup>2</sup> &emsp; 0,0049 a</li>
+</ul>
+<p><strong>M4. Rechne und gib das Resultat in der verlangten Einheit an.</strong></p>
+<ul class="tasks">
+<li>a) 1,2 m + 45 cm = … cm &emsp; b) 2 l − 3 dl = … dl &emsp; c) 3 m<sup>2</sup> + 250 dm<sup>2</sup> = … m<sup>2</sup> &emsp; d) 0,5 dm<sup>3</sup> + 300 cm<sup>3</sup> = … cm<sup>3</sup></li>
+</ul>
+<p><strong>M5. Ein Rechteck ist 2,5 m lang und 40 cm breit.</strong></p>
+<ul class="tasks">
+<li>Wie gross ist seine Fläche in cm<sup>2</sup> und in m<sup>2</sup>? Wie gross ist sein Umfang in m?</li>
+</ul>
+<p><strong>M6. Ein Aquarium ist 60 cm lang, 30 cm breit und 40 cm hoch.</strong></p>
+<ul class="tasks">
+<li>a) Wie viele Liter fasst es? &emsp; b) Wie viele Liter sind drin, wenn das Wasser 5 cm unter dem Rand steht?</li>
+</ul>
+<p><strong>M7. Gläser füllen.</strong></p>
+<ul class="tasks">
+<li>Wie viele Gläser zu 2,5 dl kann man aus 1,5 l füllen? Wie viele Becher zu 125 ml aus 2 l?</li>
+</ul>
+<details class="solution">
+<summary>Lösungen Stufe 2 anzeigen</summary>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Aufgabe</th>
+<th>Lösungen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>M1</td>
+<td>a) 32 500 cm<sup>2</sup> · b) 80 cm<sup>2</sup> · c) 4200 cm<sup>3</sup> · d) 35 l · e) 1,25 ha · f) 60 ha</td>
+</tr>
+<tr>
+<td>M2</td>
+<td>a) 3,04 m · b) 2,5 l · c) 5,08 m<sup>2</sup> · d) 1020 cm<sup>3</sup></td>
+</tr>
+<tr>
+<td>M3</td>
+<td>Alles in cm<sup>2</sup>: 5000, 4800, 5200, 4900. Reihenfolge: <strong>4800 cm<sup>2</sup> &lt; 0,0049 a &lt; 0,5 m<sup>2</sup> &lt; 52 dm<sup>2</sup></strong></td>
+</tr>
+<tr>
+<td>M4</td>
+<td>a) 120 + 45 = 165 cm · b) 20 − 3 = 17 dl · c) 3 + 2,5 = 5,5 m<sup>2</sup> · d) 500 + 300 = 800 cm<sup>3</sup></td>
+</tr>
+<tr>
+<td>M5</td>
+<td>250 cm · 40 cm = <strong>10 000 cm<sup>2</sup> = 1 m<sup>2</sup></strong>; Umfang 2 · (2,5 m + 0,4 m) = <strong>5,8 m</strong></td>
+</tr>
+<tr>
+<td>M6</td>
+<td>a) 6 dm · 3 dm · 4 dm = 72 dm<sup>3</sup> = <strong>72 l</strong> · b) 6 dm · 3 dm · 3,5 dm = 63 dm<sup>3</sup> = <strong>63 l</strong></td>
+</tr>
+<tr>
+<td>M7</td>
+<td>15 dl : 2,5 dl = <strong>6 Gläser</strong> · 2000 ml : 125 ml = <strong>16 Becher</strong></td>
+</tr>
+</tbody>
+</table></div>
+</details>
+<h3 class="lvl lvl-3">Schwierig</h3>
+<div class="task">
+<p><strong>S1. Eine Kette aus Würfelchen.</strong> Ein Würfel von 1 m<sup>3</sup> wird in lauter Würfelchen von 1 cm<sup>3</sup> zerschnitten. Die Würfelchen werden in einer Reihe hintereinander gelegt. Wie lang wird die Reihe?</p>
+<details class="hint">
+<summary>Tipp</summary>
+<p>Wie viele cm<sup>3</sup> hat 1 m<sup>3</sup>? Jedes Würfelchen ist 1 cm lang. Rechne das Resultat am Schluss in km um.</p>
+</details>
+<details class="answer">
+<summary>Lösung</summary>
+<p>1 m<sup>3</sup> = 100 · 100 · 100 cm<sup>3</sup> = 1 000 000 cm<sup>3</sup>, also 1 000 000 Würfelchen zu je 1 cm. Die Reihe ist 1 000 000 cm = 10 000 m = <strong>10 km</strong> lang.</p>
+</details>
+</div>
+<div class="task">
+<p><strong>S2. Regen messen.</strong> Es regnet so viel, dass das Wasser auf einer flachen Fläche 12 mm hoch stehen würde. a) Wie viele Liter Wasser fallen auf 1 m<sup>2</sup>? b) Wie viele Liter fallen auf ein Flachdach von 8 m × 5 m?</p>
+<details class="hint">
+<summary>Tipp</summary>
+<p>Stelle dir eine Wasserschicht von 1 m × 1 m × 12 mm vor. Rechne alles in dm um, dann bekommst du direkt Liter.</p>
+</details>
+<details class="answer">
+<summary>Lösung</summary>
+<p>a) 10 dm · 10 dm · 0,12 dm = <strong>12 dm<sup>3</sup> = 12 l</strong>. (Merke: 1 mm Regen = 1 Liter pro m<sup>2</sup>.) b) Das Dach hat 40 m<sup>2</sup>, also 40 · 12 l = <strong>480 l</strong>.</p>
+</details>
+</div>
+<div class="task">
+<p><strong>S3. Das Schwimmbecken.</strong> Ein Becken ist 25 m lang, 10 m breit und 2 m tief. a) Wie viele Liter fasst es? b) Eine Pumpe füllt 250 l pro Minute. Wie lange dauert das Füllen in Stunden und Minuten?</p>
+<details class="hint">
+<summary>Tipp</summary>
+<p>Rechne zuerst das Volumen in m<sup>3</sup> aus. 1 m<sup>3</sup> = 1000 l. Teile dann durch 250 und rechne die Minuten in Stunden um.</p>
+</details>
+<details class="answer">
+<summary>Lösung</summary>
+<p>a) 25 · 10 · 2 = 500 m<sup>3</sup> = <strong>500 000 l</strong>. b) 500 000 : 250 = 2000 min = 33 h 20 min (2000 = 33 · 60 + 20).</p>
+</details>
+</div>
+<div class="task">
+<p><strong>S4. Fliesen legen.</strong> Ein Boden ist 4,2 m lang und 3 m breit. a) Wie viele quadratische Platten mit 30 cm Seitenlänge braucht man? b) Wie viele wären es mit 20 cm Seitenlänge?</p>
+<details class="hint">
+<summary>Tipp</summary>
+<p>Nicht die Flächen teilen und raten: Zähle, wie viele Platten in eine Reihe passen und wie viele Reihen es gibt. Alles in cm!</p>
+</details>
+<details class="answer">
+<summary>Lösung</summary>
+<p>a) 420 cm : 30 cm = 14 Platten pro Reihe, 300 cm : 30 cm = 10 Reihen: <strong>140 Platten</strong>. b) 420 : 20 = 21 und 300 : 20 = 15: <strong>315 Platten</strong>. (Kontrolle a: 12,6 m<sup>2</sup> : 0,09 m<sup>2</sup> = 140 ✓)</p>
+</details>
+</div>
+<div class="task">
+<p><strong>S5. Medizin.</strong> Ein Tier bekommt zweimal am Tag eine Spritze mit 5 cc Medizin. Die Flasche enthält 0,2 l. Wie viele Tage reicht sie?</p>
+<details class="hint">
+<summary>Tipp</summary>
+<p>cc = cm<sup>3</sup> = ml. Rechne 0,2 l in ml um.</p>
+</details>
+<details class="answer">
+<summary>Lösung</summary>
+<p>0,2 l = 200 ml = 200 cc. Pro Tag 2 · 5 cc = 10 cc. 200 : 10 = <strong>20 Tage</strong>.</p>
+</details>
+</div>
+<div class="task">
+<p><strong>S6. Würfel füllen.</strong> a) Ein hohler Würfel hat innen eine Kantenlänge von 20 cm. Wie viele Becher zu 1 dl braucht man, um ihn zu füllen? b) Ein anderer Würfel fasst genau 1 Liter. Wie lang ist seine Kante, und wie gross ist seine Oberfläche in cm<sup>2</sup>?</p>
+<details class="hint">
+<summary>Tipp</summary>
+<p>a) Rechne in dm: 20 cm = 2 dm. b) 1 l = 1 dm<sup>3</sup>. Welche Zahl mal sich selbst mal sich selbst ergibt 1?</p>
+</details>
+<details class="answer">
+<summary>Lösung</summary>
+<p>a) 2 dm · 2 dm · 2 dm = 8 dm<sup>3</sup> = 8 l = 80 dl: <strong>80 Becher</strong>. b) Kante <strong>1 dm = 10 cm</strong>. Oberfläche: 6 Flächen à 10 cm · 10 cm = 6 · 100 cm<sup>2</sup> = <strong>600 cm<sup>2</sup></strong> (= 6 dm<sup>2</sup>).</p>
+</details>
+</div>
+<div class="task">
+<p><strong>S7. Felder.</strong> a) Ein quadratisches Feld ist genau 1 ha gross. Wie lang ist eine Seite? b) Ein rechteckiges Feld ist 4 ha gross und eine Seite ist 250 m lang. Wie lang ist die andere Seite, und wie lang ist ein Zaun rundherum?</p>
+<details class="hint">
+<summary>Tipp</summary>
+<p>1 ha = 10 000 m<sup>2</sup>. Für b) Fläche in m<sup>2</sup> durch die bekannte Seite teilen.</p>
+</details>
+<details class="answer">
+<summary>Lösung</summary>
+<p>a) 100 m · 100 m = 10 000 m<sup>2</sup>: <strong>100 m</strong>. b) 4 ha = 40 000 m<sup>2</sup>, 40 000 : 250 = <strong>160 m</strong>. Zaun: 2 · (250 m + 160 m) = <strong>820 m</strong>.</p>
+</details>
+</div>
+<div class="task">
+<p><strong>S8. Millimeter-Papier.</strong> Ein Quadrat von 1 m Seitenlänge wird in kleine Quadrate von 1 mm Seitenlänge eingeteilt. a) Wie viele kleine Quadrate gibt es? b) Wie viele mm<sup>2</sup> hat also 1 m<sup>2</sup>? c) Prüfe dein Resultat mit der Flächentreppe.</p>
+<details class="hint">
+<summary>Tipp</summary>
+<p>Wie viele mm passen auf 1 m? So viele Reihen gibt es, und in jeder Reihe gleich viele Quadrate.</p>
+</details>
+<details class="answer">
+<summary>Lösung</summary>
+<p>a) 1000 · 1000 = <strong>1 000 000</strong> Quadrate. b) <strong>1 m<sup>2</sup> = 1 000 000 mm<sup>2</sup></strong>. c) m<sup>2</sup> → dm<sup>2</sup> → cm<sup>2</sup> → mm<sup>2</sup> sind 3 Stufen à 100: 100 · 100 · 100 = 1 000 000 ✓.</p>
+</details>
+</div>
+<div class="task">
+<p><strong>S9. Hält das Regal?</strong> Das Aquarium aus M6 (60 cm × 30 cm × 40 cm) wird ganz mit Wasser gefüllt. Das leere Glas wiegt 15 kg. Das Regal trägt höchstens 80 kg. Darf man das volle Aquarium daraufstellen?</p>
+<details class="hint">
+<summary>Tipp</summary>
+<p>1 Liter Wasser wiegt 1 kg. Wie viele Liter waren es?</p>
+</details>
+<details class="answer">
+<summary>Lösung</summary>
+<p>72 l Wasser wiegen 72 kg. Mit Glas: 72 + 15 = 87 kg. Das ist mehr als 80 kg: <strong>Nein</strong>. (Mit Wasser nur bis 5 cm unter dem Rand wären es 63 + 15 = 78 kg, das ginge knapp.)</p>
+</details>
+</div>
+<div class="task">
+<p><strong>S10. Doppelt so lang – wie viel mehr?</strong> Ein Quader ist 10 cm lang, 5 cm breit und 4 cm hoch. Alle drei Kanten werden verdoppelt. a) Wie gross ist das neue Volumen in cm<sup>3</sup> und in Litern? b) Wie viele Male grösser ist es als vorher?</p>
+<details class="hint">
+<summary>Tipp</summary>
+<p>Rechne beide Volumen aus und teile. Was hat das mit 2<sup>3</sup> zu tun?</p>
+</details>
+<details class="answer">
+<summary>Lösung</summary>
+<p>Vorher: 10 · 5 · 4 = 200 cm<sup>3</sup>. Nachher: 20 · 10 · 8 = <strong>1600 cm<sup>3</sup> = 1,6 l</strong>. b) 1600 : 200 = <strong>8-mal</strong> so gross, denn jede der 3 Richtungen wird verdoppelt: 2 · 2 · 2 = 2<sup>3</sup> = 8.</p>
+</details>
+</div>
+<h3>Tipps für die Prüfung</h3>
+<ul>
+<li>Zuerst überlegen: <strong>grössere oder kleinere Einheit?</strong> Dann mal oder geteilt.</li>
+<li><strong>Fläche: Schritt 100, Volumen: Schritt 1000.</strong> Die kleine 2 oder 3 an der Einheit erinnert daran.</li>
+<li>Die <strong>Brücken</strong> kennen: 1 dm<sup>3</sup> = 1 l, 1 cm<sup>3</sup> = 1 ml = 1 cc, 1 m<sup>3</sup> = 1000 l.</li>
+<li>Vor dem Rechnen <strong>alle Angaben in dieselbe Einheit</strong> bringen.</li>
+<li>Bei Volumen in <strong>dm rechnen</strong>, wenn Liter gefragt sind.</li>
+<li>Resultat <strong>mit Einheit</strong> hinschreiben und prüfen, ob es sinnvoll ist.</li>
+</ul>
+
+  <nav class="pager" aria-label="Weiter">
+    <a class="prev" href="../potenzen/"><small>&larr; Leitfaden</small>Potenzen</a>
+    <a class="next" href="../spiegelung/"><small>Nächster Leitfaden &rarr;</small>Spiegelung</a>
+  </nav>
+
+  <footer>gymi-prep &middot; <a href="../../">Startseite</a> &middot; <a href="../">Mathematik</a> &middot; laufend ergänzt</footer>
+</div>
+</body>
+</html>
