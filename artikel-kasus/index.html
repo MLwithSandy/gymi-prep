@@ -1,0 +1,2126 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nomen, Artikel &amp; Adjektive</title>
+<style>
+  :root {
+    --bg: #faf8f5;
+    --panel: #ffffff;
+    --ink: #2b2420;
+    --ink-soft: #5c524a;
+    --accent: #8a4b2e;
+    --accent-soft: #c97b4a;
+    --line: #e7ddd1;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1c1814;
+      --panel: #26211c;
+      --ink: #f1ebe3;
+      --ink-soft: #c9bfb3;
+      --accent: #e0a179;
+      --accent-soft: #c97b4a;
+      --line: #3a332c;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1c1814;
+    --panel: #26211c;
+    --ink: #f1ebe3;
+    --ink-soft: #c9bfb3;
+    --accent: #e0a179;
+    --accent-soft: #c97b4a;
+    --line: #3a332c;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Iowan Old Style", "Georgia", "Charter", serif;
+    line-height: 1.6;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 32px 16px 80px; }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 13px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    margin-bottom: 18px;
+  }
+  .back-link:hover { color: var(--accent); }
+  header.page {
+    padding: 8px 0 20px;
+    border-bottom: 2px solid var(--line);
+    margin-bottom: 28px;
+  }
+  .eyebrow {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 12px;
+    color: var(--accent-soft);
+    font-weight: 700;
+    margin: 0 0 8px;
+  }
+  h1 { font-size: 1.9em; margin: 0 0 8px; color: var(--ink); }
+  .subtitle { color: var(--ink-soft); font-size: 1.02em; margin: 0; }
+  h2 {
+    font-size: 1.25em;
+    margin: 42px 0 14px;
+    color: var(--accent);
+    border-left: 4px solid var(--accent-soft);
+    padding-left: 12px;
+  }
+  h3 {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.92em;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+    margin: 26px 0 10px;
+  }
+  p { margin: 0 0 14px; }
+  ol, ul { margin: 0 0 14px; padding-left: 22px; }
+  li { margin-bottom: 6px; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92em;
+    margin: 10px 0 20px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  th, td {
+    text-align: left;
+    padding: 9px 11px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  th {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+    background: color-mix(in srgb, var(--panel) 92%, var(--accent-soft));
+  }
+  tr:last-child td { border-bottom: none; }
+  strong { color: var(--accent); }
+  .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  footer {
+    margin-top: 60px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 12px;
+    color: var(--ink-soft);
+    text-align: center;
+  }
+  @media (max-width: 480px) {
+    h1 { font-size: 1.45em; }
+    th, td { padding: 7px; font-size: 0.85em; }
+  }
+
+  /* Gender colour code */
+  :root { --m: #e7f1fb; --f: #fbebeb; --n: #e5f4e4; --p: #f9eeda; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --m: #1f2c3a; --f: #3a2426; --n: #213524; --p: #3a301f; }
+  }
+  :root[data-theme="dark"] { --m: #1f2c3a; --f: #3a2426; --n: #213524; --p: #3a301f; }
+  table.gender td:nth-child(2), table.gender th:nth-child(2) { background: var(--m); }
+  table.gender td:nth-child(3), table.gender th:nth-child(3) { background: var(--f); }
+  table.gender td:nth-child(4), table.gender th:nth-child(4) { background: var(--n); }
+  table.gender td:nth-child(5), table.gender th:nth-child(5) { background: var(--p); }
+  .chip { display: inline-block; padding: 1px 9px; border-radius: 100px; font-size: 0.9em; color: var(--ink); white-space: nowrap; }
+  .chip.m { background: var(--m); } .chip.f { background: var(--f); } .chip.n { background: var(--n); } .chip.p { background: var(--p); }
+  /* Table of contents */
+  nav.toc { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px 20px; margin: 0 0 10px; }
+  nav.toc .toc-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-soft); font-weight: 700; margin: 0 0 6px; }
+  nav.toc ol { margin: 0; }
+  nav.toc li { margin-bottom: 2px; }
+  nav.toc a { color: var(--ink); text-decoration: none; }
+  nav.toc a:hover { color: var(--accent); }
+  /* Diagrams */
+  figure.dg { margin: 16px 0 22px; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 10px; }
+  figure.dg svg { width: 100%; height: auto; display: block; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 13px; }
+  figure.dg rect { fill: none; stroke: var(--ink-soft); stroke-width: 1.25; }
+  figure.dg .ln path { fill: none; stroke: var(--ink-soft); stroke-width: 1.25; }
+  figure.dg .ah { fill: var(--ink-soft); }
+  figure.dg text { fill: var(--ink); }
+  figure.dg text.t { font-size: 15px; font-weight: 600; }
+  figure.dg text.nm { font-size: 15px; font-weight: 600; }
+  figure.dg text.b { font-weight: 600; }
+  figure.dg text.q { fill: var(--ink-soft); }
+  figure.dg text.sm { font-size: 11.5px; }
+  figure.dg text.c { text-anchor: middle; }
+  figure.dg text.e { text-anchor: end; }
+  figure.dg figcaption { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 12px; color: var(--ink-soft); text-align: center; margin-top: 4px; }
+  /* Collapsible answers */
+  details.sol { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; margin: 0 0 10px; }
+  details.sol summary { cursor: pointer; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-weight: 700; color: var(--accent); }
+  details.sol[open] summary { margin-bottom: 8px; }
+  @media print { details.sol { display: block; } nav.toc { display: none; } }
+
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back-link" href="../">&larr; Zur &Uuml;bersicht</a>
+
+  <header class="page">
+    <p class="eyebrow">Langgymi &middot; Grammatik</p>
+    <h1>Nomen, Artikel &amp; Adjektive in allen vier F&auml;llen</h1>
+    <p class="subtitle">Farbcodierte Tabellen, Merktipps und 120 &Uuml;bungen mit L&ouml;sungen</p>
+  </header>
+
+  <nav class="toc"><p class="toc-title">Inhalt</p><ol>
+<li><a href="#so-benutzt-du-diesen-guide">So benutzt du diesen Guide</a></li>
+<li><a href="#die-vier-falle">Die vier Fälle</a></li>
+<li><a href="#der-bestimmte-artikel-der-die-das">Der bestimmte Artikel (der, die, das)</a></li>
+<li><a href="#der-unbestimmte-artikel-ein-eine-und-kein">Der unbestimmte Artikel (ein, eine) und «kein»</a></li>
+<li><a href="#merktipps-zum-auswendiglernen">Merktipps zum Auswendiglernen</a></li>
+<li><a href="#prapositionen-welcher-fall">Präpositionen: welcher Fall?</a></li>
+<li><a href="#n-deklination-und-typische-stolperfallen">n-Deklination und typische Stolperfallen</a></li>
+<li><a href="#adjektivdeklination">Adjektivdeklination</a></li>
+<li><a href="#die-3-schritte-methode">Die 3-Schritte-Methode</a></li>
+<li><a href="#120-ubungen">120 Übungen</a></li>
+<li><a href="#losungen">Lösungen</a></li>
+  </ol></nav>
+
+<h2 id="so-benutzt-du-diesen-guide">So benutzt du diesen Guide</h2>
+<p>Der Artikel zeigt dir zwei Dinge auf einmal: das Geschlecht des Nomens und den Fall. Wenn du die Tabellen unten kennst und die richtige Frage stellst, findest du jeden Artikel.</p>
+<ul>
+<li><strong>Farbcode</strong> in allen Tabellen: <span class="chip m">maskulin (der)</span> <span class="chip f">feminin (die)</span> <span class="chip n">neutrum (das)</span> <span class="chip p">Plural (die)</span></li>
+<li>Lies zuerst die Tabellen und Merktipps (ca. 20 Minuten).</li>
+<li>Löse dann täglich 10–15 Übungen und kontrolliere sie mit den Lösungen am Ende.</li>
+<li>Schreib jeden Fehler mit der richtigen Antwort in ein Heft. Fehler wiederholen sich, und genau dort lernst du am meisten.</li>
+</ul>
+<h2 id="die-vier-falle">Die vier Fälle</h2>
+<p>Jedes Nomen im Satz steht in einem von vier Fällen. Du findest den Fall, indem du nach dem Nomen fragst – die Frage verrät den Fall.</p>
+<figure class="dg"><svg viewBox="0 0 760 220" role="img" aria-label="Die Frage verrät den Fall">
+<text class="t" x="24" y="34">Die Frage verrät den Fall</text>
+<g><rect x="24" y="60" width="166" height="136" rx="8"/><text class="q c" x="107" y="82">1. Fall</text><text class="nm c" x="107" y="102">Nominativ</text><text class="b c" x="107" y="128">Wer oder was?</text><text class="c" x="107" y="154">der · die · das · die</text><text class="q c sm" x="107" y="178">Der Hund bellt.</text></g>
+<g><rect x="206" y="60" width="166" height="136" rx="8"/><text class="q c" x="289" y="82">2. Fall</text><text class="nm c" x="289" y="102">Genitiv</text><text class="b c" x="289" y="128">Wessen?</text><text class="c" x="289" y="154">des · der · des · der</text><text class="q c sm" x="289" y="178">das Fell des Hundes</text></g>
+<g><rect x="388" y="60" width="166" height="136" rx="8"/><text class="q c" x="471" y="82">3. Fall</text><text class="nm c" x="471" y="102">Dativ</text><text class="b c" x="471" y="128">Wem?</text><text class="c" x="471" y="154">dem · der · dem · den</text><text class="q c sm" x="471" y="178">Ich helfe dem Hund.</text></g>
+<g><rect x="570" y="60" width="166" height="136" rx="8"/><text class="q c" x="653" y="82">4. Fall</text><text class="nm c" x="653" y="102">Akkusativ</text><text class="b c" x="653" y="128">Wen oder was?</text><text class="c" x="653" y="154">den · die · das · die</text><text class="q c sm" x="653" y="178">Ich sehe den Hund.</text></g>
+</svg><figcaption>Die vier Fälle · Frage, Artikel (m · f · n · Pl) und Beispiel</figcaption></figure>
+<p>Die Artikel in jedem Kästchen stehen immer in derselben Reihenfolge: maskulin · feminin · neutrum · Plural. Wichtig: Frag immer mit dem Verb, z. B. «Wen sehe ich?» und nicht nur «Wen?».</p>
+<p>Der Nominativ ist das Subjekt (wer etwas tut). Akkusativ und Dativ sind Objekte. Der Genitiv zeigt, wem etwas gehört.</p>
+<h2 id="der-bestimmte-artikel-der-die-das">Der bestimmte Artikel (der, die, das)</h2>
+<p>Diese Tabelle ist das Herz des Themas – lerne sie auswendig, Zeile für Zeile. Fett = was du dir merken musst, auch die Endungen am Nomen.</p>
+<div class="table-scroll"><table class="gender">
+<thead>
+<tr>
+<th>Fall</th>
+<th>maskulin</th>
+<th>feminin</th>
+<th>neutrum</th>
+<th>Plural</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Nominativ (Wer?)</td>
+<td><strong>der</strong> Hund</td>
+<td><strong>die</strong> Katze</td>
+<td><strong>das</strong> Pferd</td>
+<td><strong>die</strong> Kinder</td>
+</tr>
+<tr>
+<td>2. Genitiv (Wessen?)</td>
+<td><strong>des</strong> Hund<strong>es</strong></td>
+<td><strong>der</strong> Katze</td>
+<td><strong>des</strong> Pferd<strong>es</strong></td>
+<td><strong>der</strong> Kinder</td>
+</tr>
+<tr>
+<td>3. Dativ (Wem?)</td>
+<td><strong>dem</strong> Hund</td>
+<td><strong>der</strong> Katze</td>
+<td><strong>dem</strong> Pferd</td>
+<td><strong>den</strong> Kinder<strong>n</strong></td>
+</tr>
+<tr>
+<td>4. Akkusativ (Wen?)</td>
+<td><strong>den</strong> Hund</td>
+<td><strong>die</strong> Katze</td>
+<td><strong>das</strong> Pferd</td>
+<td><strong>die</strong> Kinder</td>
+</tr>
+</tbody>
+</table></div>
+<p>Drei Dinge fallen sofort auf:</p>
+<ul>
+<li><strong>Nur maskulin ändert sich im Akkusativ</strong> (der → den). Bei feminin, neutrum und Plural sind Nominativ und Akkusativ gleich.</li>
+<li><strong>Maskulin und neutrum sind Zwillinge</strong> im Genitiv und Dativ (des …s, dem).</li>
+<li><strong>«der» kommt viermal vor</strong>: Nominativ maskulin, Dativ feminin, Genitiv feminin, Genitiv Plural. Darum ist «der» nicht immer maskulin!</li>
+</ul>
+<h2 id="der-unbestimmte-artikel-ein-eine-und-kein">Der unbestimmte Artikel (ein, eine) und «kein»</h2>
+<p>Der unbestimmte Artikel hat die gleichen Endungen wie der bestimmte – ausser an drei Stellen, wo «ein» ganz ohne Endung bleibt. Im Plural gibt es kein «ein», darum steht dort «kein».</p>
+<div class="table-scroll"><table class="gender">
+<thead>
+<tr>
+<th>Fall</th>
+<th>maskulin</th>
+<th>feminin</th>
+<th>neutrum</th>
+<th>Plural (mit kein)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Nominativ (Wer?)</td>
+<td><strong>ein</strong> Hund</td>
+<td><strong>eine</strong> Katze</td>
+<td><strong>ein</strong> Pferd</td>
+<td><strong>keine</strong> Kinder</td>
+</tr>
+<tr>
+<td>2. Genitiv (Wessen?)</td>
+<td><strong>eines</strong> Hund<strong>es</strong></td>
+<td><strong>einer</strong> Katze</td>
+<td><strong>eines</strong> Pferd<strong>es</strong></td>
+<td><strong>keiner</strong> Kinder</td>
+</tr>
+<tr>
+<td>3. Dativ (Wem?)</td>
+<td><strong>einem</strong> Hund</td>
+<td><strong>einer</strong> Katze</td>
+<td><strong>einem</strong> Pferd</td>
+<td><strong>keinen</strong> Kinder<strong>n</strong></td>
+</tr>
+<tr>
+<td>4. Akkusativ (Wen?)</td>
+<td><strong>einen</strong> Hund</td>
+<td><strong>eine</strong> Katze</td>
+<td><strong>ein</strong> Pferd</td>
+<td><strong>keine</strong> Kinder</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>«kein» geht genau wie «ein»</strong>: kein Hund, keinen Hund, keinem Hund, keines Hundes. Das Gleiche gilt für <strong>mein, dein, sein, ihr, unser, euer</strong>: Ich sehe <strong>meinen</strong> Bruder. Ich helfe <strong>meiner</strong> Schwester.</p>
+<p>Die Endung von «ein» verrät den Fall – sie ist eine Kopie vom bestimmten Artikel:</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>bestimmter Artikel</th>
+<th>de<strong>n</strong></th>
+<th>de<strong>m</strong></th>
+<th>de<strong>s</strong></th>
+<th>di<strong>e</strong></th>
+<th>de<strong>r</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>unbestimmter Artikel</td>
+<td>ein<strong>en</strong></td>
+<td>ein<strong>em</strong></td>
+<td>ein<strong>es</strong></td>
+<td>ein<strong>e</strong></td>
+<td>ein<strong>er</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>Die <strong>drei Stellen ohne Endung</strong>: ein Hund (Nominativ m), ein Pferd (Nominativ n), ein Pferd (Akkusativ n). Überall sonst hat «ein» eine Endung.</p>
+<h2 id="merktipps-zum-auswendiglernen">Merktipps zum Auswendiglernen</h2>
+<p>Mit diesen sieben Tricks musst du nicht 16 einzelne Formen lernen, sondern nur ein paar Muster.</p>
+<ol>
+<li><strong>«Der Mann verkleidet sich.»</strong> Im Akkusativ ändert sich nur maskulin: der → <strong>den</strong>, ein → <strong>einen</strong>. Alles andere bleibt wie im Nominativ (die bleibt die, das bleibt das).</li>
+<li><strong>Dativ summt: m – r – m – n.</strong> Die Endungen im Dativ sind de<strong>m</strong>, de<strong>r</strong>, de<strong>m</strong>, de<strong>n</strong>. Sprich es laut wie eine Melodie: «dem – der – dem – den».</li>
+<li><strong>Dativ Plural braucht ein -n.</strong> den Kinder<strong>n</strong>, den Häuser<strong>n</strong>, den Freunde<strong>n</strong>. Ausnahme: Das Nomen endet schon auf -n oder -s (den Frauen, den Autos).</li>
+<li><strong>Genitiv hat einen s-Schwanz.</strong> Maskulin und neutrum bekommen <strong>des</strong> und ein -s oder -es am Nomen: des Vater<strong>s</strong>, des Haus<strong>es</strong>. Feminin und Plural bleiben ohne Endung: der Mutter, der Kinder.</li>
+<li><strong>Feminin ist faul.</strong> Es gibt nur zwei Formen: <strong>die</strong> (Nominativ, Akkusativ) und <strong>der</strong> (Genitiv, Dativ).</li>
+<li><strong>«der» ist ein Verkleidungskünstler.</strong> «der» kann Nominativ maskulin sein, aber auch Dativ feminin, Genitiv feminin oder Genitiv Plural. Prüfe immer mit der Fall-Frage!</li>
+<li><strong>Verben mit Dativ.</strong> Diese Verben wollen immer «Wem?»: helfen, danken, antworten, gefallen, gehören, gratulieren, folgen, vertrauen. Merksatz: «Ich helfe <strong>dem</strong> Lehrer und danke <strong>der</strong> Lehrerin.»</li>
+</ol>
+<p>Als Bild im Kopf: Stell dir die Tabelle als Haus mit vier Stockwerken vor. Im Erdgeschoss (Nominativ) wohnen der, die, das, die. Im 4. Stock (Akkusativ) wohnen fast dieselben – nur der Mann hat sich als «den» verkleidet.</p>
+<h2 id="prapositionen-welcher-fall">Präpositionen: welcher Fall?</h2>
+<p>Viele Präpositionen bestimmen den Fall selbst – dann musst du nicht fragen, sondern nur die Gruppe kennen.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Fall</th>
+<th>Präpositionen</th>
+<th>Merkspruch</th>
+<th>Beispiel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Dativ</strong> (immer)</td>
+<td>aus, bei, mit, nach, seit, von, zu, gegenüber</td>
+<td>«Aus, bei, mit, nach, seit, von, zu – mit dem Dativ fahre ich im Nu.»</td>
+<td>Ich fahre <strong>mit dem</strong> Velo.</td>
+</tr>
+<tr>
+<td><strong>Akkusativ</strong> (immer)</td>
+<td>durch, für, gegen, ohne, um, bis</td>
+<td>«Durch, für, gegen, ohne, um – der Akkusativ ist nicht dumm.»</td>
+<td>Das ist <strong>für den</strong> Vater.</td>
+</tr>
+<tr>
+<td><strong>Genitiv</strong></td>
+<td>wegen, trotz, während, statt</td>
+<td>«Wegen, trotz, während, statt – der Genitiv macht alle satt.»</td>
+<td><strong>Wegen des</strong> Regens bleiben wir drinnen.</td>
+</tr>
+<tr>
+<td><strong>Wechsel</strong> (Dativ oder Akkusativ)</td>
+<td>an, auf, hinter, in, neben, über, unter, vor, zwischen</td>
+<td>«Wo? → Dativ. Wohin? → Akkusativ.»</td>
+<td>siehe unten</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Die Wechselpräpositionen</strong> sind die schwierigsten. Frag dich: Bleibt etwas am Ort, oder bewegt es sich zu einem Ziel?</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Frage</th>
+<th>Fall</th>
+<th>Beispiel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Wo?</strong> (Ort, Ruhe)</td>
+<td>Dativ</td>
+<td>Das Buch liegt <strong>auf dem</strong> Tisch.</td>
+</tr>
+<tr>
+<td><strong>Wohin?</strong> (Ziel, Bewegung)</td>
+<td>Akkusativ</td>
+<td>Ich lege das Buch <strong>auf den</strong> Tisch.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Merkhilfe: <strong>Wohin</strong> hat ein «hin» – es geht irgendwo <strong>hin</strong>, wie ein Pfeil. Der <strong>A</strong>kkusativ ist der <strong>A</strong>nkunfts-Fall.</p>
+<p>Kurzformen nicht vergessen: zum = zu dem, zur = zu der, im = in dem, ins = in das, am = an dem, beim = bei dem, vom = von dem.</p>
+<p>In der Schweiz hörst du oft «wegen dem Regen». Im schriftlichen Hochdeutsch (und an der Gymi-Prüfung) schreibst du aber <strong>wegen des Regens</strong>.</p>
+<h2 id="n-deklination-und-typische-stolperfallen">n-Deklination und typische Stolperfallen</h2>
+<p>Einige maskuline Nomen bekommen in <strong>allen Fällen ausser dem Nominativ</strong> ein -n oder -en. Man nennt sie «schwache Nomen» – Merkbild: «Die schwachen Männer brauchen eine <strong>n</strong>-Krücke.»</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Fall</th>
+<th>der Junge</th>
+<th>der Mensch</th>
+<th>der Nachbar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nominativ</td>
+<td>der Junge</td>
+<td>der Mensch</td>
+<td>der Nachbar</td>
+</tr>
+<tr>
+<td>Genitiv</td>
+<td>des Junge<strong>n</strong></td>
+<td>des Mensch<strong>en</strong></td>
+<td>des Nachbar<strong>n</strong></td>
+</tr>
+<tr>
+<td>Dativ</td>
+<td>dem Junge<strong>n</strong></td>
+<td>dem Mensch<strong>en</strong></td>
+<td>dem Nachbar<strong>n</strong></td>
+</tr>
+<tr>
+<td>Akkusativ</td>
+<td>den Junge<strong>n</strong></td>
+<td>den Mensch<strong>en</strong></td>
+<td>den Nachbar<strong>n</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>Häufige schwache Nomen: der Junge, der Kunde, der Löwe, der Affe, der Hase, der Zeuge, der Mensch, der Held, der Bär, der Herr, der Nachbar, der Bauer, der Student, der Präsident, der Polizist, der Elefant, der Planet.</p>
+<p><strong>Stolperfallen an der Prüfung</strong></p>
+<ul>
+<li><strong>Das Subjekt steht nicht vorne.</strong> «<strong>Den</strong> Ball wirft der Junge.» Den Ball = Akkusativ, der Junge = Nominativ. Frage immer: Wer tut etwas?</li>
+<li><strong>«der» ist nicht immer maskulin.</strong> «Ich gebe <strong>der</strong> Katze Milch.» = Dativ feminin.</li>
+<li><strong>Dativ-Verben:</strong> «Das Lied gefällt <strong>dem</strong> Mädchen.» Nicht «das Mädchen»!</li>
+<li><strong>Plural im Dativ ohne -n:</strong> «mit den Kinder» ist falsch → <strong>mit den Kindern</strong>.</li>
+<li><strong>Genitiv ohne -s:</strong> «das Auto des Vater» ist falsch → <strong>des Vaters</strong>.</li>
+<li><strong>Das Geschlecht nicht kennen.</strong> Lerne jedes neue Nomen immer mit Artikel: nicht «Tisch», sondern «<strong>der</strong> Tisch». Tipp: Wörter auf -ung, -heit, -keit, -schaft sind immer <strong>die</strong>; Wörter auf -chen und -lein immer <strong>das</strong>.</li>
+</ul>
+<h2 id="adjektivdeklination">Adjektivdeklination</h2>
+<p>Steht ein Adjektiv vor dem Nomen, bekommt es eine Endung. Es gibt nur eine Grundregel: <strong>Das Signal</strong> (die Endung -r, -e, -s, -m oder -n, die den Fall zeigt) <strong>muss genau einmal sichtbar sein</strong> – entweder am Artikel oder am Adjektiv.</p>
+<figure class="dg"><svg viewBox="0 0 760 378" role="img" aria-label="Wer zeigt das Signal: Artikel oder Adjektiv?">
+<defs><marker id="adj-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="ah" d="M0 0L10 5L0 10z"/></marker></defs>
+<text class="t" x="24" y="32">Wer zeigt das Signal: Artikel oder Adjektiv?</text>
+<g class="ln"><path d="M380 100V124H134V150" marker-end="url(#adj-arrow)"/><path d="M380 100V124H490V150" marker-end="url(#adj-arrow)"/><path d="M490 194V222H400V250" marker-end="url(#adj-arrow)"/><path d="M490 194V222H628V250" marker-end="url(#adj-arrow)"/></g>
+<rect x="230" y="56" width="300" height="44" rx="8"/><text class="b c" x="380" y="83">Steht ein Artikel vor dem Adjektiv?</text>
+<text class="q sm" x="200" y="116">nein</text><text class="q sm" x="440" y="116">ja</text>
+<rect x="350" y="150" width="280" height="44" rx="8"/><text class="b c" x="490" y="177">Hat der Artikel eine Endung?</text>
+<text class="q sm e" x="480" y="214">ja: der, die, das, einem …</text><text class="q sm" x="500" y="214">nein: ein, kein, mein</text>
+<rect x="24" y="150" width="220" height="104" rx="8"/><text class="b" x="36" y="174">Stark: Adjektiv = Artikel</text><text class="q sm" x="36" y="194">Kein Artikel davor</text><text class="sm" x="36" y="210">guter Wein, gutes Brot</text><text class="sm" x="36" y="226">mit kaltem Wasser</text><text class="q sm" x="36" y="242">Gen. m/n: -en (guten Weines)</text>
+<rect x="300" y="250" width="200" height="104" rx="8"/><text class="b" x="312" y="274">Schwach: -e oder -en</text><text class="q sm" x="312" y="294">Artikel zeigt das Signal</text><text class="sm" x="312" y="310">der gute Hund</text><text class="sm" x="312" y="326">einem guten Hund</text><text class="sm" x="312" y="342">die guten Kinder</text>
+<rect x="520" y="250" width="216" height="104" rx="8"/><text class="b" x="532" y="274">Adjektiv: -er oder -es</text><text class="q sm" x="532" y="294">Adjektiv übernimmt das Signal</text><text class="sm" x="532" y="310">ein guter Hund</text><text class="sm" x="532" y="326">ein gutes Pferd</text><text class="sm" x="532" y="342">mein neues Velo</text>
+</svg><figcaption>Adjektivendung finden · 2 Fragen, 3 Ergebnisse</figcaption></figure>
+<p>Zeigt der Artikel das Signal schon, ist das Adjektiv «schwach» und nimmt nur -e oder -en. Fehlt der Artikel oder hat er keine Endung, übernimmt das Adjektiv das Signal.</p>
+<h3 id="1-nach-dem-bestimmten-artikel-schwache-deklination">1. Nach dem bestimmten Artikel (schwache Deklination)</h3>
+<p>Gilt auch nach dieser, jener, jeder, welcher und alle (Plural).</p>
+<div class="table-scroll"><table class="gender">
+<thead>
+<tr>
+<th>Fall</th>
+<th>maskulin</th>
+<th>feminin</th>
+<th>neutrum</th>
+<th>Plural</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Nominativ</td>
+<td>der gut<strong>e</strong> Hund</td>
+<td>die gut<strong>e</strong> Katze</td>
+<td>das gut<strong>e</strong> Pferd</td>
+<td>die gut<strong>en</strong> Kinder</td>
+</tr>
+<tr>
+<td>2. Genitiv</td>
+<td>des gut<strong>en</strong> Hundes</td>
+<td>der gut<strong>en</strong> Katze</td>
+<td>des gut<strong>en</strong> Pferdes</td>
+<td>der gut<strong>en</strong> Kinder</td>
+</tr>
+<tr>
+<td>3. Dativ</td>
+<td>dem gut<strong>en</strong> Hund</td>
+<td>der gut<strong>en</strong> Katze</td>
+<td>dem gut<strong>en</strong> Pferd</td>
+<td>den gut<strong>en</strong> Kindern</td>
+</tr>
+<tr>
+<td>4. Akkusativ</td>
+<td>den gut<strong>en</strong> Hund</td>
+<td>die gut<strong>e</strong> Katze</td>
+<td>das gut<strong>e</strong> Pferd</td>
+<td>die gut<strong>en</strong> Kinder</td>
+</tr>
+</tbody>
+</table></div>
+<p>Merktipp <strong>«Fünf mal -e, sonst immer -en»</strong>: Nur Nominativ Singular (alle drei) und Akkusativ feminin und neutrum haben -e. Alle anderen 11 Formen haben -en – auch der ganze Plural.</p>
+<h3 id="2-nach-ein-kein-mein-gemischte-deklination">2. Nach ein, kein, mein … (gemischte Deklination)</h3>
+<p>Gilt nach ein, kein und allen Possessivartikeln (mein, dein, sein, ihr, unser, euer).</p>
+<div class="table-scroll"><table class="gender">
+<thead>
+<tr>
+<th>Fall</th>
+<th>maskulin</th>
+<th>feminin</th>
+<th>neutrum</th>
+<th>Plural</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Nominativ</td>
+<td>ein gut<strong>er</strong> Hund</td>
+<td>eine gut<strong>e</strong> Katze</td>
+<td>ein gut<strong>es</strong> Pferd</td>
+<td>keine gut<strong>en</strong> Kinder</td>
+</tr>
+<tr>
+<td>2. Genitiv</td>
+<td>eines gut<strong>en</strong> Hundes</td>
+<td>einer gut<strong>en</strong> Katze</td>
+<td>eines gut<strong>en</strong> Pferdes</td>
+<td>keiner gut<strong>en</strong> Kinder</td>
+</tr>
+<tr>
+<td>3. Dativ</td>
+<td>einem gut<strong>en</strong> Hund</td>
+<td>einer gut<strong>en</strong> Katze</td>
+<td>einem gut<strong>en</strong> Pferd</td>
+<td>keinen gut<strong>en</strong> Kindern</td>
+</tr>
+<tr>
+<td>4. Akkusativ</td>
+<td>einen gut<strong>en</strong> Hund</td>
+<td>eine gut<strong>e</strong> Katze</td>
+<td>ein gut<strong>es</strong> Pferd</td>
+<td>keine gut<strong>en</strong> Kinder</td>
+</tr>
+</tbody>
+</table></div>
+<p>Merktipp <strong>«Das Adjektiv springt ein»</strong>: An den drei Stellen, wo «ein» keine Endung hat, holt sich das Adjektiv die Endung von der/das: ein gut<strong>er</strong> Hund (der), ein gut<strong>es</strong> Pferd (das). Überall sonst ist es gleich wie nach dem bestimmten Artikel.</p>
+<h3 id="3-ohne-artikel-starke-deklination">3. Ohne Artikel (starke Deklination)</h3>
+<p>Gilt auch nach Zahlen (zwei, drei …) und nach viele, einige, wenige, mehrere.</p>
+<div class="table-scroll"><table class="gender">
+<thead>
+<tr>
+<th>Fall</th>
+<th>maskulin</th>
+<th>feminin</th>
+<th>neutrum</th>
+<th>Plural</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Nominativ</td>
+<td>gut<strong>er</strong> Wein</td>
+<td>gut<strong>e</strong> Milch</td>
+<td>gut<strong>es</strong> Brot</td>
+<td>gut<strong>e</strong> Freunde</td>
+</tr>
+<tr>
+<td>2. Genitiv</td>
+<td>gut<strong>en</strong> Weines</td>
+<td>gut<strong>er</strong> Milch</td>
+<td>gut<strong>en</strong> Brotes</td>
+<td>gut<strong>er</strong> Freunde</td>
+</tr>
+<tr>
+<td>3. Dativ</td>
+<td>gut<strong>em</strong> Wein</td>
+<td>gut<strong>er</strong> Milch</td>
+<td>gut<strong>em</strong> Brot</td>
+<td>gut<strong>en</strong> Freunden</td>
+</tr>
+<tr>
+<td>4. Akkusativ</td>
+<td>gut<strong>en</strong> Wein</td>
+<td>gut<strong>e</strong> Milch</td>
+<td>gut<strong>es</strong> Brot</td>
+<td>gut<strong>e</strong> Freunde</td>
+</tr>
+</tbody>
+</table></div>
+<p>Merktipp <strong>«Das Adjektiv spielt Artikel»</strong>: Setz in Gedanken den bestimmten Artikel davor und nimm seine Endung: (de<strong>m</strong>) kalt<strong>em</strong> Wasser, (de<strong>r</strong>) warm<strong>er</strong> Milch. Einzige Ausnahme: Genitiv maskulin und neutrum hat -en (gut<strong>en</strong> Weines), weil das Nomen dort schon das -s zeigt.</p>
+<h3 id="noch-zwei-tipps">Noch zwei Tipps</h3>
+<ul>
+<li><strong>Mehrere Adjektive bekommen die gleiche Endung:</strong> der gross<strong>e</strong>, braun<strong>e</strong> Hund · mit kalt<strong>em</strong>, frisch<strong>em</strong> Wasser.</li>
+<li><strong>Nach dem Nomen oder nach «sein» gibt es keine Endung:</strong> Der Hund ist gross. (nicht: grosser)</li>
+</ul>
+<h2 id="die-3-schritte-methode">Die 3-Schritte-Methode</h2>
+<p>Bei jeder Lücke immer gleich vorgehen – so wird es mit der Zeit automatisch.</p>
+<ol>
+<li><strong>Geschlecht bestimmen:</strong> Ist das Nomen der, die, das – oder Plural?</li>
+<li><strong>Fall bestimmen:</strong> Steht eine Präposition davor? Dann gilt ihr Fall. Sonst mit dem Verb fragen: Wer? Wessen? Wem? Wen?</li>
+<li><strong>In der Tabelle ablesen und Nomen prüfen:</strong> Artikel einsetzen, dann checken: Braucht das Nomen ein -n (Dativ Plural, n-Deklination) oder ein -s (Genitiv)?</li>
+</ol>
+<p>Beispiel: «Ich schenke ___ Oma Blumen.» → 1. die Oma (feminin) → 2. Wem schenke ich Blumen? Dativ → 3. feminin + Dativ = <strong>der</strong>. Lösung: Ich schenke <strong>der</strong> Oma Blumen.</p>
+<h2 id="120-ubungen">120 Übungen</h2>
+<p>Löse jeden Teil auf einem Blatt, dann kontrolliere mit den Lösungen. «__» heisst: Hier fehlt vielleicht eine Endung am Nomen. Hinweis: m = maskulin, f = feminin, n = neutrum, Pl = Plural.</p>
+<h3 id="teil-a-bestimmter-artikel-der-die-das">Teil A · Bestimmter Artikel (der, die, das)</h3>
+<p>Setze den richtigen bestimmten Artikel ein. Achte auch auf Endungen am Nomen (__).</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Nr</th>
+<th>Satz</th>
+<th>Hinweis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>___ Hund bellt laut.</td>
+<td>m</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Ich sehe ___ Hund.</td>
+<td>m</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Ich gebe ___ Hund einen Knochen.</td>
+<td>m</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Das ist der Schwanz ___ Hundes.</td>
+<td>m</td>
+</tr>
+<tr>
+<td>5</td>
+<td>___ Katze schläft.</td>
+<td>f</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Ich streichle ___ Katze.</td>
+<td>f</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Ich gebe ___ Katze Milch.</td>
+<td>f</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Das Fell ___ Katze ist weich.</td>
+<td>f</td>
+</tr>
+<tr>
+<td>9</td>
+<td>___ Pferd rennt schnell.</td>
+<td>n</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Wir füttern ___ Pferd.</td>
+<td>n</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Der Bauer gibt ___ Pferd Heu.</td>
+<td>n</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Die Mähne ___ Pferdes ist lang.</td>
+<td>n</td>
+</tr>
+<tr>
+<td>13</td>
+<td>___ Kinder spielen im Garten.</td>
+<td>Pl</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Die Lehrerin lobt ___ Kinder.</td>
+<td>Pl</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Der Clown schenkt ___ Kinder__ Ballone.</td>
+<td>Pl</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Das Lachen ___ Kinder ist laut.</td>
+<td>Pl</td>
+</tr>
+<tr>
+<td>17</td>
+<td>___ Lehrer erklärt die Aufgabe.</td>
+<td>m</td>
+</tr>
+<tr>
+<td>18</td>
+<td>Wir fragen ___ Lehrer.</td>
+<td>m</td>
+</tr>
+<tr>
+<td>19</td>
+<td>Wir antworten ___ Lehrerin.</td>
+<td>f</td>
+</tr>
+<tr>
+<td>20</td>
+<td>Ich helfe ___ Mädchen.</td>
+<td>n</td>
+</tr>
+<tr>
+<td>21</td>
+<td>___ Buch liegt auf dem Tisch.</td>
+<td>n</td>
+</tr>
+<tr>
+<td>22</td>
+<td>Ich lese ___ Zeitung.</td>
+<td>f</td>
+</tr>
+<tr>
+<td>23</td>
+<td>Der Titel ___ Buches ist spannend.</td>
+<td>n</td>
+</tr>
+<tr>
+<td>24</td>
+<td>Ich danke ___ Arzt.</td>
+<td>m</td>
+</tr>
+<tr>
+<td>25</td>
+<td>Die Farbe ___ Autos ist rot.</td>
+<td>n</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="teil-b-unbestimmter-artikel-ein-eine-und-kein">Teil B · Unbestimmter Artikel (ein, eine) und kein</h3>
+<p>Setze ein, eine, einen, einem, einer, eines – oder die passende Form von «kein».</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Nr</th>
+<th>Satz</th>
+<th>Hinweis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>26</td>
+<td>Ich habe ___ Bruder.</td>
+<td>m</td>
+</tr>
+<tr>
+<td>27</td>
+<td>Da steht ___ Baum.</td>
+<td>m</td>
+</tr>
+<tr>
+<td>28</td>
+<td>Ich wohne in ___ Haus mit Garten.</td>
+<td>n</td>
+</tr>
+<tr>
+<td>29</td>
+<td>Ich schreibe ___ Brief.</td>
+<td>m</td>
+</tr>
+<tr>
+<td>30</td>
+<td>Sie kauft ___ Jacke.</td>
+<td>f</td>
+</tr>
+<tr>
+<td>31</td>
+<td>Er hilft ___ Frau.</td>
+<td>f</td>
+</tr>
+<tr>
+<td>32</td>
+<td>___ Vogel sitzt auf dem Dach.</td>
+<td>m</td>
+</tr>
+<tr>
+<td>33</td>
+<td>Wir essen ___ Apfel.</td>
+<td>m</td>
+</tr>
+<tr>
+<td>34</td>
+<td>Ich spiele mit ___ Ball.</td>
+<td>m</td>
+</tr>
+<tr>
+<td>35</td>
+<td>Das ist das Auto ___ Freundes.</td>
+<td>m</td>
+</tr>
+<tr>
+<td>36</td>
+<td>Das ist die Tasche ___ Freundin.</td>
+<td>f</td>
+</tr>
+<tr>
+<td>37</td>
+<td>Ich wünsche mir ___ Fahrrad.</td>
+<td>n</td>
+</tr>
+<tr>
+<td>38</td>
+<td>Er erzählt ___ Kind eine Geschichte.</td>
+<td>n</td>
+</tr>
+<tr>
+<td>39</td>
+<td>___ Biene summt.</td>
+<td>f</td>
+</tr>
+<tr>
+<td>40</td>
+<td>Ich brauche ___ Bleistift.</td>
+<td>m</td>
+</tr>
+<tr>
+<td>41</td>
+<td>Ich habe ___ Zeit.</td>
+<td>f, kein</td>
+</tr>
+<tr>
+<td>42</td>
+<td>Er hat ___ Hund.</td>
+<td>m, kein</td>
+</tr>
+<tr>
+<td>43</td>
+<td>Wir haben ___ Geschwister.</td>
+<td>Pl, kein</td>
+</tr>
+<tr>
+<td>44</td>
+<td>Sie spielt mit ___ Kindern.</td>
+<td>Pl, kein</td>
+</tr>
+<tr>
+<td>45</td>
+<td>Das ist ___ Problem.</td>
+<td>n, kein</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="teil-c-prapositionen">Teil C · Präpositionen</h3>
+<p>Welchen Fall verlangt die Präposition? Bei Wechselpräpositionen: Wo? oder Wohin?</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Nr</th>
+<th>Satz</th>
+<th>Hinweis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>46</td>
+<td>Ich gehe mit ___ Mutter einkaufen.</td>
+<td>f</td>
+</tr>
+<tr>
+<td>47</td>
+<td>Das Geschenk ist für ___ Vater.</td>
+<td>m</td>
+</tr>
+<tr>
+<td>48</td>
+<td>Wir fahren durch ___ Wald.</td>
+<td>m</td>
+</tr>
+<tr>
+<td>49</td>
+<td>Er kommt aus ___ Schule.</td>
+<td>f</td>
+</tr>
+<tr>
+<td>50</td>
+<td>Ich spaziere ohne ___ Regenschirm.</td>
+<td>m, ein</td>
+</tr>
+<tr>
+<td>51</td>
+<td>Nach ___ Unterricht gehen wir heim.</td>
+<td>m</td>
+</tr>
+<tr>
+<td>52</td>
+<td>Seit ___ Jahr lerne ich Gitarre.</td>
+<td>n, ein</td>
+</tr>
+<tr>
+<td>53</td>
+<td>Der Ball rollt gegen ___ Wand.</td>
+<td>f</td>
+</tr>
+<tr>
+<td>54</td>
+<td>Wir sitzen um ___ Tisch.</td>
+<td>m</td>
+</tr>
+<tr>
+<td>55</td>
+<td>Ich bekomme einen Brief von ___ Oma.</td>
+<td>f</td>
+</tr>
+<tr>
+<td>56</td>
+<td>Er geht zu ___ Arzt.</td>
+<td>m</td>
+</tr>
+<tr>
+<td>57</td>
+<td>Bei ___ Regen bleiben wir drinnen.</td>
+<td>m</td>
+</tr>
+<tr>
+<td>58</td>
+<td>Ich lege das Heft auf ___ Tisch.</td>
+<td>m, wohin?</td>
+</tr>
+<tr>
+<td>59</td>
+<td>Das Heft liegt auf ___ Tisch.</td>
+<td>m, wo?</td>
+</tr>
+<tr>
+<td>60</td>
+<td>Die Katze springt unter ___ Bett.</td>
+<td>n, wohin?</td>
+</tr>
+<tr>
+<td>61</td>
+<td>Die Katze schläft unter ___ Bett.</td>
+<td>n, wo?</td>
+</tr>
+<tr>
+<td>62</td>
+<td>Ich hänge das Bild an ___ Wand.</td>
+<td>f, wohin?</td>
+</tr>
+<tr>
+<td>63</td>
+<td>Das Bild hängt an ___ Wand.</td>
+<td>f, wo?</td>
+</tr>
+<tr>
+<td>64</td>
+<td>Wir gehen in ___ Kino.</td>
+<td>n, wohin?</td>
+</tr>
+<tr>
+<td>65</td>
+<td>Wir sind in ___ Kino.</td>
+<td>n, wo?</td>
+</tr>
+<tr>
+<td>66</td>
+<td>Wegen ___ Sturm__ fällt das Training aus.</td>
+<td>m</td>
+</tr>
+<tr>
+<td>67</td>
+<td>Trotz ___ Kälte gehen wir baden.</td>
+<td>f</td>
+</tr>
+<tr>
+<td>68</td>
+<td>Während ___ Ferien besuche ich meine Oma.</td>
+<td>Pl</td>
+</tr>
+<tr>
+<td>69</td>
+<td>Zwischen ___ Häuser__ steht ein Baum.</td>
+<td>Pl, wo?</td>
+</tr>
+<tr>
+<td>70</td>
+<td>Er stellt das Velo neben ___ Garage.</td>
+<td>f, wohin?</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="teil-d-plural-dativ-n-und-genitiv-s">Teil D · Plural, Dativ-n und Genitiv-s</h3>
+<p>Setze den Artikel ein und ergänze die Endung am Nomen, wo nötig (__).</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Nr</th>
+<th>Satz</th>
+<th>Hinweis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>71</td>
+<td>Ich gebe ___ Hunde__ Wasser.</td>
+<td>Pl: die Hunde</td>
+</tr>
+<tr>
+<td>72</td>
+<td>Wir helfen ___ Nachbarn.</td>
+<td>Pl</td>
+</tr>
+<tr>
+<td>73</td>
+<td>Er schreibt ___ Freunde__ eine Karte.</td>
+<td>Pl</td>
+</tr>
+<tr>
+<td>74</td>
+<td>Der Lehrer spricht mit ___ Schüler__.</td>
+<td>Pl</td>
+</tr>
+<tr>
+<td>75</td>
+<td>Ich fahre gern mit ___ Auto__ meiner Eltern.</td>
+<td>Pl: die Autos</td>
+</tr>
+<tr>
+<td>76</td>
+<td>Das ist das Haus ___ Vater__.</td>
+<td>m</td>
+</tr>
+<tr>
+<td>77</td>
+<td>Die Hauptstadt ___ Land__ ist gross.</td>
+<td>n</td>
+</tr>
+<tr>
+<td>78</td>
+<td>Das Ende ___ Film__ war traurig.</td>
+<td>m</td>
+</tr>
+<tr>
+<td>79</td>
+<td>Die Farbe ___ Blume__ ist gelb.</td>
+<td>f</td>
+</tr>
+<tr>
+<td>80</td>
+<td>Die Spielsachen ___ Kinder__ liegen am Boden.</td>
+<td>Pl</td>
+</tr>
+<tr>
+<td>81</td>
+<td>Ich danke ___ Eltern.</td>
+<td>Pl</td>
+</tr>
+<tr>
+<td>82</td>
+<td>Die Blätter ___ Bäume__ fallen.</td>
+<td>Pl</td>
+</tr>
+<tr>
+<td>83</td>
+<td>Wir gehen mit ___ Freundinnen ins Kino.</td>
+<td>Pl</td>
+</tr>
+<tr>
+<td>84</td>
+<td>Am Ende ___ Tag__ bin ich müde.</td>
+<td>m</td>
+</tr>
+<tr>
+<td>85</td>
+<td>Ich zeige ___ Gäste__ den Garten.</td>
+<td>Pl: die Gäste</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="teil-e-n-deklination">Teil E · n-Deklination</h3>
+<p>Achtung, schwache Nomen: Ausser im Nominativ bekommen sie -n oder -en.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Nr</th>
+<th>Satz</th>
+<th>Hinweis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>86</td>
+<td>Ich frage ___ Junge__.</td>
+<td>m</td>
+</tr>
+<tr>
+<td>87</td>
+<td>Wir helfen ___ Nachbar__.</td>
+<td>m, Singular</td>
+</tr>
+<tr>
+<td>88</td>
+<td>Das ist die Mütze ___ Junge__.</td>
+<td>m</td>
+</tr>
+<tr>
+<td>89</td>
+<td>Im Zoo sehen wir ___ Löwe__.</td>
+<td>m</td>
+</tr>
+<tr>
+<td>90</td>
+<td>Die Polizei sucht ___ Zeuge__.</td>
+<td>m</td>
+</tr>
+<tr>
+<td>91</td>
+<td>Sie gibt ___ Student__ das Buch.</td>
+<td>m</td>
+</tr>
+<tr>
+<td>92</td>
+<td>Die Klasse begrüsst ___ Präsident__.</td>
+<td>m</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="teil-f-fall-bestimmen">Teil F · Fall bestimmen</h3>
+<p>Bestimme den Fall des fett gedruckten Satzteils.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Nr</th>
+<th>Satz</th>
+<th>Hinweis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>93</td>
+<td><strong>Der Postbote</strong> bringt ein Paket.</td>
+<td></td>
+</tr>
+<tr>
+<td>94</td>
+<td>Der Postbote bringt <strong>ein Paket</strong>.</td>
+<td></td>
+</tr>
+<tr>
+<td>95</td>
+<td>Der Postbote bringt <strong>der Nachbarin</strong> ein Paket.</td>
+<td></td>
+</tr>
+<tr>
+<td>96</td>
+<td>Das ist das Velo <strong>meines Bruders</strong>.</td>
+<td></td>
+</tr>
+<tr>
+<td>97</td>
+<td><strong>Den Ball</strong> wirft der Junge.</td>
+<td></td>
+</tr>
+<tr>
+<td>98</td>
+<td><strong>Dem Mädchen</strong> gefällt das Lied.</td>
+<td></td>
+</tr>
+<tr>
+<td>99</td>
+<td>Am Morgen trinkt <strong>der Vater</strong> Kaffee.</td>
+<td></td>
+</tr>
+<tr>
+<td>100</td>
+<td>Während <strong>des Gewitters</strong> bleiben wir im Haus.</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="teil-g-adjektivendungen">Teil G · Adjektivendungen</h3>
+<p>Ergänze die Endung am Adjektiv. Frag dich zuerst: Wer zeigt das Signal – der Artikel oder das Adjektiv?</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Nr</th>
+<th>Satz</th>
+<th>Hinweis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>101</td>
+<td>Der klein__ Hund bellt.</td>
+<td>m</td>
+</tr>
+<tr>
+<td>102</td>
+<td>Ich sehe den klein__ Hund.</td>
+<td>m</td>
+</tr>
+<tr>
+<td>103</td>
+<td>Das neu__ Velo ist rot.</td>
+<td>n</td>
+</tr>
+<tr>
+<td>104</td>
+<td>Ich wohne in dem gross__ Haus.</td>
+<td>n</td>
+</tr>
+<tr>
+<td>105</td>
+<td>Die nett__ Lehrerin lacht.</td>
+<td>f</td>
+</tr>
+<tr>
+<td>106</td>
+<td>Wir helfen der alt__ Frau.</td>
+<td>f</td>
+</tr>
+<tr>
+<td>107</td>
+<td>Die lustig__ Kinder spielen.</td>
+<td>Pl</td>
+</tr>
+<tr>
+<td>108</td>
+<td>Ein klein__ Hund bellt.</td>
+<td>m</td>
+</tr>
+<tr>
+<td>109</td>
+<td>Ich habe einen neu__ Ball.</td>
+<td>m</td>
+</tr>
+<tr>
+<td>110</td>
+<td>Das ist ein schön__ Bild.</td>
+<td>n</td>
+</tr>
+<tr>
+<td>111</td>
+<td>Sie trägt eine rot__ Jacke.</td>
+<td>f</td>
+</tr>
+<tr>
+<td>112</td>
+<td>Er spielt mit einem gelb__ Ball.</td>
+<td>m</td>
+</tr>
+<tr>
+<td>113</td>
+<td>Wir haben keine gross__ Probleme.</td>
+<td>Pl</td>
+</tr>
+<tr>
+<td>114</td>
+<td>Mein klein__ Bruder schläft.</td>
+<td>m</td>
+</tr>
+<tr>
+<td>115</td>
+<td>Kalt__ Wasser ist gesund.</td>
+<td>n, ohne Artikel</td>
+</tr>
+<tr>
+<td>116</td>
+<td>Ich trinke heiss__ Tee.</td>
+<td>m, ohne Artikel</td>
+</tr>
+<tr>
+<td>117</td>
+<td>Wir essen frisch__ Brot.</td>
+<td>n, ohne Artikel</td>
+</tr>
+<tr>
+<td>118</td>
+<td>Mit warm__ Milch schlafe ich besser.</td>
+<td>f, ohne Artikel</td>
+</tr>
+<tr>
+<td>119</td>
+<td>Ich habe viele neu__ Freunde.</td>
+<td>Pl, nach viele</td>
+</tr>
+<tr>
+<td>120</td>
+<td>Wegen schlecht__ Wetters bleiben wir zu Hause.</td>
+<td>n, ohne Artikel</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="losungen">Lösungen</h2>
+<p>Zähle deine richtigen Antworten pro Teil. Weniger als 80 % richtig? Lies den passenden Abschnitt oben noch einmal und löse den Teil am nächsten Tag erneut.</p>
+<details class="sol"><summary>Lösungen Teil A</summary>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Nr</th>
+<th>Lösung</th>
+<th>Fall</th>
+<th>Warum?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>Der</strong></td>
+<td>Nominativ</td>
+<td>Wer bellt?</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>den</strong></td>
+<td>Akkusativ</td>
+<td>Wen sehe ich?</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>dem</strong></td>
+<td>Dativ</td>
+<td>Wem gebe ich?</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>des</strong></td>
+<td>Genitiv</td>
+<td>Wessen Schwanz?</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Die</strong></td>
+<td>Nominativ</td>
+<td>Wer schläft?</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>die</strong></td>
+<td>Akkusativ</td>
+<td>Wen streichle ich?</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>der</strong></td>
+<td>Dativ</td>
+<td>Wem gebe ich Milch?</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>der</strong></td>
+<td>Genitiv</td>
+<td>Wessen Fell?</td>
+</tr>
+<tr>
+<td>9</td>
+<td><strong>Das</strong></td>
+<td>Nominativ</td>
+<td>Wer rennt?</td>
+</tr>
+<tr>
+<td>10</td>
+<td><strong>das</strong></td>
+<td>Akkusativ</td>
+<td>Wen füttern wir?</td>
+</tr>
+<tr>
+<td>11</td>
+<td><strong>dem</strong></td>
+<td>Dativ</td>
+<td>Wem gibt er Heu?</td>
+</tr>
+<tr>
+<td>12</td>
+<td><strong>des</strong></td>
+<td>Genitiv</td>
+<td>Wessen Mähne?</td>
+</tr>
+<tr>
+<td>13</td>
+<td><strong>Die</strong></td>
+<td>Nominativ</td>
+<td>Wer spielt?</td>
+</tr>
+<tr>
+<td>14</td>
+<td><strong>die</strong></td>
+<td>Akkusativ</td>
+<td>Wen lobt sie?</td>
+</tr>
+<tr>
+<td>15</td>
+<td><strong>den Kindern</strong></td>
+<td>Dativ</td>
+<td>Dativ Plural: -n am Nomen</td>
+</tr>
+<tr>
+<td>16</td>
+<td><strong>der</strong></td>
+<td>Genitiv</td>
+<td>Wessen Lachen?</td>
+</tr>
+<tr>
+<td>17</td>
+<td><strong>Der</strong></td>
+<td>Nominativ</td>
+<td>Wer erklärt?</td>
+</tr>
+<tr>
+<td>18</td>
+<td><strong>den</strong></td>
+<td>Akkusativ</td>
+<td>Wen fragen wir?</td>
+</tr>
+<tr>
+<td>19</td>
+<td><strong>der</strong></td>
+<td>Dativ</td>
+<td>antworten + Dativ</td>
+</tr>
+<tr>
+<td>20</td>
+<td><strong>dem</strong></td>
+<td>Dativ</td>
+<td>helfen + Dativ; Mädchen ist neutrum</td>
+</tr>
+<tr>
+<td>21</td>
+<td><strong>Das</strong></td>
+<td>Nominativ</td>
+<td>Was liegt dort?</td>
+</tr>
+<tr>
+<td>22</td>
+<td><strong>die</strong></td>
+<td>Akkusativ</td>
+<td>Was lese ich?</td>
+</tr>
+<tr>
+<td>23</td>
+<td><strong>des</strong></td>
+<td>Genitiv</td>
+<td>Wessen Titel?</td>
+</tr>
+<tr>
+<td>24</td>
+<td><strong>dem</strong></td>
+<td>Dativ</td>
+<td>danken + Dativ</td>
+</tr>
+<tr>
+<td>25</td>
+<td><strong>des</strong></td>
+<td>Genitiv</td>
+<td>Wessen Farbe?</td>
+</tr>
+</tbody>
+</table></div>
+</details>
+<details class="sol"><summary>Lösungen Teil B</summary>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Nr</th>
+<th>Lösung</th>
+<th>Fall</th>
+<th>Warum?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>26</td>
+<td><strong>einen</strong></td>
+<td>Akkusativ</td>
+<td>Wen habe ich?</td>
+</tr>
+<tr>
+<td>27</td>
+<td><strong>ein</strong></td>
+<td>Nominativ</td>
+<td>Wer steht da?</td>
+</tr>
+<tr>
+<td>28</td>
+<td><strong>einem</strong></td>
+<td>Dativ</td>
+<td>in + Wo? → Dativ</td>
+</tr>
+<tr>
+<td>29</td>
+<td><strong>einen</strong></td>
+<td>Akkusativ</td>
+<td>Was schreibe ich?</td>
+</tr>
+<tr>
+<td>30</td>
+<td><strong>eine</strong></td>
+<td>Akkusativ</td>
+<td>Was kauft sie?</td>
+</tr>
+<tr>
+<td>31</td>
+<td><strong>einer</strong></td>
+<td>Dativ</td>
+<td>helfen + Dativ</td>
+</tr>
+<tr>
+<td>32</td>
+<td><strong>Ein</strong></td>
+<td>Nominativ</td>
+<td>Wer sitzt?</td>
+</tr>
+<tr>
+<td>33</td>
+<td><strong>einen</strong></td>
+<td>Akkusativ</td>
+<td>Was essen wir?</td>
+</tr>
+<tr>
+<td>34</td>
+<td><strong>einem</strong></td>
+<td>Dativ</td>
+<td>mit → immer Dativ</td>
+</tr>
+<tr>
+<td>35</td>
+<td><strong>eines</strong></td>
+<td>Genitiv</td>
+<td>Wessen Auto?</td>
+</tr>
+<tr>
+<td>36</td>
+<td><strong>einer</strong></td>
+<td>Genitiv</td>
+<td>Wessen Tasche?</td>
+</tr>
+<tr>
+<td>37</td>
+<td><strong>ein</strong></td>
+<td>Akkusativ</td>
+<td>Neutrum Akkusativ: ein ohne Endung</td>
+</tr>
+<tr>
+<td>38</td>
+<td><strong>einem</strong></td>
+<td>Dativ</td>
+<td>Wem erzählt er?</td>
+</tr>
+<tr>
+<td>39</td>
+<td><strong>Eine</strong></td>
+<td>Nominativ</td>
+<td>Wer summt?</td>
+</tr>
+<tr>
+<td>40</td>
+<td><strong>einen</strong></td>
+<td>Akkusativ</td>
+<td>Was brauche ich?</td>
+</tr>
+<tr>
+<td>41</td>
+<td><strong>keine</strong></td>
+<td>Akkusativ</td>
+<td>Was habe ich nicht?</td>
+</tr>
+<tr>
+<td>42</td>
+<td><strong>keinen</strong></td>
+<td>Akkusativ</td>
+<td>Maskulin Akkusativ: -en</td>
+</tr>
+<tr>
+<td>43</td>
+<td><strong>keine</strong></td>
+<td>Akkusativ</td>
+<td>Plural Akkusativ = Nominativ</td>
+</tr>
+<tr>
+<td>44</td>
+<td><strong>keinen</strong></td>
+<td>Dativ</td>
+<td>mit → Dativ Plural</td>
+</tr>
+<tr>
+<td>45</td>
+<td><strong>kein</strong></td>
+<td>Nominativ</td>
+<td>Neutrum Nominativ: ohne Endung</td>
+</tr>
+</tbody>
+</table></div>
+</details>
+<details class="sol"><summary>Lösungen Teil C</summary>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Nr</th>
+<th>Lösung</th>
+<th>Fall</th>
+<th>Warum?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>46</td>
+<td><strong>der</strong></td>
+<td>Dativ</td>
+<td>mit → Dativ</td>
+</tr>
+<tr>
+<td>47</td>
+<td><strong>den</strong></td>
+<td>Akkusativ</td>
+<td>für → Akkusativ</td>
+</tr>
+<tr>
+<td>48</td>
+<td><strong>den</strong></td>
+<td>Akkusativ</td>
+<td>durch → Akkusativ</td>
+</tr>
+<tr>
+<td>49</td>
+<td><strong>der</strong></td>
+<td>Dativ</td>
+<td>aus → Dativ</td>
+</tr>
+<tr>
+<td>50</td>
+<td><strong>einen</strong></td>
+<td>Akkusativ</td>
+<td>ohne → Akkusativ</td>
+</tr>
+<tr>
+<td>51</td>
+<td><strong>dem</strong></td>
+<td>Dativ</td>
+<td>nach → Dativ</td>
+</tr>
+<tr>
+<td>52</td>
+<td><strong>einem</strong></td>
+<td>Dativ</td>
+<td>seit → Dativ</td>
+</tr>
+<tr>
+<td>53</td>
+<td><strong>die</strong></td>
+<td>Akkusativ</td>
+<td>gegen → Akkusativ</td>
+</tr>
+<tr>
+<td>54</td>
+<td><strong>den</strong></td>
+<td>Akkusativ</td>
+<td>um → Akkusativ</td>
+</tr>
+<tr>
+<td>55</td>
+<td><strong>der</strong></td>
+<td>Dativ</td>
+<td>von → Dativ</td>
+</tr>
+<tr>
+<td>56</td>
+<td><strong>dem (zum)</strong></td>
+<td>Dativ</td>
+<td>zu → Dativ</td>
+</tr>
+<tr>
+<td>57</td>
+<td><strong>dem (beim)</strong></td>
+<td>Dativ</td>
+<td>bei → Dativ</td>
+</tr>
+<tr>
+<td>58</td>
+<td><strong>den</strong></td>
+<td>Akkusativ</td>
+<td>Wohin? → Akkusativ</td>
+</tr>
+<tr>
+<td>59</td>
+<td><strong>dem</strong></td>
+<td>Dativ</td>
+<td>Wo? → Dativ</td>
+</tr>
+<tr>
+<td>60</td>
+<td><strong>das</strong></td>
+<td>Akkusativ</td>
+<td>Wohin? → Akkusativ</td>
+</tr>
+<tr>
+<td>61</td>
+<td><strong>dem</strong></td>
+<td>Dativ</td>
+<td>Wo? → Dativ</td>
+</tr>
+<tr>
+<td>62</td>
+<td><strong>die</strong></td>
+<td>Akkusativ</td>
+<td>Wohin? → Akkusativ</td>
+</tr>
+<tr>
+<td>63</td>
+<td><strong>der</strong></td>
+<td>Dativ</td>
+<td>Wo? → Dativ</td>
+</tr>
+<tr>
+<td>64</td>
+<td><strong>das (ins)</strong></td>
+<td>Akkusativ</td>
+<td>Wohin? → Akkusativ</td>
+</tr>
+<tr>
+<td>65</td>
+<td><strong>dem (im)</strong></td>
+<td>Dativ</td>
+<td>Wo? → Dativ</td>
+</tr>
+<tr>
+<td>66</td>
+<td><strong>des Sturms / Sturmes</strong></td>
+<td>Genitiv</td>
+<td>wegen → Genitiv, -s am Nomen</td>
+</tr>
+<tr>
+<td>67</td>
+<td><strong>der</strong></td>
+<td>Genitiv</td>
+<td>trotz → Genitiv</td>
+</tr>
+<tr>
+<td>68</td>
+<td><strong>der</strong></td>
+<td>Genitiv</td>
+<td>während → Genitiv</td>
+</tr>
+<tr>
+<td>69</td>
+<td><strong>den Häusern</strong></td>
+<td>Dativ</td>
+<td>Wo? → Dativ, Plural -n</td>
+</tr>
+<tr>
+<td>70</td>
+<td><strong>die</strong></td>
+<td>Akkusativ</td>
+<td>Wohin? → Akkusativ</td>
+</tr>
+</tbody>
+</table></div>
+</details>
+<details class="sol"><summary>Lösungen Teil D</summary>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Nr</th>
+<th>Lösung</th>
+<th>Fall</th>
+<th>Warum?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>71</td>
+<td><strong>den Hunden</strong></td>
+<td>Dativ</td>
+<td>Dativ Plural: -n</td>
+</tr>
+<tr>
+<td>72</td>
+<td><strong>den</strong></td>
+<td>Dativ</td>
+<td>endet schon auf -n</td>
+</tr>
+<tr>
+<td>73</td>
+<td><strong>den Freunden</strong></td>
+<td>Dativ</td>
+<td>Dativ Plural: -n</td>
+</tr>
+<tr>
+<td>74</td>
+<td><strong>den Schülern</strong></td>
+<td>Dativ</td>
+<td>mit + Dativ Plural: -n</td>
+</tr>
+<tr>
+<td>75</td>
+<td><strong>den Autos</strong></td>
+<td>Dativ</td>
+<td>kein -n nach -s</td>
+</tr>
+<tr>
+<td>76</td>
+<td><strong>des Vaters</strong></td>
+<td>Genitiv</td>
+<td>Genitiv: -s</td>
+</tr>
+<tr>
+<td>77</td>
+<td><strong>des Landes</strong></td>
+<td>Genitiv</td>
+<td>Genitiv: -es</td>
+</tr>
+<tr>
+<td>78</td>
+<td><strong>des Films</strong></td>
+<td>Genitiv</td>
+<td>Genitiv: -s</td>
+</tr>
+<tr>
+<td>79</td>
+<td><strong>der Blume</strong></td>
+<td>Genitiv</td>
+<td>feminin: keine Endung</td>
+</tr>
+<tr>
+<td>80</td>
+<td><strong>der Kinder</strong></td>
+<td>Genitiv</td>
+<td>Plural Genitiv: keine Endung</td>
+</tr>
+<tr>
+<td>81</td>
+<td><strong>den</strong></td>
+<td>Dativ</td>
+<td>endet schon auf -n</td>
+</tr>
+<tr>
+<td>82</td>
+<td><strong>der Bäume</strong></td>
+<td>Genitiv</td>
+<td>Wessen Blätter?</td>
+</tr>
+<tr>
+<td>83</td>
+<td><strong>den</strong></td>
+<td>Dativ</td>
+<td>endet schon auf -n</td>
+</tr>
+<tr>
+<td>84</td>
+<td><strong>des Tages</strong></td>
+<td>Genitiv</td>
+<td>Genitiv: -es</td>
+</tr>
+<tr>
+<td>85</td>
+<td><strong>den Gästen</strong></td>
+<td>Dativ</td>
+<td>Dativ Plural: -n</td>
+</tr>
+</tbody>
+</table></div>
+</details>
+<details class="sol"><summary>Lösungen Teil E</summary>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Nr</th>
+<th>Lösung</th>
+<th>Fall</th>
+<th>Warum?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>86</td>
+<td><strong>den Jungen</strong></td>
+<td>Akkusativ</td>
+<td>n-Deklination</td>
+</tr>
+<tr>
+<td>87</td>
+<td><strong>dem Nachbarn</strong></td>
+<td>Dativ</td>
+<td>n-Deklination</td>
+</tr>
+<tr>
+<td>88</td>
+<td><strong>des Jungen</strong></td>
+<td>Genitiv</td>
+<td>n-Deklination, kein -s</td>
+</tr>
+<tr>
+<td>89</td>
+<td><strong>den Löwen</strong></td>
+<td>Akkusativ</td>
+<td>n-Deklination</td>
+</tr>
+<tr>
+<td>90</td>
+<td><strong>den Zeugen</strong></td>
+<td>Akkusativ</td>
+<td>n-Deklination</td>
+</tr>
+<tr>
+<td>91</td>
+<td><strong>dem Studenten</strong></td>
+<td>Dativ</td>
+<td>n-Deklination</td>
+</tr>
+<tr>
+<td>92</td>
+<td><strong>den Präsidenten</strong></td>
+<td>Akkusativ</td>
+<td>n-Deklination</td>
+</tr>
+</tbody>
+</table></div>
+</details>
+<details class="sol"><summary>Lösungen Teil F</summary>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Nr</th>
+<th>Fall</th>
+<th>Warum?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>93</td>
+<td><strong>Nominativ</strong></td>
+<td>Wer bringt?</td>
+</tr>
+<tr>
+<td>94</td>
+<td><strong>Akkusativ</strong></td>
+<td>Was bringt er?</td>
+</tr>
+<tr>
+<td>95</td>
+<td><strong>Dativ</strong></td>
+<td>Wem bringt er es?</td>
+</tr>
+<tr>
+<td>96</td>
+<td><strong>Genitiv</strong></td>
+<td>Wessen Velo?</td>
+</tr>
+<tr>
+<td>97</td>
+<td><strong>Akkusativ</strong></td>
+<td>Das Subjekt steht hinten!</td>
+</tr>
+<tr>
+<td>98</td>
+<td><strong>Dativ</strong></td>
+<td>gefallen + Dativ</td>
+</tr>
+<tr>
+<td>99</td>
+<td><strong>Nominativ</strong></td>
+<td>Wer trinkt?</td>
+</tr>
+<tr>
+<td>100</td>
+<td><strong>Genitiv</strong></td>
+<td>während → Genitiv</td>
+</tr>
+</tbody>
+</table></div>
+</details>
+<details class="sol"><summary>Lösungen Teil G</summary>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Nr</th>
+<th>Lösung</th>
+<th>Fall</th>
+<th>Warum?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>101</td>
+<td><strong>kleine</strong></td>
+<td>Nominativ</td>
+<td>nach der: -e</td>
+</tr>
+<tr>
+<td>102</td>
+<td><strong>kleinen</strong></td>
+<td>Akkusativ</td>
+<td>nach den: -en</td>
+</tr>
+<tr>
+<td>103</td>
+<td><strong>neue</strong></td>
+<td>Nominativ</td>
+<td>nach das: -e</td>
+</tr>
+<tr>
+<td>104</td>
+<td><strong>grossen</strong></td>
+<td>Dativ</td>
+<td>nach dem: -en</td>
+</tr>
+<tr>
+<td>105</td>
+<td><strong>nette</strong></td>
+<td>Nominativ</td>
+<td>nach die (Singular): -e</td>
+</tr>
+<tr>
+<td>106</td>
+<td><strong>alten</strong></td>
+<td>Dativ</td>
+<td>nach der (Dativ): -en</td>
+</tr>
+<tr>
+<td>107</td>
+<td><strong>lustigen</strong></td>
+<td>Nominativ</td>
+<td>Plural nach die: -en</td>
+</tr>
+<tr>
+<td>108</td>
+<td><strong>kleiner</strong></td>
+<td>Nominativ</td>
+<td>ein ohne Endung → Adjektiv zeigt -r</td>
+</tr>
+<tr>
+<td>109</td>
+<td><strong>neuen</strong></td>
+<td>Akkusativ</td>
+<td>einen zeigt das Signal → -en</td>
+</tr>
+<tr>
+<td>110</td>
+<td><strong>schönes</strong></td>
+<td>Nominativ</td>
+<td>ein ohne Endung → Adjektiv zeigt -s</td>
+</tr>
+<tr>
+<td>111</td>
+<td><strong>rote</strong></td>
+<td>Akkusativ</td>
+<td>eine: -e</td>
+</tr>
+<tr>
+<td>112</td>
+<td><strong>gelben</strong></td>
+<td>Dativ</td>
+<td>einem zeigt das Signal → -en</td>
+</tr>
+<tr>
+<td>113</td>
+<td><strong>grossen</strong></td>
+<td>Akkusativ</td>
+<td>nach keine (Plural): -en</td>
+</tr>
+<tr>
+<td>114</td>
+<td><strong>kleiner</strong></td>
+<td>Nominativ</td>
+<td>mein ohne Endung → -r</td>
+</tr>
+<tr>
+<td>115</td>
+<td><strong>Kaltes</strong></td>
+<td>Nominativ</td>
+<td>ohne Artikel: wie das → -es</td>
+</tr>
+<tr>
+<td>116</td>
+<td><strong>heissen</strong></td>
+<td>Akkusativ</td>
+<td>ohne Artikel: wie den → -en</td>
+</tr>
+<tr>
+<td>117</td>
+<td><strong>frisches</strong></td>
+<td>Akkusativ</td>
+<td>ohne Artikel: wie das → -es</td>
+</tr>
+<tr>
+<td>118</td>
+<td><strong>warmer</strong></td>
+<td>Dativ</td>
+<td>ohne Artikel: wie der → -er</td>
+</tr>
+<tr>
+<td>119</td>
+<td><strong>neue</strong></td>
+<td>Akkusativ</td>
+<td>nach viele: stark, wie die → -e</td>
+</tr>
+<tr>
+<td>120</td>
+<td><strong>schlechten</strong></td>
+<td>Genitiv</td>
+<td>Ausnahme: Genitiv n ohne Artikel → -en</td>
+</tr>
+</tbody>
+</table></div></details>
+
+  <footer>
+    gymi-prep &middot; laufend erg&auml;nzt
+  </footer>
+</div>
+</body>
+</html>
