@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>der, die, das &ndash; 240 Nomen mit Artikel</title>
+<style>
+  :root {
+    --bg: #faf8f5; --panel: #ffffff; --ink: #2b2420; --ink-soft: #5c524a;
+    --accent: #8a4b2e; --accent-soft: #c97b4a; --line: #e7ddd1;
+    --der: #1f5fae; --die: #c0392b; --das: #2e8b57; --err: #d35400;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1c1814; --panel: #26211c; --ink: #f1ebe3; --ink-soft: #c9bfb3;
+      --accent: #e0a179; --accent-soft: #c97b4a; --line: #3a332c;
+      --der: #6fa8ec; --die: #f07a6c; --das: #6cc996; --err: #f39c50;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Iowan Old Style", Georgia, Charter, serif; line-height: 1.6; }
+  .sans, .crumbs, .eyebrow, .stats, .filters, .num, .a, .was, .note, th, h3, footer {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 32px 16px 80px; }
+  .crumbs { font-size: 13px; color: var(--ink-soft); margin-bottom: 18px; }
+  .crumbs a { color: var(--ink-soft); text-decoration: none; }
+  .crumbs a:hover { color: var(--accent); }
+  .crumbs .sep { margin: 0 6px; opacity: .6; }
+  .eyebrow { text-transform: uppercase; letter-spacing: .12em; font-size: 12px;
+    color: var(--accent-soft); font-weight: 700; margin: 0 0 8px; }
+  h1 { font-size: 1.9em; margin: 0 0 8px; line-height: 1.2; }
+  .subtitle { color: var(--ink-soft); margin: 0 0 24px; }
+  h2 { font-size: 1.25em; margin: 44px 0 14px; color: var(--accent);
+    border-left: 4px solid var(--accent-soft); padding-left: 12px; }
+  h3 { font-size: .85em; text-transform: uppercase; letter-spacing: .05em;
+    color: var(--ink-soft); margin: 24px 0 8px; }
+  p { margin: 0 0 14px; }
+  .t-der { color: var(--der); } .t-die { color: var(--die); } .t-das { color: var(--das); }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 0 0 8px; }
+  .stat { background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+    padding: 14px; text-align: center; }
+  .stat b { display: block; font-size: 1.6em; line-height: 1.1; }
+  .stat span { font-size: 12px; color: var(--ink-soft); }
+  .stat.err b { color: var(--err); }
+  .legend { font-size: 13px; color: var(--ink-soft); }
+  .box { background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+    padding: 16px 18px; margin: 0 0 14px; }
+  .box.err { border-left: 5px solid var(--err); }
+  .errcols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .errcols ul { list-style: none; padding: 0; margin: 0; }
+  .errcols li { padding: 3px 0; border-bottom: 1px dashed var(--line); }
+  .errcols h3 { margin-top: 0; }
+  .was { font-size: 12px; color: var(--ink-soft); }
+  .was s { color: var(--err); }
+  .rule { display: grid; grid-template-columns: 64px 1fr; gap: 12px; align-items: start;
+    padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .rule:last-child { border-bottom: none; }
+  .badge { font-family: -apple-system, sans-serif; font-weight: 800; text-align: center;
+    border-radius: 8px; padding: 6px 0; color: #fff; }
+  .badge.der { background: var(--der); } .badge.die { background: var(--die); }
+  .badge.das { background: var(--das); } .badge.mix { background: var(--accent-soft); }
+  .rule p { margin: 0 0 4px; }
+  .ex { font-size: .92em; color: var(--ink-soft); }
+  .ex .hit { background: color-mix(in srgb, var(--err) 18%, transparent);
+    border-radius: 4px; padding: 0 3px; color: var(--ink); }
+  .filters { position: sticky; top: 0; z-index: 2; background: var(--bg);
+    padding: 10px 0; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .filters button, .filters label { font-size: 13px; border: 1px solid var(--line);
+    background: var(--panel); color: var(--ink); border-radius: 100px; padding: 6px 12px; cursor: pointer; }
+  .filters button.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .filters .count { font-size: 12px; color: var(--ink-soft); margin-left: auto; }
+  ul.words { list-style: none; padding: 0; margin: 0;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 6px; }
+  li.w { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px; background: var(--panel);
+    border: 1px solid var(--line); border-left: 5px solid var(--line); border-radius: 8px; padding: 6px 10px; }
+  li.w.art-der { border-left-color: var(--der); }
+  li.w.art-die { border-left-color: var(--die); }
+  li.w.art-das { border-left-color: var(--das); }
+  li.w.is-error { background: color-mix(in srgb, var(--err) 11%, var(--panel));
+    border-color: color-mix(in srgb, var(--err) 55%, var(--line)); border-left-width: 5px; }
+  li.w.is-error .n::after { content: " \26A0"; color: var(--err); font-size: .85em; }
+  li.w[hidden] { display: none; }
+  .num { font-size: 11px; color: var(--ink-soft); min-width: 26px; }
+  .a { font-weight: 800; border: 0; background: none; padding: 0; font-size: 15px; cursor: default; }
+  .art-der .a { color: var(--der); } .art-die .a { color: var(--die); } .art-das .a { color: var(--das); }
+  .n { font-weight: 600; }
+  .note { font-size: 11px; color: var(--ink-soft); width: 100%; padding-left: 32px; }
+  li.w .was { margin-left: auto; }
+  body.quiz .a { color: transparent !important; background: var(--line); border-radius: 4px;
+    min-width: 34px; cursor: pointer; }
+  body.quiz li.w { border-left-color: var(--line) !important; }
+  body.quiz li.w .was, body.quiz li.w .note, body.quiz li.w.is-error .n::after { visibility: hidden; }
+  body.quiz li.w.shown .a { background: none; }
+  body.quiz li.w.shown.art-der .a { color: var(--der) !important; }
+  body.quiz li.w.shown.art-die .a { color: var(--die) !important; }
+  body.quiz li.w.shown.art-das .a { color: var(--das) !important; }
+  body.quiz li.w.shown.art-der { border-left-color: var(--der) !important; }
+  body.quiz li.w.shown.art-die { border-left-color: var(--die) !important; }
+  body.quiz li.w.shown.art-das { border-left-color: var(--das) !important; }
+  ol.steps li { margin-bottom: 8px; }
+  footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--line);
+    font-size: 12px; color: var(--ink-soft); text-align: center; }
+  footer a { color: var(--ink-soft); }
+  @media (max-width: 600px) {
+    h1 { font-size: 1.5em; }
+    .errcols { grid-template-columns: 1fr; }
+    .rule { grid-template-columns: 52px 1fr; }
+  }
+  @media print { .filters { display: none; } body.quiz .a { color: inherit !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="crumbs"><a href="../">Gymi-Prep</a><span class="sep">/</span><a href="../deutsch/">Deutsch</a><span class="sep">/</span>der, die, das</div>
+  <p class="eyebrow">Deutsch &middot; Wortschatz &middot; Artikel</p>
+  <h1>der, die, das &ndash; 240 Nomen</h1>
+  <p class="subtitle">Alle W&ouml;rter aus den beiden Arbeitsbl&auml;ttern mit dem richtigen Artikel. Die Fehler sind orange markiert &mdash; genau diese W&ouml;rter zuerst &uuml;ben.</p>
+
+  <div class="stats sans">
+    <div class="stat"><b>240</b><span>W&ouml;rter</span></div>
+    <div class="stat"><b>171</b><span>richtig (71&nbsp;%)</span></div>
+    <div class="stat err"><b>69</b><span>zu &uuml;ben</span></div>
+  </div>
+  <p class="legend sans">Farben: <b class="t-der">der = blau</b> &middot; <b class="t-die">die = rot</b> &middot; <b class="t-das">das = gr&uuml;n</b> &middot; <b style="color:var(--err)">&#9888; = Fehler im Arbeitsblatt</b></p>
+
+  <h2>1. Die 69 Fehler-W&ouml;rter</h2>
+  <p>Sortiert nach dem <em>richtigen</em> Artikel. Diese Liste jeden Tag einmal laut lesen &mdash; immer mit Artikel.</p>
+  <div class="box err">
+    <div class="errcols">
+      <div><h3 class="t-der">der &middot; 32</h3><ul><li><b class="t-der">der</b> Vogel <span class="was">(7 &middot; geschrieben: <s>das</s>)</span></li><li><b class="t-der">der</b> Stern <span class="was">(19 &middot; geschrieben: <s>das</s>)</span></li><li><b class="t-der">der</b> Himmel <span class="was">(45 &middot; geschrieben: <s>das</s>)</span></li><li><b class="t-der">der</b> Wind <span class="was">(50 &middot; geschrieben: <s>das</s>)</span></li><li><b class="t-der">der</b> Fisch <span class="was">(56 &middot; geschrieben: <s>das</s>)</span></li><li><b class="t-der">der</b> Käse <span class="was">(70 &middot; geschrieben: <s>die</s>)</span></li><li><b class="t-der">der</b> Kaffee <span class="was">(76 &middot; geschrieben: <s>die</s>)</span></li><li><b class="t-der">der</b> Löffel <span class="was">(84 &middot; geschrieben: <s>die</s>)</span></li><li><b class="t-der">der</b> Herd <span class="was">(89 &middot; geschrieben: <s>das</s>)</span></li><li><b class="t-der">der</b> Kühlschrank <span class="was">(90 &middot; geschrieben: <s>die</s>)</span></li><li><b class="t-der">der</b> Schrank <span class="was">(92 &middot; geschrieben: <s>die</s>)</span></li><li><b class="t-der">der</b> Spiegel <span class="was">(97 &middot; geschrieben: <s>das</s>)</span></li><li><b class="t-der">der</b> Fernseher <span class="was">(100 &middot; geschrieben: <s>das</s>)</span></li><li><b class="t-der">der</b> Rucksack <span class="was">(109 &middot; geschrieben: <s>das</s>)</span></li><li><b class="t-der">der</b> Mantel <span class="was">(115 &middot; geschrieben: <s>das</s>)</span></li><li><b class="t-der">der</b> Rock <span class="was">(120 &middot; geschrieben: <s>das</s>)</span></li><li><b class="t-der">der</b> Handschuh <span class="was">(124 &middot; geschrieben: <s>das</s>)</span></li><li><b class="t-der">der</b> Ring <span class="was">(126 &middot; geschrieben: <s>das</s>)</span></li><li><b class="t-der">der</b> Kopf <span class="was">(129 &middot; geschrieben: <s>das</s>)</span></li><li><b class="t-der">der</b> Mund <span class="was">(134 &middot; geschrieben: <s>das</s>)</span></li><li><b class="t-der">der</b> Hals <span class="was">(138 &middot; geschrieben: <s>das</s>)</span></li><li><b class="t-der">der</b> Bauch <span class="was">(147 &middot; geschrieben: <s>das</s>)</span></li><li><b class="t-der">der</b> Schmerz <span class="was">(157 &middot; geschrieben: <s>das</s>)</span></li><li><b class="t-der">der</b> Laden <span class="was">(164 &middot; geschrieben: <s>das</s>)</span></li><li><b class="t-der">der</b> Bahnhof <span class="was">(169 &middot; geschrieben: <s>das</s>)</span></li><li><b class="t-der">der</b> Flughafen <span class="was">(174 &middot; geschrieben: <s>das</s>)</span></li><li><b class="t-der">der</b> Urlaub <span class="was">(180 &middot; geschrieben: <s>das</s>)</span></li><li><b class="t-der">der</b> Balkon <span class="was">(193 &middot; geschrieben: <s>das</s>)</span></li><li><b class="t-der">der</b> Boden <span class="was">(197 &middot; geschrieben: <s>das</s>)</span></li><li><b class="t-der">der</b> Komet <span class="was">(219 &middot; geschrieben: <s>das</s>)</span></li><li><b class="t-der">der</b> Vulkan <span class="was">(236 &middot; geschrieben: <s>das</s>)</span></li><li><b class="t-der">der</b> Rabatt <span class="was">(239 &middot; geschrieben: <s>das</s>)</span></li></ul></div>
+      <div><h3 class="t-die">die &middot; 14</h3><ul><li><b class="t-die">die</b> Luft <span class="was">(49 &middot; geschrieben: <s>der</s>)</span></li><li><b class="t-die">die</b> Kuh <span class="was">(64 &middot; geschrieben: <s>der</s>)</span></li><li><b class="t-die">die</b> Milch <span class="was">(68 &middot; geschrieben: <s>das</s>)</span></li><li><b class="t-die">die</b> Wurst <span class="was">(71 &middot; geschrieben: <s>der</s>)</span></li><li><b class="t-die">die</b> Gabel <span class="was">(85 &middot; geschrieben: <s>der</s>)</span></li><li><b class="t-die">die</b> Uhr <span class="was">(98 &middot; geschrieben: <s>das</s>)</span></li><li><b class="t-die">die</b> Hand <span class="was">(140 &middot; geschrieben: <s>das</s>)</span></li><li><b class="t-die">die</b> Medizin <span class="was">(154 &middot; geschrieben: <s>das</s>)</span></li><li><b class="t-die">die</b> Bank <span class="was">(166 &middot; geschrieben: <s>der</s>)</span></li><li><b class="t-die">die</b> Straßenbahn <span class="was">(172 &middot; geschrieben: <s>das</s>)</span></li><li><b class="t-die">die</b> Wand <span class="was">(196 &middot; geschrieben: <s>der</s>)</span></li><li><b class="t-die">die</b> E-Mail <span class="was">(209 &middot; geschrieben: <s>der</s>)</span></li><li><b class="t-die">die</b> Bilanz <span class="was">(218 &middot; geschrieben: <s>der</s>)</span></li><li><b class="t-die">die</b> Qualität <span class="was">(238 &middot; geschrieben: <s>der</s>)</span></li></ul></div>
+      <div><h3 class="t-das">das &middot; 23</h3><ul><li><b class="t-das">das</b> Heft <span class="was">(30 &middot; geschrieben: <s>der</s>)</span></li><li><b class="t-das">das</b> Gras <span class="was">(44 &middot; geschrieben: <s>der</s>)</span></li><li><b class="t-das">das</b> Feuer <span class="was">(47 &middot; geschrieben: <s>der</s>)</span></li><li><b class="t-das">das</b> Schwein <span class="was">(62 &middot; geschrieben: <s>der</s>)</span></li><li><b class="t-das">das</b> Huhn <span class="was">(66 &middot; geschrieben: <s>der</s>)</span></li><li><b class="t-das">das</b> Fleisch <span class="was">(72 &middot; geschrieben: <s>der</s>)</span></li><li><b class="t-das">das</b> Brot <span class="was">(73 &middot; geschrieben: <s>der</s>)</span></li><li><b class="t-das">das</b> Magazin <span class="was">(107 &middot; geschrieben: <s>die</s>)</span></li><li><b class="t-das">das</b> Hemd <span class="was">(118 &middot; geschrieben: <s>der</s>)</span></li><li><b class="t-das">das</b> Gesicht <span class="was">(130 &middot; geschrieben: <s>die</s>)</span></li><li><b class="t-das">das</b> Auge <span class="was">(131 &middot; geschrieben: <s>die</s>)</span></li><li><b class="t-das">das</b> Herz <span class="was">(148 &middot; geschrieben: <s>der</s>)</span></li><li><b class="t-das">das</b> Geschäft <span class="was">(163 &middot; geschrieben: <s>die</s>)</span></li><li><b class="t-das">das</b> Flugzeug <span class="was">(173 &middot; geschrieben: <s>der</s>)</span></li><li><b class="t-das">das</b> Schiff <span class="was">(175 &middot; geschrieben: <s>der</s>)</span></li><li><b class="t-das">das</b> Ticket <span class="was">(178 &middot; geschrieben: <s>der</s>)</span></li><li><b class="t-das">das</b> Hotel <span class="was">(182 &middot; geschrieben: <s>der</s>)</span></li><li><b class="t-das">das</b> Schloss <span class="was">(200 &middot; geschrieben: <s>der</s>)</span></li><li><b class="t-das">das</b> Lexikon <span class="was">(208 &middot; geschrieben: <s>der</s>)</span></li><li><b class="t-das">das</b> Labor <span class="was">(220 &middot; geschrieben: <s>der</s>)</span></li><li><b class="t-das">das</b> Quartal <span class="was">(222 &middot; geschrieben: <s>der</s>)</span></li><li><b class="t-das">das</b> System <span class="was">(234 &middot; geschrieben: <s>der</s>)</span></li><li><b class="t-das">das</b> Symptom <span class="was">(240 &middot; geschrieben: <s>der</s>)</span></li></ul></div>
+    </div>
+  </div>
+  <p><strong>Muster in den Fehlern:</strong> Am h&auml;ufigsten wurde <b>das</b> statt <b class="t-der">der</b> geschrieben (27&times;), danach <b>der</b> statt <b class="t-das">das</b> (19&times;). Viele m&auml;nnliche W&ouml;rter (K&ouml;rperteile, M&ouml;bel, Kleider) werden f&auml;lschlich als <em>das</em> gelernt &mdash; da lohnt sich die Regel-Liste unten.</p>
+
+  <h2>2. Regeln &amp; Eselsbr&uuml;cken</h2>
+  <p>Es gibt keine Regel f&uuml;r alles, aber diese Endungen und Gruppen helfen sehr oft. <span class="ex"><span class="hit">Markiert</span> = W&ouml;rter, die im Arbeitsblatt falsch waren.</span></p>
+
+  <h3>Endungen (sehr zuverl&auml;ssig)</h3>
+  <div class="box">
+    <div class="rule"><div class="badge die">die</div><div>
+      <p><b>-ung, -heit, -keit, -ei, -ion, -ität, -ie, -ik, -schaft</b> &rarr; immer <b class="t-die">die</b></p>
+      <p class="ex">die Zeitung, die Krankheit, die Gesundheit, die B&auml;ckerei, die Polizei, die Theorie, die Garantie, <span class="hit">die Qualit&auml;t</span></p></div></div>
+    <div class="rule"><div class="badge das">das</div><div>
+      <p><b>-chen, -lein</b> &rarr; immer <b class="t-das">das</b> (Verkleinerung &mdash; sogar <em>das M&auml;dchen</em>)</p>
+      <p class="ex">das M&auml;dchen, das Br&ouml;tchen</p></div></div>
+    <div class="rule"><div class="badge das">das</div><div>
+      <p><b>-um, -ment, -ett, -o, -ma, und viele Fremdw&ouml;rter auf -em/-om</b> &rarr; meist <b class="t-das">das</b></p>
+      <p class="ex">das Datum, das Omelett, das Foto, das Risiko, das Thema, <span class="hit">das System</span>, <span class="hit">das Symptom</span> &middot; Ausnahme: <b class="t-der">der Moment</b></p></div></div>
+    <div class="rule"><div class="badge der">der</div><div>
+      <p><b>-ismus, -us, -or, -ling, -ant</b> &rarr; meist <b class="t-der">der</b></p>
+      <p class="ex">der Rhythmus, der Globus, der Kaktus, der Zirkus, der Motor, der Elefant</p></div></div>
+    <div class="rule"><div class="badge der">der</div><div>
+      <p><b>-er, -el, -en</b> (bei Dingen) &rarr; meist <b class="t-der">der</b></p>
+      <p class="ex">der Teller, der Computer, der Koffer, <span class="hit">der Fernseher</span>, <span class="hit">der L&ouml;ffel</span>, <span class="hit">der Spiegel</span>, <span class="hit">der Mantel</span>, <span class="hit">der Laden</span>, <span class="hit">der Boden</span>, der Garten, der Knochen<br>
+      Ausnahmen merken: <b class="t-das">das</b> Fenster, Messer, Wasser, Wetter, Zimmer, Kissen &middot; <b class="t-die">die</b> Butter, <span class="hit">die Gabel</span></p></div></div>
+    <div class="rule"><div class="badge die">die</div><div>
+      <p><b>-e</b> am Ende &rarr; meist <b class="t-die">die</b> (ca. 90&nbsp;%)</p>
+      <p class="ex">die Tasse, die Lampe, die Tasche, die Nase, die Reise, die Treppe<br>
+      Ausnahmen: <b class="t-der">der</b> Junge, Affe, L&ouml;we (m&auml;nnliche Menschen/Tiere), <span class="hit">der K&auml;se</span>, <span class="hit">der Kaffee</span> &middot; <b class="t-das">das</b> <span class="hit">Auge</span>, das Ende</p></div></div>
+  </div>
+
+  <h3>Zusammengesetzte W&ouml;rter</h3>
+  <div class="box">
+    <div class="rule"><div class="badge mix">Ende</div><div>
+      <p><b>Das letzte Wort bestimmt den Artikel.</b> Zerlege das Wort und schau nur auf den letzten Teil.</p>
+      <p class="ex">die Stra&szlig;e + <b class="t-die">die</b> Bahn = <span class="hit">die Stra&szlig;enbahn</span> &middot; der Flug + <b class="t-der">der</b> Hafen = <span class="hit">der Flughafen</span> &middot; der Flug + <b class="t-das">das</b> Zeug = <span class="hit">das Flugzeug</span> &middot; <b class="t-der">der</b> Schrank &rarr; <span class="hit">der K&uuml;hlschrank</span> &middot; <b class="t-der">der</b> Hof &rarr; <span class="hit">der Bahnhof</span> &middot; <b class="t-der">der</b> Schuh &rarr; <span class="hit">der Handschuh</span> &middot; das Band &rarr; das Armband &middot; das Haus &rarr; das Krankenhaus</p></div></div>
+  </div>
+
+  <h3>Gruppen (Bedeutung)</h3>
+  <div class="box">
+    <div class="rule"><div class="badge der">der</div><div>
+      <p><b>Wetter, Himmelsrichtungen, Tage, Monate, Jahreszeiten</b></p>
+      <p class="ex">der Regen, der Schnee, <span class="hit">der Wind</span>, <span class="hit">der Himmel</span>, <span class="hit">der Stern</span>, der Mond, der Montag, der Sommer</p></div></div>
+    <div class="rule"><div class="badge der">der</div><div>
+      <p><b>Getr&auml;nke</b> (fast alle) &mdash; Ausnahmen: das Bier, das Wasser, die Milch</p>
+      <p class="ex">der Tee, <span class="hit">der Kaffee</span>, der Saft, der Wein, der Sirup &middot; <span class="hit">die Milch</span></p></div></div>
+    <div class="rule"><div class="badge der">der</div><div>
+      <p><b>Viele K&ouml;rperteile sind der</b> &mdash; nur die Ausnahmen auswendig lernen</p>
+      <p class="ex"><b class="t-der">der</b> <span class="hit">Kopf</span>, <span class="hit">Mund</span>, <span class="hit">Hals</span>, <span class="hit">Bauch</span>, R&uuml;cken, Arm, Finger, Fu&szlig;, Zahn, Zeh, Knochen<br>
+      <b class="t-das">das</b> Bein, Knie, Ohr, Haar, Blut, <span class="hit">Herz</span>, <span class="hit">Gesicht</span>, <span class="hit">Auge</span> &middot; <b class="t-die">die</b> Nase, Zunge, <span class="hit">Hand</span></p></div></div>
+    <div class="rule"><div class="badge das">das</div><div>
+      <p><b>Jungtiere und Tiere als Gattung</b> sind oft das</p>
+      <p class="ex">das Tier, das Pferd, das Schaf, <span class="hit">das Schwein</span>, <span class="hit">das Huhn</span> &middot; aber <span class="hit">die Kuh</span>, <span class="hit">der Fisch</span>, <span class="hit">der Vogel</span></p></div></div>
+    <div class="rule"><div class="badge das">das</div><div>
+      <p><b>Ge-</b> am Anfang (Sammelbegriffe) &rarr; meist <b class="t-das">das</b></p>
+      <p class="ex">das Gep&auml;ck, <span class="hit">das Gesicht</span>, <span class="hit">das Gesch&auml;ft</span>, das Gemüse</p></div></div>
+  </div>
+
+  <h3>Stolperfallen aus dem Arbeitsblatt</h3>
+  <div class="box">
+    <div class="rule"><div class="badge mix">!</div><div>
+      <p><b>Englische W&ouml;rter</b> sind nicht automatisch <em>der</em>: <span class="hit">das Ticket</span>, <span class="hit">das Hotel</span>, das Handy, das Quiz, das T-Shirt, <span class="hit">die E-Mail</span> (Schweiz: <em>das</em> E-Mail).</p>
+      <p><b>Ein Wort, zwei Bedeutungen:</b> <span class="hit">die Bank</span> (Geld <em>und</em> Sitzbank) &middot; <span class="hit">das Schloss</span> (Burg <em>und</em> T&uuml;rschloss) &middot; <span class="hit">der Laden</span> (Gesch&auml;ft).</p>
+      <p><b>Fast gleich, anderer Artikel:</b> <b class="t-der">der</b> Schrank / <span class="hit">die Wand</span> &middot; <b class="t-der">der</b> Topf / <b class="t-die">die</b> Pfanne &middot; <b class="t-der">der</b> L&ouml;ffel / <b class="t-die">die</b> Gabel / <b class="t-das">das</b> Messer.</p></div></div>
+  </div>
+
+  <h2>3. So lernst du die Artikel</h2>
+  <ol class="steps">
+    <li><b>Nie ein Nomen ohne Artikel lernen.</b> Nicht &laquo;Kopf&raquo;, sondern &laquo;der Kopf&raquo; &mdash; als ein Wort.</li>
+    <li><b>Mit Farben lernen.</b> Karteikarten oder Leuchtstift: <b class="t-der">der = blau</b>, <b class="t-die">die = rot</b>, <b class="t-das">das = gr&uuml;n</b>. Das Gehirn merkt sich die Farbe mit.</li>
+    <li><b>Bilder im Kopf.</b> Stell dir alle <em>der</em>-W&ouml;rter als stark/blau vor (der L&ouml;we tr&auml;gt <em>den</em> Mantel), alle <em>die</em>-W&ouml;rter rot, alle <em>das</em>-W&ouml;rter gr&uuml;n. Verr&uuml;ckte Bilder bleiben besser h&auml;ngen.</li>
+    <li><b>Lernkartei (3 F&auml;cher).</b> Fach 1 t&auml;glich, Fach 2 alle 3 Tage, Fach 3 w&ouml;chentlich. Richtig &rarr; ein Fach weiter, falsch &rarr; zur&uuml;ck in Fach 1. Mit den 69 Fehler-W&ouml;rtern starten.</li>
+    <li><b>Plural mitlernen.</b> der Kaktus &ndash; die Kakteen, das Lexikon &ndash; die Lexika. Hilft auch im Aufsatz.</li>
+    <li><b>Mini-S&auml;tze bilden.</b> &laquo;Der Bauch tut weh.&raquo; &laquo;Das Herz schl&auml;gt schnell.&raquo; Ein Satz mit Bild merkt man sich besser als ein Wort allein.</li>
+    <li><b>Regel zuerst pr&uuml;fen.</b> Bei einem neuen Wort: 1) Endung? 2) Zusammengesetzt &rarr; letztes Wort? 3) Gruppe? Erst dann raten.</li>
+    <li><b>Kurz und oft.</b> 10 Minuten t&auml;glich bringen mehr als eine Stunde am Sonntag. Unten den &Uuml;bungsmodus nutzen.</li>
+  </ol>
+
+  <h2>4. Alle 240 W&ouml;rter</h2>
+  <p>Filtern oder den <b>&Uuml;bungsmodus</b> einschalten: Die Artikel werden verdeckt &mdash; tippe auf das graue Feld, um die L&ouml;sung zu sehen.</p>
+  <div class="filters" role="toolbar">
+    <button type="button" data-f="all" class="on">Alle</button>
+    <button type="button" data-f="err">&#9888; Nur Fehler</button>
+    <button type="button" data-f="der">der</button>
+    <button type="button" data-f="die">die</button>
+    <button type="button" data-f="das">das</button>
+    <button type="button" id="quiz">&Uuml;bungsmodus</button>
+    <button type="button" id="shuffle">Mischen</button>
+    <span class="count" id="count"></span>
+  </div>
+  <ul class="words" id="words">
+<li class="w art-der" data-art="der" data-err="0"><span class="num">1</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Hund</span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">2</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Katze</span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">3</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Haus</span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">4</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Auto</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">5</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Baum</span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">6</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Blume</span></li>
+<li class="w art-der is-error" data-art="der" data-err="1"><span class="num">7</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Vogel</span><span class="was">nicht <s>das</s></span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">8</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Maus</span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">9</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Buch</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">10</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Stift</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">11</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Apfel</span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">12</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Banane</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">13</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Tisch</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">14</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Stuhl</span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">15</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Fenster</span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">16</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Tür</span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">17</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Sonne</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">18</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Mond</span></li>
+<li class="w art-der is-error" data-art="der" data-err="1"><span class="num">19</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Stern</span><span class="was">nicht <s>das</s></span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">20</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Wolke</span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">21</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Kind</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">22</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Mann</span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">23</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Frau</span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">24</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Mädchen</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">25</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Junge</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">26</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Lehrer</span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">27</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Schule</span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">28</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Klasse</span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">29</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Bild</span></li>
+<li class="w art-das is-error" data-art="das" data-err="1"><span class="num">30</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Heft</span><span class="was">nicht <s>der</s></span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">31</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Straße</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">32</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Weg</span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">33</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Brücke</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">34</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Fluss</span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">35</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Meer</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">36</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Berg</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">37</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Wald</span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">38</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Wiese</span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">39</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Feld</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">40</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Garten</span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">41</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Rose</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">42</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Ast</span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">43</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Blatt</span></li>
+<li class="w art-das is-error" data-art="das" data-err="1"><span class="num">44</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Gras</span><span class="was">nicht <s>der</s></span></li>
+<li class="w art-der is-error" data-art="der" data-err="1"><span class="num">45</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Himmel</span><span class="was">nicht <s>das</s></span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">46</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Erde</span></li>
+<li class="w art-das is-error" data-art="das" data-err="1"><span class="num">47</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Feuer</span><span class="was">nicht <s>der</s></span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">48</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Wasser</span></li>
+<li class="w art-die is-error" data-art="die" data-err="1"><span class="num">49</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Luft</span><span class="was">nicht <s>der</s></span></li>
+<li class="w art-der is-error" data-art="der" data-err="1"><span class="num">50</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Wind</span><span class="was">nicht <s>das</s></span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">51</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Regen</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">52</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Schnee</span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">53</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Eis</span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">54</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Wetter</span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">55</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Tier</span></li>
+<li class="w art-der is-error" data-art="der" data-err="1"><span class="num">56</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Fisch</span><span class="was">nicht <s>das</s></span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">57</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Bär</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">58</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Löwe</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">59</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Tiger</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">60</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Elefant</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">61</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Affe</span></li>
+<li class="w art-das is-error" data-art="das" data-err="1"><span class="num">62</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Schwein</span><span class="was">nicht <s>der</s></span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">63</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Pferd</span></li>
+<li class="w art-die is-error" data-art="die" data-err="1"><span class="num">64</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Kuh</span><span class="was">nicht <s>der</s></span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">65</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Schaf</span></li>
+<li class="w art-das is-error" data-art="das" data-err="1"><span class="num">66</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Huhn</span><span class="was">nicht <s>der</s></span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">67</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Ei</span></li>
+<li class="w art-die is-error" data-art="die" data-err="1"><span class="num">68</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Milch</span><span class="was">nicht <s>das</s></span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">69</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Butter</span></li>
+<li class="w art-der is-error" data-art="der" data-err="1"><span class="num">70</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Käse</span><span class="was">nicht <s>die</s></span></li>
+<li class="w art-die is-error" data-art="die" data-err="1"><span class="num">71</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Wurst</span><span class="was">nicht <s>der</s></span></li>
+<li class="w art-das is-error" data-art="das" data-err="1"><span class="num">72</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Fleisch</span><span class="was">nicht <s>der</s></span></li>
+<li class="w art-das is-error" data-art="das" data-err="1"><span class="num">73</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Brot</span><span class="was">nicht <s>der</s></span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">74</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Brötchen</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">75</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Kuchen</span></li>
+<li class="w art-der is-error" data-art="der" data-err="1"><span class="num">76</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Kaffee</span><span class="was">nicht <s>die</s></span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">77</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Tee</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">78</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Saft</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">79</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Wein</span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">80</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Bier</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">81</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Teller</span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">82</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Tasse</span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">83</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Glas</span></li>
+<li class="w art-der is-error" data-art="der" data-err="1"><span class="num">84</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Löffel</span><span class="was">nicht <s>die</s></span></li>
+<li class="w art-die is-error" data-art="die" data-err="1"><span class="num">85</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Gabel</span><span class="was">nicht <s>der</s></span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">86</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Messer</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">87</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Topf</span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">88</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Pfanne</span></li>
+<li class="w art-der is-error" data-art="der" data-err="1"><span class="num">89</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Herd</span><span class="was">nicht <s>das</s></span></li>
+<li class="w art-der is-error" data-art="der" data-err="1"><span class="num">90</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Kühlschrank</span><span class="was">nicht <s>die</s></span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">91</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Bett</span></li>
+<li class="w art-der is-error" data-art="der" data-err="1"><span class="num">92</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Schrank</span><span class="was">nicht <s>die</s></span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">93</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Sofa</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">94</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Sessel</span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">95</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Lampe</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">96</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Teppich</span></li>
+<li class="w art-der is-error" data-art="der" data-err="1"><span class="num">97</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Spiegel</span><span class="was">nicht <s>das</s></span></li>
+<li class="w art-die is-error" data-art="die" data-err="1"><span class="num">98</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Uhr</span><span class="was">nicht <s>das</s></span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">99</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Foto</span></li>
+<li class="w art-der is-error" data-art="der" data-err="1"><span class="num">100</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Fernseher</span><span class="was">nicht <s>das</s></span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">101</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Computer</span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">102</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Handy</span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">103</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Telefon</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">104</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Brief</span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">105</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Paket</span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">106</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Zeitung</span></li>
+<li class="w art-das is-error" data-art="das" data-err="1"><span class="num">107</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Magazin</span><span class="was">nicht <s>die</s></span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">108</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Tasche</span></li>
+<li class="w art-der is-error" data-art="der" data-err="1"><span class="num">109</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Rucksack</span><span class="was">nicht <s>das</s></span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">110</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Koffer</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">111</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Schuh</span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">112</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Socke</span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">113</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Hose</span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">114</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Jacke</span></li>
+<li class="w art-der is-error" data-art="der" data-err="1"><span class="num">115</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Mantel</span><span class="was">nicht <s>das</s></span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">116</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Pullover</span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">117</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">T-Shirt</span></li>
+<li class="w art-das is-error" data-art="das" data-err="1"><span class="num">118</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Hemd</span><span class="was">nicht <s>der</s></span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">119</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Kleid</span></li>
+<li class="w art-der is-error" data-art="der" data-err="1"><span class="num">120</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Rock</span><span class="was">nicht <s>das</s></span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">121</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Hut</span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">122</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Mütze</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">123</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Schal</span></li>
+<li class="w art-der is-error" data-art="der" data-err="1"><span class="num">124</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Handschuh</span><span class="was">nicht <s>das</s></span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">125</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Brille</span></li>
+<li class="w art-der is-error" data-art="der" data-err="1"><span class="num">126</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Ring</span><span class="was">nicht <s>das</s></span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">127</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Kette</span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">128</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Armband</span></li>
+<li class="w art-der is-error" data-art="der" data-err="1"><span class="num">129</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Kopf</span><span class="was">nicht <s>das</s></span></li>
+<li class="w art-das is-error" data-art="das" data-err="1"><span class="num">130</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Gesicht</span><span class="was">nicht <s>die</s></span></li>
+<li class="w art-das is-error" data-art="das" data-err="1"><span class="num">131</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Auge</span><span class="was">nicht <s>die</s></span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">132</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Ohr</span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">133</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Nase</span></li>
+<li class="w art-der is-error" data-art="der" data-err="1"><span class="num">134</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Mund</span><span class="was">nicht <s>das</s></span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">135</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Zahn</span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">136</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Zunge</span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">137</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Haar</span></li>
+<li class="w art-der is-error" data-art="der" data-err="1"><span class="num">138</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Hals</span><span class="was">nicht <s>das</s></span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">139</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Arm</span></li>
+<li class="w art-die is-error" data-art="die" data-err="1"><span class="num">140</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Hand</span><span class="was">nicht <s>das</s></span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">141</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Finger</span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">142</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Bein</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">143</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Fuß</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">144</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Zeh</span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">145</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Knie</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">146</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Rücken</span></li>
+<li class="w art-der is-error" data-art="der" data-err="1"><span class="num">147</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Bauch</span><span class="was">nicht <s>das</s></span></li>
+<li class="w art-das is-error" data-art="das" data-err="1"><span class="num">148</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Herz</span><span class="was">nicht <s>der</s></span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">149</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Blut</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">150</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Knochen</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">151</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Arzt</span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">152</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Krankenhaus</span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">153</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Apotheke</span></li>
+<li class="w art-die is-error" data-art="die" data-err="1"><span class="num">154</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Medizin</span><span class="was">nicht <s>das</s></span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">155</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Krankheit</span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">156</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Gesundheit</span></li>
+<li class="w art-der is-error" data-art="der" data-err="1"><span class="num">157</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Schmerz</span><span class="was">nicht <s>das</s></span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">158</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Stadt</span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">159</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Dorf</span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">160</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Land</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">161</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Platz</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">162</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Markt</span></li>
+<li class="w art-das is-error" data-art="das" data-err="1"><span class="num">163</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Geschäft</span><span class="was">nicht <s>die</s></span></li>
+<li class="w art-der is-error" data-art="der" data-err="1"><span class="num">164</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Laden</span><span class="was">nicht <s>das</s></span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">165</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Bäckerei</span></li>
+<li class="w art-die is-error" data-art="die" data-err="1"><span class="num">166</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Bank</span><span class="was">nicht <s>der</s></span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">167</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Post</span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">168</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Polizei</span></li>
+<li class="w art-der is-error" data-art="der" data-err="1"><span class="num">169</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Bahnhof</span><span class="was">nicht <s>das</s></span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">170</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Zug</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">171</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Bus</span></li>
+<li class="w art-die is-error" data-art="die" data-err="1"><span class="num">172</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Straßenbahn</span><span class="was">nicht <s>das</s></span></li>
+<li class="w art-das is-error" data-art="das" data-err="1"><span class="num">173</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Flugzeug</span><span class="was">nicht <s>der</s></span></li>
+<li class="w art-der is-error" data-art="der" data-err="1"><span class="num">174</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Flughafen</span><span class="was">nicht <s>das</s></span></li>
+<li class="w art-das is-error" data-art="das" data-err="1"><span class="num">175</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Schiff</span><span class="was">nicht <s>der</s></span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">176</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Boot</span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">177</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Fahrrad</span></li>
+<li class="w art-das is-error" data-art="das" data-err="1"><span class="num">178</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Ticket</span><span class="was">nicht <s>der</s></span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">179</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Reise</span></li>
+<li class="w art-der is-error" data-art="der" data-err="1"><span class="num">180</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Urlaub</span><span class="was">nicht <s>das</s></span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">181</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Gepäck</span></li>
+<li class="w art-das is-error" data-art="das" data-err="1"><span class="num">182</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Hotel</span><span class="was">nicht <s>der</s></span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">183</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Zimmer</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">184</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Schlüssel</span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">185</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Kissen</span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">186</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Decke</span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">187</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Handtuch</span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">188</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Seife</span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">189</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Dusche</span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">190</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Badewanne</span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">191</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Toilette</span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">192</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Küche</span></li>
+<li class="w art-der is-error" data-art="der" data-err="1"><span class="num">193</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Balkon</span><span class="was">nicht <s>das</s></span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">194</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Keller</span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">195</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Dach</span></li>
+<li class="w art-die is-error" data-art="die" data-err="1"><span class="num">196</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Wand</span><span class="was">nicht <s>der</s></span></li>
+<li class="w art-der is-error" data-art="der" data-err="1"><span class="num">197</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Boden</span><span class="was">nicht <s>das</s></span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">198</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Ecke</span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">199</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Treppe</span></li>
+<li class="w art-das is-error" data-art="das" data-err="1"><span class="num">200</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Schloss</span><span class="was">nicht <s>der</s></span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">201</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Atlas</span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">202</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Konzept</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">203</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Globus</span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">204</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Detail</span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">205</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Paprika</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">206</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Radar</span><span class="note">auch: das Radar</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">207</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Kaktus</span><span class="note">Plural: die Kakteen</span></li>
+<li class="w art-das is-error" data-art="das" data-err="1"><span class="num">208</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Lexikon</span><span class="was">nicht <s>der</s></span></li>
+<li class="w art-die is-error" data-art="die" data-err="1"><span class="num">209</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">E-Mail</span><span class="was">nicht <s>der</s></span><span class="note">In der Schweiz auch: das E-Mail</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">210</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Magnet</span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">211</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Omelett</span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">212</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Villa</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">213</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Ozean</span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">214</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Quiz</span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">215</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Methode</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">216</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Sirup</span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">217</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Niveau</span></li>
+<li class="w art-die is-error" data-art="die" data-err="1"><span class="num">218</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Bilanz</span><span class="was">nicht <s>der</s></span></li>
+<li class="w art-der is-error" data-art="der" data-err="1"><span class="num">219</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Komet</span><span class="was">nicht <s>das</s></span></li>
+<li class="w art-das is-error" data-art="das" data-err="1"><span class="num">220</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Labor</span><span class="was">nicht <s>der</s></span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">221</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Zirkus</span></li>
+<li class="w art-das is-error" data-art="das" data-err="1"><span class="num">222</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Quartal</span><span class="was">nicht <s>der</s></span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">223</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">These</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">224</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Rhythmus</span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">225</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Prinzip</span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">226</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Praxis</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">227</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Motor</span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">228</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Risiko</span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">229</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Theorie</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">230</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Moment</span><span class="note">der Moment = Augenblick</span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">231</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Datum</span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">232</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Analyse</span></li>
+<li class="w art-der" data-art="der" data-err="0"><span class="num">233</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Dschungel</span></li>
+<li class="w art-das is-error" data-art="das" data-err="1"><span class="num">234</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">System</span><span class="was">nicht <s>der</s></span></li>
+<li class="w art-die" data-art="die" data-err="0"><span class="num">235</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Garantie</span></li>
+<li class="w art-der is-error" data-art="der" data-err="1"><span class="num">236</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Vulkan</span><span class="was">nicht <s>das</s></span></li>
+<li class="w art-das" data-art="das" data-err="0"><span class="num">237</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Thema</span></li>
+<li class="w art-die is-error" data-art="die" data-err="1"><span class="num">238</span><button class="a" type="button" aria-label="Artikel zeigen">die</button><span class="n">Qualität</span><span class="was">nicht <s>der</s></span></li>
+<li class="w art-der is-error" data-art="der" data-err="1"><span class="num">239</span><button class="a" type="button" aria-label="Artikel zeigen">der</button><span class="n">Rabatt</span><span class="was">nicht <s>das</s></span></li>
+<li class="w art-das is-error" data-art="das" data-err="1"><span class="num">240</span><button class="a" type="button" aria-label="Artikel zeigen">das</button><span class="n">Symptom</span><span class="was">nicht <s>der</s></span></li>
+  </ul>
+
+  <footer>gymi-prep &middot; <a href="../deutsch/">Deutsch</a> &middot; <a href="../">Startseite</a></footer>
+</div>
+<script>
+(function () {
+  var list = document.getElementById('words');
+  var items = Array.prototype.slice.call(list.children);
+  var filter = 'all';
+  function apply() {
+    var n = 0;
+    items.forEach(function (li) {
+      var show = filter === 'all' || (filter === 'err' ? li.dataset.err === '1' : li.dataset.art === filter);
+      li.hidden = !show; if (show) n++;
+    });
+    document.getElementById('count').textContent = n + ' Wörter';
+  }
+  document.querySelectorAll('.filters [data-f]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('.filters [data-f]').forEach(function (x) { x.classList.remove('on'); });
+      b.classList.add('on'); filter = b.dataset.f; apply();
+    });
+  });
+  var qb = document.getElementById('quiz');
+  qb.addEventListener('click', function () {
+    var on = document.body.classList.toggle('quiz');
+    qb.classList.toggle('on', on);
+    items.forEach(function (li) { li.classList.remove('shown'); });
+  });
+  list.addEventListener('click', function (ev) {
+    var b = ev.target.closest('.a');
+    if (b && document.body.classList.contains('quiz')) b.parentNode.classList.toggle('shown');
+  });
+  var mixed = false;
+  document.getElementById('shuffle').addEventListener('click', function (ev) {
+    var arr = items.slice();
+    if (!mixed) {
+      for (var i = arr.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = arr[i]; arr[i] = arr[j]; arr[j] = t; }
+    }
+    arr.forEach(function (li) { list.appendChild(li); });
+    mixed = !mixed; ev.target.textContent = mixed ? 'Sortieren' : 'Mischen';
+  });
+  apply();
+})();
+</script>
+</body>
+</html>
