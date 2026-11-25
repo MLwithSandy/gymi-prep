@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wege, Trottoirs und Rahmen &middot; Mathematik &middot; Gymi-Prep</title>
+<style>
+  :root {
+    --bg: #faf8f5; --panel: #ffffff; --ink: #2b2420; --ink-soft: #5c524a;
+    --accent: #8a4b2e; --accent-soft: #c97b4a; --line: #e7ddd1;
+    --cds-text-primary: var(--ink); --cds-text-secondary: var(--ink-soft);
+    --cds-chart-axis: #b3a99d; --cds-chart-categorical-1: #2f6fb5;
+    --cds-chart-categorical-2: #d9692b; --cds-chart-categorical-3: #2e9e6b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1c1814; --panel: #26211c; --ink: #f1ebe3; --ink-soft: #c9bfb3;
+      --accent: #e0a179; --accent-soft: #c97b4a; --line: #3a332c;
+      --cds-chart-axis: #7a7065; --cds-chart-categorical-1: #6aa6e8;
+      --cds-chart-categorical-2: #f08a4b; --cds-chart-categorical-3: #4cc58d;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1c1814; --panel: #26211c; --ink: #f1ebe3; --ink-soft: #c9bfb3;
+    --accent: #e0a179; --accent-soft: #c97b4a; --line: #3a332c;
+    --cds-chart-axis: #7a7065; --cds-chart-categorical-1: #6aa6e8;
+    --cds-chart-categorical-2: #f08a4b; --cds-chart-categorical-3: #4cc58d;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Iowan Old Style", "Georgia", "Charter", serif; line-height: 1.6; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 32px 16px 80px; }
+  .sans, .crumbs, .eyebrow, table, figcaption, .toc, .note, .pager, footer, .solution summary {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  .crumbs { font-size: 13px; color: var(--ink-soft); margin-bottom: 18px; }
+  .crumbs a { color: var(--ink-soft); text-decoration: none; }
+  .crumbs a:hover { color: var(--accent); }
+  .crumbs .sep { margin: 0 6px; opacity: .6; }
+  .eyebrow { text-transform: uppercase; letter-spacing: 0.12em; font-size: 12px;
+    color: var(--accent-soft); font-weight: 700; margin: 0 0 10px; }
+  h1 { font-size: 2em; margin: 0 0 10px; line-height: 1.2; }
+  .subtitle { color: var(--ink-soft); font-size: 1.05em; margin: 0 0 24px; }
+  h2 { font-size: 1.55em; line-height: 1.25; margin: 56px 0 12px; padding-top: 16px;
+    border-top: 1px solid var(--line); scroll-margin-top: 16px; }
+  h3 { font-size: 1.15em; margin: 32px 0 8px; scroll-margin-top: 16px; }
+  p, li { font-size: 1.02em; }
+  a { color: var(--accent); }
+  strong { font-weight: 700; }
+  .toc { background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+    padding: 16px 20px; margin: 0 0 8px; font-size: 14px; }
+  .toc p { margin: 0 0 8px; font-weight: 700; font-size: 13px; text-transform: uppercase;
+    letter-spacing: .08em; color: var(--accent-soft); }
+  .toc ol { margin: 0; padding-left: 20px; columns: 2; column-gap: 28px; }
+  .toc li { font-size: 14px; margin: 2px 0; break-inside: avoid; }
+  .toc a { color: var(--ink); text-decoration: none; }
+  .toc a:hover { color: var(--accent); }
+  .table-wrap { overflow-x: auto; margin: 14px 0 18px; border: 1px solid var(--line);
+    border-radius: 10px; background: var(--panel); }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th, td { text-align: left; vertical-align: top; padding: 8px 12px; border-bottom: 1px solid var(--line); }
+  th { font-weight: 700; color: var(--ink); background: color-mix(in srgb, var(--accent-soft) 10%, transparent); }
+  tr:last-child td { border-bottom: none; }
+  td:first-child { font-weight: 600; }
+  .fig { margin: 18px 0 8px; background: var(--panel); border: 1px solid var(--line);
+    border-radius: 12px; padding: 12px; }
+  .fig svg { display: block; width: 100%; height: auto; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  .fig figcaption { font-size: 12px; color: var(--ink-soft); margin-top: 6px; text-align: center; }
+  .note { font-size: 14px; color: var(--ink); background: var(--panel);
+    border: 1px solid var(--line); border-left: 3px solid var(--accent-soft);
+    border-radius: 8px; padding: 12px 16px; margin: 16px 0; }
+  .tasks { list-style: none; padding-left: 0; }
+  .tasks li { padding-left: 28px; position: relative; margin: 6px 0; }
+  .tasks li::before { content: ""; position: absolute; left: 0; top: 6px; width: 15px; height: 15px;
+    border: 1.5px solid var(--accent-soft); border-radius: 4px; }
+  details.solution { background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+    padding: 10px 16px; margin: 14px 0; }
+  details.solution summary { cursor: pointer; font-weight: 700; font-size: 14px; color: var(--accent); }
+  details.solution[open] summary { margin-bottom: 8px; }
+  .pager { display: flex; justify-content: space-between; gap: 12px; margin-top: 48px; }
+  .pager a { flex: 1; font-size: 14px; text-decoration: none; color: var(--ink); background: var(--panel);
+    border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px; }
+  .pager a:hover { border-color: var(--accent-soft); }
+  .pager .next { text-align: right; }
+  .pager small { display: block; color: var(--ink-soft); font-size: 12px; }
+  .totop { font-size: 13px; text-align: right; margin: 6px 0 0; }
+  .totop a { color: var(--ink-soft); text-decoration: none; }
+  footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--line);
+    font-size: 12px; color: var(--ink-soft); text-align: center; }
+  footer a { color: var(--ink-soft); }
+  @media (max-width: 560px) { h1 { font-size: 1.6em; } .toc ol { columns: 1; } .fig { padding: 6px; } }
+  @media print {
+    .toc, .pager, .totop, footer, .crumbs { display: none; }
+    details.solution { display: block; } details.solution > * { display: block; }
+    .fig, table { break-inside: avoid; }
+    h2 { break-before: page; }
+  }
+
+  .per { text-decoration: overline; text-decoration-thickness: 1.5px; }
+  .pager > span { flex: 1; }
+  sup { font-size: 0.72em; line-height: 0; }
+  details.hint p, details.answer p { margin: 4px 0 8px; }
+  ol li { margin: 2px 0; }
+  h3.lvl { display: flex; align-items: center; gap: 10px; }
+  h3.lvl::before { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+    padding: 3px 10px; border-radius: 100px; }
+  h3.lvl-1::before { content: "Stufe 1"; color: #2e7d4f; background: color-mix(in srgb, #2e9e6b 16%, transparent); }
+  h3.lvl-2::before { content: "Stufe 2"; color: #8a5a00; background: color-mix(in srgb, #d99a1e 20%, transparent); }
+  h3.lvl-3::before { content: "Stufe 3"; color: #a33a2a; background: color-mix(in srgb, #d9542b 18%, transparent); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) h3.lvl-1::before { color: #6fd39e; }
+    :root:not([data-theme="light"]) h3.lvl-2::before { color: #f0c060; } :root:not([data-theme="light"]) h3.lvl-3::before { color: #f39a80; } }
+  .task { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px 6px; margin: 14px 0; }
+  .task > p:first-child { margin-top: 0; }
+  details.hint, details.answer { margin: 8px 0 10px; }
+  details.hint summary, details.answer summary { cursor: pointer; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 13px; font-weight: 700; display: inline-block; padding: 3px 12px; border-radius: 100px; }
+  details.hint summary { color: #8a5a00; background: color-mix(in srgb, #d99a1e 16%, transparent); }
+  details.answer summary { color: var(--accent); background: color-mix(in srgb, var(--accent-soft) 16%, transparent); }
+  details.hint[open] summary, details.answer[open] summary { margin-bottom: 6px; }
+  details.hint > *:not(summary), details.answer > *:not(summary) { font-size: 0.97em; }
+  .keybox { background: color-mix(in srgb, var(--cds-chart-categorical-1) 9%, var(--panel)); border: 1px solid color-mix(in srgb, var(--cds-chart-categorical-1) 35%, transparent);
+    border-radius: 12px; padding: 12px 18px; margin: 16px 0; }
+  .keybox p { margin: 6px 0; }
+  @media print { details.hint, details.answer { display: block; } }
+</style>
+  <style>
+  .formula { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-weight: 700;
+    font-size: 1.05em; background: var(--panel); border: 1px dashed var(--accent-soft); border-radius: 8px;
+    padding: 8px 12px; margin: 8px 0; display: inline-block; }
+  .steps li { margin: 4px 0; }
+  .calc { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: .95em;
+    background: color-mix(in srgb, var(--cds-chart-categorical-3) 7%, var(--panel)); border-radius: 8px; padding: 8px 14px; margin: 8px 0 14px; }
+  .calc p { margin: 3px 0; }
+  .type { display:inline-block; font-family: -apple-system, sans-serif; font-size: 11px; font-weight: 700;
+    letter-spacing: .06em; text-transform: uppercase; color: #fff; background: var(--accent-soft);
+    border-radius: 100px; padding: 2px 10px; margin-right: 6px; vertical-align: middle; }
+  </style>
+</head>
+
+<body>
+<div class="wrap" id="top">
+  <div class="crumbs"><a href="../../">Gymi-Prep</a><span class="sep">/</span><a href="../">Mathematik</a><span class="sep">/</span>Wege, Trottoirs und Rahmen</div>
+  <p class="eyebrow">Mathematik &middot; Geometrie &middot; Gymi-Vorbereitung</p>
+  <h1>Wege, Trottoirs und Rahmen: Fläche und Breite berechnen</h1>
+  <p class="subtitle">Ein Weg um einen Rasen, ein Trottoir ums Haus, ein Rahmen ums Bild, ein Ring um den Teich: Wie gross ist der Weg? Wie breit ist er, wenn nur Flächen gegeben sind? Mit Rechteck, Quadrat, Kreis, Rennbahn, Dreieck und kreuzenden Wegen &ndash; und 16 Übungen in drei Stufen.</p>
+
+  <nav class="toc" aria-label="Inhalt">
+    <p>Inhalt</p>
+    <ol>
+      <li><a href="#grundidee">Die Grundidee</a></li>
+      <li><a href="#rechteck">Rechteck und Quadrat: 6 Aufgabentypen</a></li>
+      <li><a href="#seiten">Nur auf einigen Seiten, verschiedene Breiten</a></li>
+      <li><a href="#kreuz">Wege durch den Garten</a></li>
+      <li><a href="#kreis">Kreis, Kreisring und Rennbahn</a></li>
+      <li><a href="#vieleck">Dreieck, L-Form und andere Figuren</a></li>
+      <li><a href="#tipps">Lösungsweg und typische Fehler</a></li>
+      <li><a href="#uebungen">Übungen</a></li>
+    </ol>
+  </nav>
+
+<h2 id="grundidee">Die Grundidee</h2>
+<p>Bei allen Aufgaben gibt es eine <strong>innere Figur</strong> (Rasen, Haus, Bild, Teich), eine <strong>äussere Figur</strong> und dazwischen den <strong>Weg</strong> mit der Breite <strong>b</strong>.</p>
+<div class="keybox">
+<p><strong>Weg = Aussenfläche − Innenfläche</strong></p>
+<p><strong>Aussenlänge = Innenlänge + 2 · b</strong> &nbsp;(der Weg ist links <em>und</em> rechts!)</p>
+<p><strong>Innenlänge = Aussenlänge − 2 · b</strong> &nbsp;(wenn der Weg innen am Rand liegt)</p>
+<p><strong>b = (Aussenlänge − Innenlänge) : 2</strong></p>
+</div>
+<figure class="fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" role="img" aria-label="Rechteck mit Weg rundherum" font-size="13"><text x="24" y="28" fill="var(--cds-text-primary)" font-size="15" font-weight="600" text-anchor="start">Weg rundherum: aussen kommt auf jeder Seite b dazu</text><rect x="192.5" y="37.5" width="375.0" height="275.0" fill="var(--cds-chart-categorical-2)" fill-opacity="0.22" stroke="var(--cds-chart-categorical-2)" stroke-width="1.5"/><rect x="230" y="75" width="300" height="200" fill="var(--cds-chart-categorical-3)" fill-opacity="0.25" stroke="var(--cds-chart-categorical-3)" stroke-width="1.5"/><text x="380.0" y="169.0" fill="var(--cds-chart-categorical-3)" font-size="14" font-weight="700" text-anchor="middle">Rasen (innen)</text><text x="380.0" y="189.0" fill="var(--cds-text-primary)" font-size="13" font-weight="400" text-anchor="middle">12 m × 8 m</text><text x="577.5" y="135.0" fill="var(--cds-chart-categorical-2)" font-size="14" font-weight="700" text-anchor="start">Weg</text><line x1="230" y1="334.5" x2="530" y2="334.5" stroke="var(--cds-text-primary)" stroke-width="1.2"/><line x1="230" y1="329.5" x2="230" y2="339.5" stroke="var(--cds-text-primary)" stroke-width="1.2"/><line x1="530" y1="329.5" x2="530" y2="339.5" stroke="var(--cds-text-primary)" stroke-width="1.2"/><text x="380.0" y="350.5" fill="var(--cds-text-primary)" font-size="12.5" font-weight="600" text-anchor="middle">a = 12 m</text><line x1="192.5" y1="364.5" x2="567.5" y2="364.5" stroke="var(--cds-chart-categorical-2)" stroke-width="1.2"/><line x1="192.5" y1="359.5" x2="192.5" y2="369.5" stroke="var(--cds-chart-categorical-2)" stroke-width="1.2"/><line x1="567.5" y1="359.5" x2="567.5" y2="369.5" stroke="var(--cds-chart-categorical-2)" stroke-width="1.2"/><text x="380.0" y="380.5" fill="var(--cds-chart-categorical-2)" font-size="12.5" font-weight="600" text-anchor="middle">aussen: 12 + 2 · 1,5 = 15 m</text><line x1="530" y1="25.5" x2="567.5" y2="25.5" stroke="var(--cds-chart-categorical-2)" stroke-width="1.2"/><line x1="530" y1="20.5" x2="530" y2="30.5" stroke="var(--cds-chart-categorical-2)" stroke-width="1.2"/><line x1="567.5" y1="20.5" x2="567.5" y2="30.5" stroke="var(--cds-chart-categorical-2)" stroke-width="1.2"/><text x="548.75" y="19.5" fill="var(--cds-chart-categorical-2)" font-size="12" font-weight="600" text-anchor="middle">b</text><line x1="178.5" y1="75" x2="178.5" y2="275" stroke="var(--cds-text-primary)" stroke-width="1.2"/><line x1="173.5" y1="75" x2="183.5" y2="75" stroke="var(--cds-text-primary)" stroke-width="1.2"/><line x1="173.5" y1="275" x2="183.5" y2="275" stroke="var(--cds-text-primary)" stroke-width="1.2"/><text x="170.5" y="179.0" fill="var(--cds-text-primary)" font-size="12.5" font-weight="600" text-anchor="end">8 m</text><line x1="118.5" y1="37.5" x2="118.5" y2="312.5" stroke="var(--cds-chart-categorical-2)" stroke-width="1.2"/><line x1="113.5" y1="37.5" x2="123.5" y2="37.5" stroke="var(--cds-chart-categorical-2)" stroke-width="1.2"/><line x1="113.5" y1="312.5" x2="123.5" y2="312.5" stroke="var(--cds-chart-categorical-2)" stroke-width="1.2"/><text x="110.5" y="179.0" fill="var(--cds-chart-categorical-2)" font-size="12.5" font-weight="600" text-anchor="end">11 m</text></svg><figcaption>Aussenlänge = Innenlänge + 2 · Breite</figcaption></figure>
+<p>Beispiel: Rasen 12 m × 8 m, Weg 1,5 m. Aussen: 15 m × 11 m = 165 m². Innen: 96 m². <strong>Weg = 165 − 96 = 69 m²</strong>.</p>
+<p class="totop"><a href="#top">&uarr; nach oben</a></p>
+
+<h2 id="rechteck">Rechteck und Quadrat: 6 Aufgabentypen</h2>
+<p>Je nachdem, was gegeben ist, rechnet man anders. Zuerst immer herausfinden: <em>Was ist gegeben? Was ist gesucht?</em></p>
+
+<h3><span class="type">Typ A</span>Innenmasse und Breite gegeben &rarr; Wegfläche</h3>
+<p>Weg aussen herum: auf jeder Seite b dazuzählen, dann <em>aussen − innen</em>. Oder mit der Streifen-Methode:</p>
+<figure class="fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 395" role="img" aria-label="Streifen-Methode" font-size="13"><text x="24" y="28" fill="var(--cds-text-primary)" font-size="15" font-weight="600" text-anchor="start">Streifen-Methode: 4 Streifen + 4 Eckquadrate</text><rect x="230" y="37.5" width="300" height="37.5" fill="var(--cds-chart-categorical-2)" fill-opacity="0.35" stroke="var(--cds-chart-categorical-2)" stroke-width="1.5"/><rect x="230" y="275" width="300" height="37.5" fill="var(--cds-chart-categorical-2)" fill-opacity="0.35" stroke="var(--cds-chart-categorical-2)" stroke-width="1.5"/><rect x="192.5" y="75" width="37.5" height="200" fill="var(--cds-chart-categorical-1)" fill-opacity="0.3" stroke="var(--cds-chart-categorical-1)" stroke-width="1.5"/><rect x="530" y="75" width="37.5" height="200" fill="var(--cds-chart-categorical-1)" fill-opacity="0.3" stroke="var(--cds-chart-categorical-1)" stroke-width="1.5"/><rect x="192.5" y="37.5" width="37.5" height="37.5" fill="var(--cds-text-primary)" fill-opacity="0.55" stroke="var(--cds-text-primary)" stroke-width="1.5"/><rect x="192.5" y="275" width="37.5" height="37.5" fill="var(--cds-text-primary)" fill-opacity="0.55" stroke="var(--cds-text-primary)" stroke-width="1.5"/><rect x="530" y="37.5" width="37.5" height="37.5" fill="var(--cds-text-primary)" fill-opacity="0.55" stroke="var(--cds-text-primary)" stroke-width="1.5"/><rect x="530" y="275" width="37.5" height="37.5" fill="var(--cds-text-primary)" fill-opacity="0.55" stroke="var(--cds-text-primary)" stroke-width="1.5"/><rect x="230" y="75" width="300" height="200" fill="var(--cds-chart-categorical-3)" fill-opacity="0.12" stroke="var(--cds-chart-categorical-3)" stroke-width="1" stroke-dasharray="4 3"/><text x="380.0" y="61.5" fill="var(--cds-text-primary)" font-size="12.5" font-weight="700" text-anchor="middle">12 · 1,5 = 18 m²</text><text x="380.0" y="299" fill="var(--cds-text-primary)" font-size="12.5" font-weight="700" text-anchor="middle">12 · 1,5 = 18 m²</text><text x="184.5" y="175.0" fill="var(--cds-text-primary)" font-size="12.5" font-weight="700" text-anchor="end">8 · 1,5</text><text x="184.5" y="192.0" fill="var(--cds-text-primary)" font-size="12.5" font-weight="700" text-anchor="end">= 12 m²</text><text x="575.5" y="175.0" fill="var(--cds-text-primary)" font-size="12.5" font-weight="700" text-anchor="start">8 · 1,5</text><text x="575.5" y="192.0" fill="var(--cds-text-primary)" font-size="12.5" font-weight="700" text-anchor="start">= 12 m²</text><text x="575.5" y="57.5" fill="var(--cds-text-primary)" font-size="12.5" font-weight="700" text-anchor="start">Ecke: 1,5 · 1,5</text><text x="575.5" y="74.5" fill="var(--cds-text-primary)" font-size="12.5" font-weight="700" text-anchor="start">= 2,25 m²</text><text x="380.0" y="181.0" fill="var(--cds-text-primary)" font-size="14" font-weight="700" text-anchor="middle">18 + 18 + 12 + 12 + 4 · 2,25 = 69 m²</text><text x="380" y="380" fill="var(--cds-chart-categorical-2)" font-size="14" font-weight="700" text-anchor="middle">Kurz: Weg = Umfang innen · b + 4 · b²  →  40 · 1,5 + 4 · 2,25 = 69 m²</text></svg><figcaption>Die Ecken nicht vergessen und nicht doppelt zählen</figcaption></figure>
+<div class="keybox"><p><strong>Weg aussen um ein Rechteck: Weg = U<sub>innen</sub> · b + 4 · b²</strong></p>
+<p><strong>Weg innen am Rand: Weg = U<sub>aussen</sub> · b − 4 · b²</strong></p></div>
+
+<h3><span class="type">Typ B</span>Innen- und Aussenmasse gegeben &rarr; Breite</h3>
+<div class="calc"><p>Schwimmbecken 25 m × 10 m, mit Plattenrand 29 m × 14 m.</p>
+<p>b = (29 − 25) : 2 = <strong>2 m</strong> &nbsp;· Kontrolle mit der anderen Seite: (14 − 10) : 2 = 2 m ✓</p>
+<p>Kommt bei der anderen Seite etwas anderes heraus, ist der Weg nicht überall gleich breit (siehe <a href="#seiten">Abschnitt 3</a>).</p></div>
+
+<h3><span class="type">Typ C</span>Aussenmasse und Breite gegeben &rarr; Innenfläche</h3>
+<div class="calc"><p>Grundstück 30 m × 20 m, Trottoir 2 m breit innen entlang des Randes.</p>
+<p>Innen: (30 − 4) · (20 − 4) = 26 · 16 = <strong>416 m²</strong> &nbsp;· Trottoir: 600 − 416 = <strong>184 m²</strong></p>
+<p>Mit der Formel: 100 · 2 − 4 · 4 = 184 m² ✓</p></div>
+
+<h3><span class="type">Typ D</span>Quadrat: Innenfläche und Wegfläche gegeben &rarr; Breite</h3>
+<div class="calc"><p>Quadratischer Platz 100 m², Weg rundherum 44 m².</p>
+<p>Aussen: 100 + 44 = 144 m² → Seite √144 = 12 m. Innen: √100 = 10 m.</p>
+<p>b = (12 − 10) : 2 = <strong>1 m</strong></p></div>
+<div class="note">Darum lohnt es sich, die <strong>Quadratzahlen bis 25 · 25 = 625</strong> auswendig zu kennen: 121, 144, 169, 196, 225, 256, 289, 324, 361, 400 …</div>
+
+<h3><span class="type">Typ E</span>Rechteck: Innenmasse und Wegfläche gegeben &rarr; Breite (Probieren)</h3>
+<p>Beim Rechteck kann man nicht einfach die Wurzel ziehen. Dann hilft eine <strong>Probier-Tabelle</strong> mit der Formel <em>U · b + 4 · b²</em>:</p>
+<div class="calc"><p>Garten 10 m × 6 m (Umfang 32 m), Weg 80 m². Wie breit?</p></div>
+<div class="table-wrap"><table>
+<tr><th>b</th><th>U · b</th><th>4 · b²</th><th>Weg</th><th></th></tr>
+<tr><td>1 m</td><td>32</td><td>4</td><td>36 m²</td><td>zu klein</td></tr>
+<tr><td>1,5 m</td><td>48</td><td>9</td><td>57 m²</td><td>zu klein</td></tr>
+<tr><td>2 m</td><td>64</td><td>16</td><td><strong>80 m²</strong></td><td>✓</td></tr>
+</table></div>
+<p>Kontrolle: aussen 14 · 10 = 140, innen 60, 140 − 60 = 80 ✓ → <strong>b = 2 m</strong>.</p>
+
+<h3><span class="type">Typ F</span>Gesamtfläche gegeben (z. B. Rahmen gleich gross wie das Bild)</h3>
+<div class="calc"><p>Bild 30 cm × 20 cm, der Rahmen ist so gross wie das Bild. Wie breit ist der Rahmen?</p>
+<p>Bild = 600 cm², Rahmen = 600 cm² → aussen 1200 cm².</p>
+<p>Gesucht: (30 + 2b) · (20 + 2b) = 1200. Zwei Zahlen mit <em>Unterschied 10</em> und <em>Produkt 1200</em>: 40 · 30 ✓</p>
+<p>30 + 2b = 40 → <strong>b = 5 cm</strong></p></div>
+<div class="note"><strong>Trick:</strong> Aussenlänge und Aussenbreite haben immer den <em>gleichen Unterschied</em> wie innen (hier 10). Also nur Zahlenpaare mit diesem Unterschied probieren.</div>
+<p class="totop"><a href="#top">&uarr; nach oben</a></p>
+
+<h2 id="seiten">Nur auf einigen Seiten, verschiedene Breiten</h2>
+<figure class="fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 345" role="img" aria-label="Trottoir auf zwei Seiten und verschiedene Breiten" font-size="13"><text x="24" y="28" fill="var(--cds-text-primary)" font-size="15" font-weight="600" text-anchor="start">Weg nur auf zwei Seiten · Weg mit verschiedenen Breiten</text><rect x="60" y="210" width="210" height="28" fill="var(--cds-chart-categorical-2)" fill-opacity="0.3" stroke="var(--cds-chart-categorical-2)" stroke-width="1.5"/><rect x="270" y="70" width="28" height="140" fill="var(--cds-chart-categorical-1)" fill-opacity="0.3" stroke="var(--cds-chart-categorical-1)" stroke-width="1.5"/><rect x="270" y="210" width="28" height="28" fill="var(--cds-text-primary)" fill-opacity="0.55" stroke="var(--cds-text-primary)" stroke-width="1.5"/><rect x="60" y="70" width="210" height="140" fill="var(--cds-text-secondary)" fill-opacity="0.12" stroke="var(--cds-text-secondary)" stroke-width="1.5"/><text x="165.0" y="145.0" fill="var(--cds-text-primary)" font-size="13" font-weight="700" text-anchor="middle">Haus 15 m × 10 m</text><text x="165.0" y="229.0" fill="var(--cds-text-primary)" font-size="12" font-weight="700" text-anchor="middle">15 · 2 = 30</text><text x="304" y="140.0" fill="var(--cds-text-primary)" font-size="12" font-weight="700" text-anchor="start">10 · 2</text><text x="304" y="156.0" fill="var(--cds-text-primary)" font-size="12" font-weight="700" text-anchor="start">= 20</text><text x="304" y="234" fill="var(--cds-text-primary)" font-size="12" font-weight="700" text-anchor="start">Ecke 2 · 2 = 4</text><text x="179.0" y="268" fill="var(--cds-chart-categorical-2)" font-size="13.5" font-weight="700" text-anchor="middle">Trottoir: 30 + 20 + 4 = 54 m²</text><text x="179.0" y="288" fill="var(--cds-text-secondary)" font-size="12.5" font-weight="400" text-anchor="middle">Kontrolle: 17 · 12 − 15 · 10 = 54 m²</text><rect x="445" y="45" width="250" height="225" fill="var(--cds-chart-categorical-2)" fill-opacity="0.22" stroke="var(--cds-chart-categorical-2)" stroke-width="1.5"/><rect x="470" y="95" width="200" height="125" fill="var(--cds-chart-categorical-3)" fill-opacity="0.25" stroke="var(--cds-chart-categorical-3)" stroke-width="1.5"/><text x="570" y="162.5" fill="var(--cds-text-primary)" font-size="13" font-weight="700" text-anchor="middle">innen 8 m × 5 m</text><line x1="670" y1="37" x2="695" y2="37" stroke="var(--cds-chart-categorical-2)" stroke-width="1.2"/><line x1="670" y1="32" x2="670" y2="42" stroke="var(--cds-chart-categorical-2)" stroke-width="1.2"/><line x1="695" y1="32" x2="695" y2="42" stroke="var(--cds-chart-categorical-2)" stroke-width="1.2"/><text x="682.5" y="31" fill="var(--cds-chart-categorical-2)" font-size="12" font-weight="600" text-anchor="middle">1 m</text><line x1="705" y1="220" x2="705" y2="270" stroke="var(--cds-chart-categorical-2)" stroke-width="1.2"/><line x1="700" y1="220" x2="710" y2="220" stroke="var(--cds-chart-categorical-2)" stroke-width="1.2"/><line x1="700" y1="270" x2="710" y2="270" stroke="var(--cds-chart-categorical-2)" stroke-width="1.2"/><text x="711" y="249.0" fill="var(--cds-chart-categorical-2)" font-size="12" font-weight="600" text-anchor="start">2 m</text><text x="570" y="300" fill="var(--cds-text-primary)" font-size="12.5" font-weight="700" text-anchor="middle">aussen: (8 + 2·1) × (5 + 2·2) = 10 × 9</text><text x="570" y="320" fill="var(--cds-chart-categorical-2)" font-size="13.5" font-weight="700" text-anchor="middle">Weg: 90 − 40 = 50 m²</text></svg><figcaption>Links: L-förmiges Trottoir (Ecke einmal zählen) · Rechts: links/rechts 1 m, oben/unten 2 m</figcaption></figure>
+<ul>
+<li><strong>Weg nur auf einer Seite:</strong> einfach ein Rechteck (Länge · Breite).</li>
+<li><strong>Weg auf zwei angrenzenden Seiten (L-Form):</strong> zwei Streifen + <strong>ein</strong> Eckquadrat.</li>
+<li><strong>Weg auf drei Seiten (U-Form):</strong> drei Streifen + <strong>zwei</strong> Eckquadrate.</li>
+<li><strong>Verschiedene Breiten:</strong> für jede Richtung separat dazuzählen: Aussenlänge = Innenlänge + 2 · b<sub>links/rechts</sub>, Aussenbreite = Innenbreite + 2 · b<sub>oben/unten</sub>.</li>
+</ul>
+<p class="totop"><a href="#top">&uarr; nach oben</a></p>
+
+<h2 id="kreuz">Wege durch den Garten</h2>
+<figure class="fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 330" role="img" aria-label="Kreuzende Wege und Schiebetrick" font-size="13"><text x="24" y="28" fill="var(--cds-text-primary)" font-size="15" font-weight="600" text-anchor="start">Zwei Wege kreuzen sich – Schiebetrick für die Beete</text><rect x="40" y="70" width="240" height="180" fill="var(--cds-chart-categorical-3)" fill-opacity="0.22" stroke="var(--cds-chart-categorical-3)" stroke-width="1.5"/><rect x="148" y="70" width="24" height="180" fill="var(--cds-chart-categorical-2)" fill-opacity="0.45" stroke="var(--cds-chart-categorical-2)" stroke-width="1"/><rect x="40" y="142" width="240" height="24" fill="var(--cds-chart-categorical-2)" fill-opacity="0.45" stroke="var(--cds-chart-categorical-2)" stroke-width="1"/><rect x="148" y="142" width="24" height="24" fill="var(--cds-text-primary)" fill-opacity="0.6" stroke="var(--cds-text-primary)" stroke-width="1"/><text x="160.0" y="272" fill="var(--cds-text-primary)" font-size="12.5" font-weight="600" text-anchor="middle">20 m</text><text x="32" y="160.0" fill="var(--cds-text-primary)" font-size="12.5" font-weight="600" text-anchor="end">15 m</text><text x="160.0" y="294" fill="var(--cds-chart-categorical-2)" font-size="13" font-weight="700" text-anchor="middle">Weg: 20·2 + 15·2 − 2·2 = 66 m²</text><text x="160.0" y="312" fill="var(--cds-text-secondary)" font-size="12" font-weight="400" text-anchor="middle">(Kreuzung nur einmal zählen!)</text><text x="355" y="160.0" fill="var(--cds-text-primary)" font-size="30" font-weight="700" text-anchor="middle">→</text><rect x="440" y="70" width="240" height="180" fill="var(--cds-chart-categorical-3)" fill-opacity="0.22" stroke="var(--cds-chart-categorical-3)" stroke-width="1.5"/><rect x="656" y="70" width="24" height="180" fill="var(--cds-chart-categorical-2)" fill-opacity="0.45" stroke="var(--cds-chart-categorical-2)" stroke-width="1"/><rect x="440" y="226" width="240" height="24" fill="var(--cds-chart-categorical-2)" fill-opacity="0.45" stroke="var(--cds-chart-categorical-2)" stroke-width="1"/><text x="548.0" y="148.0" fill="var(--cds-chart-categorical-3)" font-size="13" font-weight="700" text-anchor="middle">Beete zusammen</text><text x="548.0" y="166.0" fill="var(--cds-text-primary)" font-size="13" font-weight="700" text-anchor="middle">18 m × 13 m</text><text x="560.0" y="272" fill="var(--cds-text-primary)" font-size="12.5" font-weight="600" text-anchor="middle">Wege an den Rand schieben</text><text x="560.0" y="294" fill="var(--cds-chart-categorical-3)" font-size="13" font-weight="700" text-anchor="middle">Beete: (20 − 2) · (15 − 2) = 234 m²</text><text x="560.0" y="312" fill="var(--cds-text-secondary)" font-size="12" font-weight="400" text-anchor="middle">Kontrolle: 300 − 66 = 234 ✓</text></svg><figcaption>Die Lage der Wege ändert die Beetfläche nicht</figcaption></figure>
+<div class="keybox">
+<p><strong>Zwei kreuzende Wege:</strong> Weg = Länge · b + Breite · b − b² (Kreuzung nur einmal)</p>
+<p><strong>Schiebetrick:</strong> Beete = (Länge − b) · (Breite − b)</p>
+</div>
+<ul>
+<li>Bei <strong>zwei parallelen Wegen</strong> in die gleiche Richtung: Beete = (Länge − 2b) · Breite.</li>
+<li>Ein <strong>schräger Weg</strong> quer durch ein Rechteck ist ein Parallelogramm: Fläche = Grundseite · Höhe. Die Breite wird dabei <em>entlang der Seite</em> gemessen, wo der Weg beginnt.</li>
+<li>Rückwärts (Beetfläche gegeben → Breite): zwei Zahlen suchen, die den gleichen Unterschied haben wie Länge und Breite des Gartens.</li>
+</ul>
+<p class="totop"><a href="#top">&uarr; nach oben</a></p>
+
+<h2 id="kreis">Kreis, Kreisring und Rennbahn</h2>
+<figure class="fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 330" role="img" aria-label="Kreisring mit Radius r und R" font-size="13"><text x="24" y="28" fill="var(--cds-text-primary)" font-size="15" font-weight="600" text-anchor="start">Kreisring: grosser Kreis minus kleiner Kreis</text><circle cx="250" cy="190" r="120" fill="var(--cds-chart-categorical-2)" fill-opacity=".25" stroke="var(--cds-chart-categorical-2)" stroke-width="1.5"/><circle cx="250" cy="190" r="90" fill="var(--panel)" stroke="var(--cds-chart-categorical-1)" stroke-width="1.5"/><circle cx="250" cy="190" r="90" fill="var(--cds-chart-categorical-1)" fill-opacity=".18"/><circle cx="250" cy="190" r="3.5" fill="var(--cds-text-primary)"/><line x1="250" y1="190" x2="340" y2="190" stroke="var(--cds-chart-categorical-1)" stroke-width="2"/><text x="295.0" y="182" fill="var(--cds-chart-categorical-1)" font-size="15" font-weight="700" text-anchor="middle">r</text><line x1="250" y1="190" x2="250" y2="70" stroke="var(--cds-chart-categorical-2)" stroke-width="2"/><text x="240" y="130.0" fill="var(--cds-chart-categorical-2)" font-size="15" font-weight="700" text-anchor="end">R</text><line x1="340" y1="206" x2="370" y2="206" stroke="var(--cds-text-primary)" stroke-width="1.2"/><line x1="340" y1="201" x2="340" y2="211" stroke="var(--cds-text-primary)" stroke-width="1.2"/><line x1="370" y1="201" x2="370" y2="211" stroke="var(--cds-text-primary)" stroke-width="1.2"/><text x="355.0" y="222" fill="var(--cds-text-primary)" font-size="14" font-weight="600" text-anchor="middle">b</text><text x="250" y="230" fill="var(--cds-chart-categorical-1)" font-size="13" font-weight="700" text-anchor="middle">Teich</text><text x="470" y="110" fill="var(--cds-text-primary)" font-size="15" font-weight="700" text-anchor="start">R = r + b</text><text x="470" y="145" fill="var(--cds-text-primary)" font-size="15" font-weight="700" text-anchor="start">Ring = π · R² − π · r²</text><text x="470" y="172" fill="var(--cds-text-primary)" font-size="15" font-weight="700" text-anchor="start">       = π · (R² − r²)</text><text x="470" y="215" fill="var(--cds-chart-categorical-2)" font-size="15" font-weight="700" text-anchor="start">b = R − r</text><text x="470" y="240" fill="var(--cds-chart-categorical-2)" font-size="13" font-weight="400" text-anchor="start">  = (d aussen − d innen) : 2</text><text x="470" y="280" fill="var(--cds-text-secondary)" font-size="12.5" font-weight="400" text-anchor="start">Umfang aussen − Umfang innen = 2 · π · b</text></svg><figcaption>Die Wegbreite b ist der Unterschied der Radien</figcaption></figure>
+<div class="calc"><p><strong>Fläche gesucht:</strong> Brunnen r = 3 m, Weg 1 m → R = 4 m. Weg = 3,14 · (16 − 9) = 3,14 · 7 = <strong>21,98 m²</strong></p></div>
+<div class="calc"><p><strong>Breite gesucht (Fläche gegeben):</strong> Rondell r = 5 m, Ring 34,54 m².</p>
+<p>34,54 : 3,14 = 11 → R² = 25 + 11 = 36 → R = 6 m → <strong>b = 1 m</strong></p></div>
+<div class="calc"><p><strong>Breite gesucht (Umfänge gegeben):</strong> aussen 31,4 m, innen 18,84 m.</p>
+<p>d aussen = 31,4 : 3,14 = 10 m, d innen = 6 m → b = (10 − 6) : 2 = <strong>2 m</strong></p></div>
+<div class="note"><strong>Achtung:</strong> Nicht π · b² rechnen! Der Ring ist <em>kein</em> kleiner Kreis, sondern <em>grosser Kreis minus kleiner Kreis</em>. Und: zuerst quadrieren, dann subtrahieren (16 − 9, nicht (4 − 3)²).</div>
+<h3>Rennbahn (Rechteck mit zwei Halbkreisen)</h3>
+<figure class="fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 345" role="img" aria-label="Rennbahn um ein Feld mit Halbkreisen" font-size="13"><text x="24" y="28" fill="var(--cds-text-primary)" font-size="15" font-weight="600" text-anchor="start">Rennbahn: zwei Rechteck-Streifen + ein Kreisring</text><path fill-rule="evenodd" fill="var(--cds-chart-categorical-2)" fill-opacity=".28" stroke="var(--cds-chart-categorical-2)" stroke-width="1.5" d="M230,112.5 L430,112.5 A87.5,87.5 0 0 1 430,287.5 L230,287.5 A87.5,87.5 0 0 1 230,112.5 Z M230,125 L430,125 A75,75 0 0 1 430,275 L230,275 A75,75 0 0 1 230,125 Z"/><path fill="var(--cds-chart-categorical-3)" fill-opacity=".22" d="M230,125 L430,125 A75,75 0 0 1 430,275 L230,275 A75,75 0 0 1 230,125 Z"/><line x1="230" y1="112" x2="230" y2="288" stroke="var(--cds-text-secondary)" stroke-dasharray="4 4"/><line x1="430" y1="112" x2="430" y2="288" stroke="var(--cds-text-secondary)" stroke-dasharray="4 4"/><text x="330" y="205" fill="var(--cds-chart-categorical-3)" font-size="14" font-weight="700" text-anchor="middle">Rasen</text><line x1="230" y1="312" x2="430" y2="312" stroke="var(--cds-text-primary)" stroke-width="1.2"/><line x1="230" y1="307" x2="230" y2="317" stroke="var(--cds-text-primary)" stroke-width="1.2"/><line x1="430" y1="307" x2="430" y2="317" stroke="var(--cds-text-primary)" stroke-width="1.2"/><text x="330.0" y="328" fill="var(--cds-text-primary)" font-size="12.5" font-weight="600" text-anchor="middle">Gerade 80 m</text><line x1="430" y1="200" x2="505" y2="200" stroke="var(--cds-chart-categorical-1)" stroke-width="2"/><text x="468" y="193" fill="var(--cds-chart-categorical-1)" font-size="12" font-weight="700" text-anchor="middle">r = 30 m</text><text x="330" y="107" fill="var(--cds-chart-categorical-2)" font-size="12.5" font-weight="700" text-anchor="middle">Bahn b = 5 m</text><text x="540" y="150" fill="var(--cds-text-primary)" font-size="13" font-weight="700" text-anchor="start">2 Streifen: 2 · 80 · 5 = 800 m²</text><text x="540" y="175" fill="var(--cds-text-primary)" font-size="13" font-weight="700" text-anchor="start">2 Halbkreise = 1 Ring:</text><text x="540" y="195" fill="var(--cds-text-primary)" font-size="13" font-weight="700" text-anchor="start">π · (35² − 30²) ≈ 1020,5 m²</text><text x="540" y="230" fill="var(--cds-chart-categorical-2)" font-size="15" font-weight="700" text-anchor="start">Bahn ≈ 1820,5 m²</text></svg><figcaption>Die beiden Halbkreis-Stücke ergeben zusammen einen ganzen Ring</figcaption></figure>
+<p>Zwei Halbkreise ergeben zusammen einen ganzen Kreis. Darum: <strong>Bahn = 2 · Gerade · b + π · (R² − r²)</strong>.</p>
+<p class="totop"><a href="#top">&uarr; nach oben</a></p>
+
+<h2 id="vieleck">Dreieck, L-Form und andere Figuren</h2>
+<h3>Figuren mit nur rechten Winkeln (z. B. L-Form)</h3>
+<div class="calc"><p>Ein L-förmiges Haus (Umfang 20 m), Weg 1 m rundherum mit eckigen Ecken.</p>
+<p>Auch hier gilt: <strong>Weg = U · b + 4 · b²</strong> = 20 + 4 = 24 m².</p>
+<p>Grund: Eine einspringende Ecke nimmt ein Eckquadrat weg, eine zusätzliche Aussenecke bringt eins dazu &ndash; am Schluss bleiben immer 4.</p></div>
+<h3>Weg mit runden Ecken (Dreieck, Vieleck, abgerundetes Rechteck)</h3>
+<figure class="fig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360" role="img" aria-label="Weg mit runden Ecken um ein Dreieck" font-size="13"><text x="24" y="28" fill="var(--cds-text-primary)" font-size="15" font-weight="600" text-anchor="start">Weg mit runden Ecken um ein Dreieck: die Ecken ergeben einen ganzen Kreis</text><polygon points="150,300 350,300 350,325 150,325" fill="var(--cds-chart-categorical-2)" fill-opacity=".3" stroke="var(--cds-chart-categorical-2)"/><polygon points="125,150 150,150 150,300 125,300" fill="var(--cds-chart-categorical-2)" fill-opacity=".3" stroke="var(--cds-chart-categorical-2)"/><polygon points="350,300 150,150 165,130 365,280" fill="var(--cds-chart-categorical-2)" fill-opacity=".3" stroke="var(--cds-chart-categorical-2)"/><path d="M150,300 L150,325 A25,25 0 0 1 125,300 Z" fill="var(--cds-chart-categorical-1)" fill-opacity=".5" stroke="var(--cds-chart-categorical-1)"/><path d="M350,300 L350,325 A25,25 0 0 0 365,280 Z" fill="var(--cds-chart-categorical-3)" fill-opacity=".5" stroke="var(--cds-chart-categorical-3)"/><path d="M150,150 L125,150 A25,25 0 0 1 165,130 Z" fill="var(--cds-text-primary)" fill-opacity=".35" stroke="var(--cds-text-primary)"/><polygon points="150,300 350,300 150,150" fill="var(--panel)" stroke="var(--cds-text-primary)" stroke-width="1.5"/><text x="200" y="275" fill="var(--cds-text-primary)" font-size="13" font-weight="700" text-anchor="middle">Beet</text><text x="250" y="345" fill="var(--cds-text-primary)" font-size="12.5" font-weight="600" text-anchor="middle">8 m</text><text x="115" y="230" fill="var(--cds-text-primary)" font-size="12.5" font-weight="600" text-anchor="end">6 m</text><text x="270" y="200" fill="var(--cds-text-primary)" font-size="12.5" font-weight="600" text-anchor="middle">10 m</text><text x="450" y="120" fill="var(--cds-chart-categorical-2)" font-size="14" font-weight="700" text-anchor="start">Streifen: Umfang · b</text><text x="450" y="145" fill="var(--cds-text-primary)" font-size="14" font-weight="700" text-anchor="start">Ecken zusammen:</text><path d="M560,220 L560,245 A25,25 0 0 1 535,220 Z" fill="var(--cds-chart-categorical-1)" fill-opacity=".5" stroke="var(--cds-chart-categorical-1)"/><path d="M560,220 L535,220 A25,25 0 0 1 575,200 Z" fill="var(--cds-text-primary)" fill-opacity=".35" stroke="var(--cds-text-primary)"/><path d="M560,220 L575,200 A25,25 0 0 1 560,245 Z" fill="var(--cds-chart-categorical-3)" fill-opacity=".5" stroke="var(--cds-chart-categorical-3)"/><text x="600" y="225" fill="var(--cds-text-primary)" font-size="15" font-weight="700" text-anchor="start">= π · b²</text><text x="450" y="290" fill="var(--cds-chart-categorical-2)" font-size="15" font-weight="700" text-anchor="start">Weg = U · b + π · b²</text></svg><figcaption>Gilt für jede Figur ohne einspringende Ecken (Dreieck, Rechteck, Vieleck)</figcaption></figure>
+<div class="calc"><p>Dreieckiges Beet mit 6 m, 8 m, 10 m, Rasenkante 0,5 m breit mit runden Ecken.</p>
+<p>Weg = 24 · 0,5 + 3,14 · 0,5² = 12 + 0,785 = <strong>12,785 m²</strong></p></div>
+<div class="note">Bei einem <strong>Dreieck mit spitzen Ecken</strong> (ohne Rundung) wird es kompliziert. Solche Aufgaben kommen im Gymi selten vor &ndash; dann besser die Aussenfigur zeichnen und in Rechtecke und Dreiecke zerlegen.</div>
+<p class="totop"><a href="#top">&uarr; nach oben</a></p>
+
+<h2 id="tipps">Lösungsweg und typische Fehler</h2>
+<h3>In 5 Schritten</h3>
+<ol class="steps">
+<li><strong>Skizze</strong> zeichnen: innen, aussen, Weg schraffieren, alle Masse eintragen.</li>
+<li><strong>Liegt der Weg aussen oder innen?</strong> Aussen: + 2b. Innen: − 2b.</li>
+<li><strong>Was ist gegeben?</strong> Masse → direkt rechnen. Flächen → Wurzel (Quadrat, Kreis) oder Probier-Tabelle (Rechteck).</li>
+<li><strong>Einheiten</strong> angleichen (alles in m oder alles in cm).</li>
+<li><strong>Kontrolle</strong> mit einer zweiten Methode: Aussen − Innen <em>und</em> Streifen-Methode.</li>
+</ol>
+<h3>Typische Fehler</h3>
+<div class="table-wrap"><table>
+<tr><th>Fehler</th><th>Richtig</th></tr>
+<tr><td>Aussen = 12 + 1,5</td><td>Aussen = 12 + <strong>2</strong> · 1,5 (Weg auf beiden Seiten)</td></tr>
+<tr><td>Weg = 2 · 12 · 1,5 + 2 · 8 · 1,5</td><td>Die <strong>4 Ecken</strong> fehlen: + 4 · 1,5²</td></tr>
+<tr><td>Kreuzweg = 20 · 2 + 15 · 2</td><td>Kreuzung doppelt gezählt: − 2 · 2</td></tr>
+<tr><td>Ring = π · b²</td><td>Ring = π · (R² − r²)</td></tr>
+<tr><td>b = Aussen − Innen</td><td>b = (Aussen − Innen) <strong>: 2</strong></td></tr>
+<tr><td>Fläche in m², Platten in cm²</td><td>Einheiten umrechnen: 50 cm × 50 cm = 0,25 m² (1 m² = 10 000 cm², 1 a = 100 m²)</td></tr>
+</table></div>
+<p class="totop"><a href="#top">&uarr; nach oben</a></p>
+
+<h2 id="uebungen">Übungen</h2>
+<h3 class="lvl lvl-1">Grundaufgaben</h3>
+<div class="task"><p><strong>1.</strong> Ein Rasen ist 9 m lang und 6 m breit. Rundherum führt ein 1 m breiter Weg. Wie gross ist die Wegfläche?</p><details class="hint"><summary>Tipp</summary><p>Aussenmasse: auf jeder Seite 1 m dazu.</p></details><details class="answer"><summary>Lösung</summary><p>Aussen 11 m × 8 m = 88 m², innen 54 m². Weg = 88 − 54 = <strong>34 m²</strong>. (Kontrolle: 30 · 1 + 4 · 1² = 34.)</p></details></div><div class="task"><p><strong>2.</strong> Ein Teppich (4 m × 3 m) liegt so in einem Zimmer (5 m × 4 m), dass er überall gleich weit von der Wand entfernt ist. Wie breit ist der freie Rand? Wie viel Boden bleibt frei?</p><details class="hint"><summary>Tipp</summary><p>Unterschied der Längen auf zwei Seiten verteilen.</p></details><details class="answer"><summary>Lösung</summary><p>(5 − 4) : 2 = 0,5 m und (4 − 3) : 2 = 0,5 m → Rand <strong>0,5 m</strong>. Frei: 20 − 12 = <strong>8 m²</strong>.</p></details></div><div class="task"><p><strong>3.</strong> Um einen runden Brunnen (r = 2 m) wird ein 1 m breiter Plattenweg gelegt. Berechne die Wegfläche (π ≈ 3,14).</p><details class="hint"><summary>Tipp</summary><p>R = r + b, dann π · (R² − r²).</p></details><details class="answer"><summary>Lösung</summary><p>R = 3 m. Weg = 3,14 · (9 − 4) = 3,14 · 5 = <strong>15,7 m²</strong>.</p></details></div><div class="task"><p><strong>4.</strong> Ein Bild ist 40 cm × 30 cm gross. Der Rahmen ist 5 cm breit. Wie gross sind die Aussenmasse und die Rahmenfläche?</p><details class="hint"><summary>Tipp</summary><p>5 cm auf jeder Seite.</p></details><details class="answer"><summary>Lösung</summary><p>Aussen 50 cm × 40 cm = 2000 cm². Rahmen = 2000 − 1200 = <strong>800 cm²</strong>.</p></details></div><div class="task"><p><strong>5.</strong> Ein Grundstück misst 25 m × 18 m. Innen entlang des Randes wird ein 1,5 m breites Trottoir gebaut. Wie gross bleibt die Fläche innen?</p><details class="hint"><summary>Tipp</summary><p>Der Weg liegt innen: auf jeder Seite 1,5 m abziehen.</p></details><details class="answer"><summary>Lösung</summary><p>(25 − 3) · (18 − 3) = 22 · 15 = <strong>330 m²</strong>. (Trottoir: 450 − 330 = 120 m².)</p></details></div>
+<h3 class="lvl lvl-2">Rückwärts und gemischt</h3>
+<div class="task"><p><strong>6.</strong> Ein quadratischer Sandkasten hat 3 m Seitenlänge. Der Holzrand rundherum ist gleich breit und hat zusammen 7 m² Fläche. Wie breit ist der Rand?</p><details class="hint"><summary>Tipp</summary><p>Aussenfläche = innen + Rand. Welche Quadratzahl ist das?</p></details><details class="answer"><summary>Lösung</summary><p>9 + 7 = 16 m² → aussen 4 m. Breite = (4 − 3) : 2 = <strong>0,5 m</strong>.</p></details></div><div class="task"><p><strong>7.</strong> Ein Garten (12 m × 8 m) wird von zwei 1 m breiten Wegen durchquert, die parallel zu den Seiten laufen und sich kreuzen. Wie gross sind die Wegfläche und die Beetfläche?</p><details class="hint"><summary>Tipp</summary><p>Schiebetrick: Wege an den Rand schieben.</p></details><details class="answer"><summary>Lösung</summary><p>Weg: 12 + 8 − 1 = <strong>19 m²</strong>. Beete: 11 · 7 = <strong>77 m²</strong> (96 − 19 = 77 ✓).</p></details></div><div class="task"><p><strong>8.</strong> Ein Schwimmbecken ist 25 m × 12,5 m gross. Rundherum kommt ein 2 m breiter Plattenweg. Die Platten sind 50 cm × 50 cm. Wie viele Platten braucht es?</p><details class="hint"><summary>Tipp</summary><p>Zuerst die Wegfläche in m², dann durch die Fläche einer Platte (in m²).</p></details><details class="answer"><summary>Lösung</summary><p>Aussen 29 · 16,5 = 478,5 m², innen 312,5 m² → Weg 166 m². Eine Platte = 0,25 m² → 166 : 0,25 = <strong>664 Platten</strong>.</p></details></div><div class="task"><p><strong>9.</strong> Ein rundes Blumenbeet hat innen einen Umfang von 18,84 m, die Rasenkante aussen herum hat einen Umfang von 25,12 m. Wie breit ist der Rasenstreifen, und wie gross ist seine Fläche? (π ≈ 3,14)</p><details class="hint"><summary>Tipp</summary><p>Umfang : π = Durchmesser.</p></details><details class="answer"><summary>Lösung</summary><p>d innen = 6 m, d aussen = 8 m → b = (8 − 6) : 2 = <strong>1 m</strong>. Fläche = 3,14 · (16 − 9) = <strong>21,98 m²</strong>.</p></details></div><div class="task"><p><strong>10.</strong> Ein Haus ist 15 m × 10 m gross. Ein 1,2 m breites Trottoir führt entlang der langen Vorderseite und einer kurzen Seite (L-Form, mit Ecke). Wie gross ist das Trottoir?</p><details class="hint"><summary>Tipp</summary><p>Zwei Streifen und ein Eckquadrat.</p></details><details class="answer"><summary>Lösung</summary><p>15 · 1,2 + 10 · 1,2 + 1,2 · 1,2 = 18 + 12 + 1,44 = <strong>31,44 m²</strong>.</p></details></div>
+<h3 class="lvl lvl-3">Prüfungsniveau</h3>
+<div class="task"><p><strong>11.</strong> Ein Rasen ist 14 m × 8 m gross. Der Weg rundherum ist überall gleich breit und hat 75 m² Fläche. Wie breit ist der Weg?</p><details class="hint"><summary>Tipp</summary><p>Weg = Umfang · b + 4 · b². Probiere b = 1, b = 2 und dann dazwischen.</p></details><details class="answer"><summary>Lösung</summary><p>Umfang 44 m. b = 1: 44 + 4 = 48 (zu klein). b = 2: 88 + 16 = 104 (zu gross). b = 1,5: 66 + 9 = 75 ✓ → <strong>1,5 m</strong>.</p></details></div><div class="task"><p><strong>12.</strong> Ein Foto (18 cm × 12 cm) bekommt ein Passepartout, das überall gleich breit ist. Das Passepartout ist genau so gross wie das Foto. Wie breit ist es?</p><details class="hint"><summary>Tipp</summary><p>Aussen = doppelte Fotofläche. Probiere ganze Zahlen.</p></details><details class="answer"><summary>Lösung</summary><p>Foto 216 cm² → aussen 432 cm². (18 + 2b) · (12 + 2b) = 432: b = 3 → 24 · 18 = 432 ✓ → <strong>3 cm</strong>.</p></details></div><div class="task"><p><strong>13.</strong> Um einen runden Teich (r = 4 m) führt ein Weg mit 28,26 m² Fläche. Wie breit ist der Weg? (π ≈ 3,14)</p><details class="hint"><summary>Tipp</summary><p>Wegfläche : π = R² − r².</p></details><details class="answer"><summary>Lösung</summary><p>28,26 : 3,14 = 9 → R² = 16 + 9 = 25 → R = 5 m → b = <strong>1 m</strong>.</p></details></div><div class="task"><p><strong>14.</strong> Ein Garten (20 m × 15 m) wird von zwei sich kreuzenden, gleich breiten Wegen durchquert. Die Beete haben zusammen 234 m². Wie breit sind die Wege?</p><details class="hint"><summary>Tipp</summary><p>(20 − b) · (15 − b) = 234. Suche zwei Zahlen mit Unterschied 5 und Produkt 234.</p></details><details class="answer"><summary>Lösung</summary><p>18 · 13 = 234 → b = <strong>2 m</strong>.</p></details></div><div class="task"><p><strong>15.</strong> Ein Rasenfeld besteht aus einem Rechteck (80 m lang) mit je einem Halbkreis (r = 30 m) an beiden Enden. Rundherum führt eine 5 m breite Laufbahn. Wie gross ist die Bahn? Wie lang ist die innere Bahnkante? (π ≈ 3,14)</p><details class="hint"><summary>Tipp</summary><p>Zwei gerade Streifen + ein ganzer Kreisring.</p></details><details class="answer"><summary>Lösung</summary><p>Streifen: 2 · 80 · 5 = 800 m². Ring: 3,14 · (35² − 30²) = 3,14 · 325 = 1020,5 m². Bahn = <strong>1820,5 m²</strong>. Innenkante: 2 · 80 + 2 · 3,14 · 30 = <strong>348,4 m</strong>.</p></details></div><div class="task"><p><strong>16.</strong> Ein quadratischer Platz ist von einem 2 m breiten Weg umgeben. Der Weg hat 96 m² Fläche. Wie lang ist eine Seite des Platzes?</p><details class="hint"><summary>Tipp</summary><p>Weg = Umfang · b + 4 · b² → nach dem Umfang auflösen.</p></details><details class="answer"><summary>Lösung</summary><p>96 = U · 2 + 16 → U · 2 = 80 → U = 40 m → Seite <strong>10 m</strong>. (Kontrolle: 14² − 10² = 196 − 100 = 96 ✓)</p></details></div>
+
+  <nav class="pager" aria-label="Weiter">
+    <a class="prev" href="../wuerfel/"><small>&larr; Leitfaden</small>Würfel kippen</a>
+    <a class="next" href="../../mathe-bern/"><small>Weiter &rarr;</small>Frühere Prüfungen Kanton Bern</a>
+  </nav>
+
+  <footer>gymi-prep &middot; <a href="../../">Startseite</a> &middot; <a href="../">Mathematik</a> &middot; laufend ergänzt</footer>
+</div>
+</body>
+</html>
